@@ -5,7 +5,7 @@
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
     <kcfgfile name=""/>
 
-    <group name="General">
+    <group name="Location">
         <entry name="firstRun" type="Bool">
             <default>true</default>
         </entry>
@@ -15,8 +15,10 @@
         <entry name="places" type="String">
           <default>
           [
-            {"providerId": "metno", "placeIdentifier": "lat=52.63333&amp;lon=-1.13333&amp;altitude=65", "placeAlias": "Leicester, UK", "timezoneID": 159},
-            {"providerId": "owm", "placeIdentifier": "1609350", "placeAlias": "Bangkok, TH"},
+          {"providerId": "owm", "placeIdentifier": "2644668", "placeAlias": "Leicester, UK (OWM)"},
+          {"providerId": "metno", "placeIdentifier": "lat=52.63333&amp;lon=-1.13333&amp;altitude=65", "placeAlias": "Leicester, UK", "timezoneID": 159},
+          {"providerId": "owm", "placeIdentifier": "5368361", "placeAlias": "Los Angeles, USA (OWM)"},
+          {"providerId": "owm", "placeIdentifier": "1609350", "placeAlias": "Bangkok, TH"},
             {"providerId": "metno", "placeIdentifier": "lat=38.50245&amp;lon=-0.13044&amp;altitude=30", "placeAlias": "Benidorm, ES", "timezoneID": 146},
             {"providerId": "metno", "placeIdentifier": "lat=25.30089&amp;lon=91.69619&amp;altitude=1505","placeAlias":"Cherrapunji, IN","timezoneID":192}
           ]
@@ -28,9 +30,8 @@
         <entry name="debugLogging" type="Bool">
             <default>false</default>
         </entry>
-
-        <entry name="xmlCacheJson" type="String">
-            <default></default>
+        <entry name="qml_XHR_ALLOW_FILE_READ" type="Bool">
+            <default>false</default>
         </entry>
     </group>
 
@@ -46,14 +47,72 @@
             </choices>
             <default>0</default>
         </entry>
+        <entry name="iconSizeMode" type="Enum">
+            <choices>
+                <choice name="Fit"/>
+                <choice name="Fixed"/>
+            </choices>
+            <default>0</default>
+        </entry>
+        <entry name="textSizeMode" type="Enum">
+            <choices>
+                <choice name="Fit"/>
+                <choice name="Fixed"/>
+            </choices>
+            <default>0</default>
+        </entry>
+        <entry name="desktopMode" type="Enum">
+            <choices>
+                <choice name="Icon"/>
+                <choice name="Meteogram"/>
+            </choices>
+            <default>0</default>
+        </entry>
+        <entry name="widgetOrder" type="Enum">
+            <choices>
+                <choice name="widgetOrderIconFirst"/>
+                <choice name="widgetOrderTextFirst"/>
+            </choices>
+            <default>0</default>
+        </entry>
         <entry name="inTrayActiveTimeoutSec" type="Int">
             <default>3600</default>
         </entry>
         <entry name="widgetFontName" type="String">
             <default></default>
         </entry>
+        <entry name="textDropShadow" type="Bool">
+            <default>true</default>
+        </entry>
         <entry name="widgetFontSize" type="Int">
+            <default>22</default>
+        </entry>
+        <entry name="widgetIconSize" type="Int">
             <default>32</default>
+        </entry>
+        <entry name="iconDropShadow" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="iconVisible" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="textVisible" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="leftOuterMargin" type="Int">
+            <default>0</default>
+        </entry>
+        <entry name="innerMargin" type="Int">
+            <default>0</default>
+        </entry>
+        <entry name="rightOuterMargin" type="Int">
+            <default>0</default>
+        </entry>
+        <entry name="topOuterMargin" type="Int">
+            <default>0</default>
+        </entry>
+        <entry name="bottomOuterMargin" type="Int">
+            <default>0</default>
         </entry>
     </group>
 

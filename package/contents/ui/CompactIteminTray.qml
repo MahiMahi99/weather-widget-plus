@@ -24,6 +24,7 @@ import org.kde.plasma.plasmoid
 import "../code/icons.js" as IconTools
 import "../code/unit-utils.js" as UnitUtils
 
+
 GridLayout {
     id: iconAndText
 
@@ -31,7 +32,6 @@ GridLayout {
 
     property bool vertical: main.vertical
 
-    property int layoutType: main.layoutType
     property int iconSizeMode: main.iconSizeMode
     property int textSizeMode: plasmoid.configuration.textSizeMode
     property int leftOuterMargin: plasmoid.configuration.leftOuterMargin
@@ -52,29 +52,11 @@ GridLayout {
     property string iconNameStr: main.iconNameStr.length > 0 ? main.iconNameStr : "\uf07b"
     property string temperatureStr: main.temperatureStr.length > 0 ? main.temperatureStr : "--"
 
-    uniformCellHeights: layoutType === 1 && iconAndText.vertical
+    columnSpacing: iconVisible && textVisible ? (iconAndText.vertical ? innerMargin - 17 : innerMargin - 17) : innerMargin
+    rowSpacing: 0
 
-    columnSpacing: iconVisible && textVisible ? (iconAndText.vertical && layoutType === 0 ? innerMargin + 3 : layoutType === 0 ? innerMargin + 8 : iconAndText.vertical && layoutType === 1 ? innerMargin - 1 : iconAndText.vertical ? innerMargin - 17 : layoutType === 2 ? innerMargin - 17 : innerMargin) : innerMargin
-    rowSpacing: layoutType === 1 ? innerMargin - 2 : 0
-
-    rows: (layoutType === 1) ? 2 : 1
-    columns: (layoutType === 1) ? 1 : 2
-
-    function reLayout() {
-        temperatureText.anchors.left = [compactWeatherIcon.left, compactItem.left, undefined][layoutType]
-        temperatureText.anchors.right = [compactItem.right, compactItem.right, compactItem.right][layoutType]
-        temperatureText.anchors.top = [compactItem.top, undefined, temperatureText.top][layoutType]
-        temperatureText.anchors.bottom = [compactItem.bottom, compactItem.bottom, compactItem.bottom][layoutType]
-
-        compactWeatherIcon.anchors.left = [compactItem.left, compactItem.left, compactItem.left][layoutType]
-        compactWeatherIcon.anchors.right = [undefined, compactItem.right, compactItem.right][layoutType]
-        compactWeatherIcon.anchors.top = [compactItem.top, compactItem.top, compactItem.top][layoutType]
-        compactWeatherIcon.anchors.bottom = [compactItem.bottom, compactWeatherIcon.bottom, compactItem.bottom][layoutType]
-    }
-
-    onLayoutTypeChanged: {
-        reLayout()
-    }
+    rows: 1
+    columns: 2
 
     Item {
         // Otherwise it takes up too much space while loading
@@ -90,12 +72,13 @@ GridLayout {
         Layout.minimumHeight: iconVisible ? (iconAndText.vertical ? compactWeatherIcon.paintedHeight : 0) : 0
         Layout.maximumHeight: iconAndText.vertical ? Layout.minimumHeight : Infinity
 
-        Layout.leftMargin: layoutType === 1 ? (iconAndText.vertical ? Kirigami.Units.smallSpacing + leftOuterMargin - 1 : Kirigami.Units.smallSpacing + leftOuterMargin - 5) : iconAndText.vertical ? (layoutType === 2 ? Kirigami.Units.smallSpacing + leftOuterMargin - 1 : Kirigami.Units.smallSpacing + leftOuterMargin - 3) : layoutType === 2 ? (iconAndText.height > 21 ? leftOuterMargin + 2 : leftOuterMargin - 2) : leftOuterMargin + 2
+        // very large "scale with panel width" system tray icons (>54px) will need manually reduced margins equally on each side to maintain similar scaling with the rest of the icons, because coding that here would interfere with the "small" system tray icons
+        Layout.leftMargin: iconAndText.vertical ? (parent.width < 34) ? leftOuterMargin + 3 : parent.width > 44 ? leftOuterMargin + 11 : parent.width > 40 ? leftOuterMargin + 9 : parent.width > 38 ? leftOuterMargin + 7 : leftOuterMargin + 5 : leftOuterMargin - 3
 
-        Layout.topMargin: iconAndText.vertical ? (layoutType === 1 ? topOuterMargin + 1 : layoutType === 2 ? topOuterMargin : topOuterMargin) : layoutType === 1 ? topOuterMargin - 2 : topOuterMargin + 1
+        Layout.topMargin: iconAndText.vertical ? topOuterMargin - 7 : topOuterMargin
 
-        Layout.rightMargin: layoutType === 1 ? (iconAndText.vertical ? rightOuterMargin + 3 : rightOuterMargin) :  undefined
-        Layout.bottomMargin: !(layoutType === 1) ? bottomOuterMargin - 1 : iconAndTextVertical && layoutType === 2 ? bottomOuterMargin + 5 : undefined
+        Layout.rightMargin: iconAndText.vertical ? rightOuterMargin :  undefined
+        Layout.bottomMargin: iconAndText.vertical ? bottomOuterMargin : bottomOuterMargin + 2
 
         PlasmaComponents.Label {
             id: compactWeatherIcon
@@ -103,16 +86,23 @@ GridLayout {
             font {
                 weight: Font.Normal
                 family: 'weathericons'
-                pixelSize: widgetIconSize
+                pixelSize: iconAndText.vertical ? widgetIconSize : widgetIconSize * 0.69
                 pointSize: 0 // we need to unset pointSize otherwise it breaks the Text.Fit size mode
             }
             minimumPixelSize: Math.round(Kirigami.Units.gridUnit / 2)
             fontSizeMode: iconSizeMode === 0 ? (iconAndText.vertical ? Text.HorizontalFit : Text.VerticalFit) : Text.FixedSize
             wrapMode: Text.NoWrap
-            verticalAlignment: iconAndText.vertical && layoutType === 1 ? Text.AlignTop : layoutType === 2 ? Text.AlignTop : Text.AlignVCenter
+
+            verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             text: iconNameStr
-            anchors.fill: parent
+            anchors {
+                fill: parent
+                left: compactIteminTray.left
+                right: compactIteminTray.right
+                top: compactIteminTray.top
+                bottom: compactIteminTray.bottom
+            }
         }
 
         DropShadow {
@@ -132,24 +122,24 @@ GridLayout {
         // Otherwise it takes up too much space while loading
         visible: temperatureText.text.length > 0
 
-        Layout.alignment: layoutType === 2 ? Qt.AlignBottom : Qt.AlignCenter
+        Layout.alignment: Qt.AlignCenter
 
         Layout.fillWidth: iconAndText.vertical
         Layout.fillHeight: !iconAndText.vertical
-        Layout.minimumWidth: textVisible ? (iconAndText.vertical ? 0 : temperatureText.paintedWidth) : 0
-        Layout.maximumWidth: iconAndText.vertical ? Infinity : Layout.minimumWidth
+        Layout.minimumWidth: textVisible ? (iconAndText.vertical ? 0 : iconAndText.width * 0.84) : 0
+        Layout.maximumWidth: iconAndText.vertical ? Infinity : iconAndText.width * 0.84
 
-        Layout.minimumHeight: textVisible ? (iconAndText.vertical ? temperatureText.paintedHeight : 0) : 0
-        Layout.maximumHeight: iconAndText.vertical ? Layout.minimumHeight : layoutType === 2 ? iconAndText.height * 0.69 : Infinity
+        Layout.minimumHeight: textVisible ? (iconAndText.vertical ? iconAndText.height * 0.84 : 0) : 0
+        Layout.maximumHeight: iconAndText.vertical ? iconAndText.height * 0.84 : Infinity
 
-        Layout.rightMargin: iconAndText.vertical ? (layoutType === 1 ? rightOuterMargin + 2 : layoutType === 2 ? rightOuterMargin + 3 : rightOuterMargin + 1) : rightOuterMargin
+        // very large "scale with panel width" system tray icons (>54px) will need manually reduced margins equally on each side to maintain similar scaling with the rest of the icons, because coding that here would interfere with the "small" system tray icons
+        Layout.rightMargin: iconAndText.vertical ? (parent.width < 34) ? rightOuterMargin + 3 : parent.width > 44 ? rightOuterMargin + 11 : parent.width > 40 ? rightOuterMargin + 9 : parent.width > 38 ? rightOuterMargin + 7 : rightOuterMargin + 5 : rightOuterMargin - 2
 
-        Layout.bottomMargin: layoutType === 1 ? (iconAndText.vertical ? bottomOuterMargin - 4 : bottomOuterMargin - 1) : iconAndText.vertical ? (layoutType === 0 ? bottomOuterMargin - 2 : bottomOuterMargin) : iconAndText.height < 22 ? bottomOuterMargin + 1 : bottomOuterMargin
+        Layout.bottomMargin: iconAndText.vertical ? bottomOuterMargin - 13 : bottomOuterMargin - 5
+        // bottomOuterMargin - 16
 
-        Layout.leftMargin: layoutType === 1 ? (iconAndText.vertical ? leftOuterMargin + 3 : leftOuterMargin) :  undefined
-
-        Layout.topMargin: iconAndText.vertical && layoutType === 0 ? topOuterMargin - 1 : !(layoutType === 1) ? topOuterMargin : undefined
-
+        Layout.leftMargin: iconAndText.vertical ? leftOuterMargin :  undefined
+        Layout.topMargin: iconAndText.vertical ? topOuterMargin : topOuterMargin + 3
         PlasmaComponents.Label {
             id: temperatureText
             visible: plasmoid.configuration.textVisible
@@ -160,12 +150,21 @@ GridLayout {
                 pointSize: 0 // we need to unset pointSize otherwise it breaks the Text.Fit size mode
             }
             minimumPixelSize: Math.round(Kirigami.Units.gridUnit / 2)
-            fontSizeMode: textSizeMode === 0 ? (iconAndText.vertical ? Text.HorizontalFit : Text.VerticalFit) : Text.FixedSize
+            fontSizeMode: textSizeMode === 0 ? Text.Fit : Text.FixedSize
             wrapMode: Text.NoWrap
-            verticalAlignment: (layoutType === 0) ? Text.AlignVCenter : Text.AlignBottom
+
+            height: 0
+            width: 0
+            verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             text: temperatureStr
-            anchors.fill: parent
+            anchors {
+                        fill: parent
+                        left: compactIteminTray.left
+                        right: compactIteminTray.right
+                        top: compactIteminTray.top
+                        bottom: compactIteminTray.bottom
+            }
         }
 
         DropShadow {
@@ -182,3 +181,4 @@ GridLayout {
     }
 
 }
+
