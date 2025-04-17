@@ -37,11 +37,11 @@ Pull or merge requests to update translations are especially welcome
 ## Installation
 CLI:
 
-git clone
+git clone https://github.com/tully-t/weather-widget-plus
 
-cd folder
+cd weather-widget-plus
 
-mv weather.widget.plus ~/.local/share/plasma/plasmoids/weather.widget.plus
+cp -r weather.widget.plus/ ~/.local/share/plasma/plasmoids/weather.widget.plus
 
 GUI:
 
