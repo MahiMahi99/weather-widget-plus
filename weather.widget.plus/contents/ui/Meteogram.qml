@@ -230,7 +230,7 @@ Item {
                 horizontalAlignment: Text.AlignLeft
                 anchors.top: hourText.top
                 anchors.left: hourText.right
-                font.pixelSize: 7
+                font.pixelSize: 6
                 font.pointSize: -1
                 visible: textVisible
             }
