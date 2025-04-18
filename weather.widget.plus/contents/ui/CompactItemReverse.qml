@@ -54,7 +54,7 @@ GridLayout {
 
     uniformCellHeights: layoutType === 1 && iconAndText.vertical
 
-    columnSpacing: iconVisible && textVisible ? (iconAndText.vertical && layoutType === 0 ? innerMargin + 2 : layoutType === 0 ? innerMargin + 8 : iconAndText.vertical && layoutType === 1 ? innerMargin - 11 : iconAndText.vertical ? innerMargin - 17 : layoutType === 2 ? innerMargin - 17 : innerMargin) : innerMargin
+    columnSpacing: iconVisible && textVisible ? (iconAndText.vertical && layoutType === 0 ? innerMargin + 2 : layoutType === 0 ? innerMargin + 8 : iconAndText.vertical && layoutType === 1 ? innerMargin - 11 : iconAndText.vertical ? innerMargin - 17 : layoutType === 2 ? innerMargin - 13 : innerMargin) : innerMargin
 
     rowSpacing: layoutType === 1 ? innerMargin - 2 : 0
 
@@ -91,12 +91,12 @@ GridLayout {
         Layout.minimumHeight: textVisible ? (iconAndText.vertical ? temperatureText.paintedHeight : 0) : 0
         Layout.maximumHeight: iconAndText.vertical ? Layout.minimumHeight : layoutType === 2 ? iconAndText.height * 0.69 : Infinity
 
-        Layout.leftMargin: layoutType === 1 ? (iconAndText.vertical ? Kirigami.Units.smallSpacing + leftOuterMargin - 1 : Kirigami.Units.smallSpacing + leftOuterMargin - 6) : iconAndText.vertical ? (layoutType === 2 ? Kirigami.Units.smallSpacing + leftOuterMargin - 1 : Kirigami.Units.smallSpacing + leftOuterMargin - 2) : layoutType === 2 ? (iconAndText.height > 21 ? leftOuterMargin + 2 : leftOuterMargin - 2) : leftOuterMargin + 3
+        Layout.leftMargin: layoutType === 1 ? (iconAndText.vertical ? Kirigami.Units.smallSpacing + leftOuterMargin - 1 : Kirigami.Units.smallSpacing + leftOuterMargin - 5) : iconAndText.vertical ? (layoutType === 2 ? Kirigami.Units.smallSpacing + leftOuterMargin - 1 : Kirigami.Units.smallSpacing + leftOuterMargin - 2) : layoutType === 2 ? (iconAndText.height > 21 ? leftOuterMargin + 1 : leftOuterMargin + 1) : leftOuterMargin - 1
 
-        Layout.topMargin: iconAndText.vertical ? (layoutType === 1 ? topOuterMargin - 4 : layoutType === 2 ? topOuterMargin : topOuterMargin - 1) : layoutType === 1 ? topOuterMargin - 2 : topOuterMargin + 1
+        Layout.topMargin: iconAndText.vertical ? (layoutType === 1 ? topOuterMargin - 4 : layoutType === 2 ? topOuterMargin : topOuterMargin - 1) : layoutType === 1 ? topOuterMargin - 2 : layoutType === 2 ? topOuterMargin : iconAndText.height < 22 ? topOuterMargin + 1 : topOuterMargin
 
         Layout.rightMargin: layoutType === 1 ? (iconAndText.vertical ? rightOuterMargin + 3 : rightOuterMargin) :  undefined
-        Layout.bottomMargin: !(layoutType === 1) ? bottomOuterMargin : undefined
+        Layout.bottomMargin: iconAndText.vertical ? bottomOuterMargin : iconAndText.height < 22 && layoutType === 0 ? bottomOuterMargin + 1 : layoutType === 0 ? bottomOuterMargin : layoutType === 2 ? bottomOuterMargin : undefined
 
         PlasmaComponents.Label {
             id: temperatureText
@@ -143,12 +143,13 @@ GridLayout {
         Layout.minimumHeight: iconVisible ? (iconAndText.vertical ? compactWeatherIcon.paintedHeight : 0) : 0
         Layout.maximumHeight: iconAndText.vertical ? Layout.minimumHeight : Infinity
 
-        Layout.rightMargin: iconAndText.vertical ? (layoutType === 1 ? rightOuterMargin + 2 : layoutType === 2 ? rightOuterMargin + 3 : rightOuterMargin + 2) : layoutType === 0 ? rightOuterMargin + 3 : rightOuterMargin
+        Layout.rightMargin: iconAndText.vertical ? (layoutType === 1 ? rightOuterMargin + 2 : layoutType === 2 ? rightOuterMargin + 3 : rightOuterMargin + 2) : layoutType === 0 ? rightOuterMargin + 1 : layoutType === 2 ? rightOuterMargin + 1 : rightOuterMargin + 1
 
-        Layout.bottomMargin: layoutType === 1 ? (iconAndText.vertical ? bottomOuterMargin + 1 : bottomOuterMargin - 1) : iconAndText.vertical ? (layoutType === 0 ? bottomOuterMargin : bottomOuterMargin) : iconAndText.height < 22 ? bottomOuterMargin + 1 : bottomOuterMargin
+        Layout.bottomMargin: layoutType === 1 ? (iconAndText.vertical ? bottomOuterMargin + 1 : bottomOuterMargin - 1) : iconAndText.vertical ? (layoutType === 0 ? bottomOuterMargin : bottomOuterMargin) : layoutType === 0 ? (iconAndText.height < 22 ? bottomOuterMargin + 2 : bottomOuterMargin - 1) :  iconAndText.height < 22 ? bottomOuterMargin + 1 : bottomOuterMargin + 1
 
-        Layout.leftMargin: layoutType === 1 ? (iconAndText.vertical ? leftOuterMargin + 3 : leftOuterMargin - 1) :  undefined
-        Layout.topMargin: !(layoutType === 1) ? topOuterMargin : undefined
+        Layout.leftMargin: layoutType === 1 ? (iconAndText.vertical ? leftOuterMargin + 3 : leftOuterMargin) :  undefined
+        //Layout.topMargin: !(layoutType === 1) ? topOuterMargin : undefined
+        Layout.topMargin: iconAndText.vertical && layoutType === 0 ? topOuterMargin : layoutType === 0 ? topOuterMargin : layoutType === 2 ? topOuterMargin : undefined
 
         PlasmaComponents.Label {
             id: compactWeatherIcon

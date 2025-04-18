@@ -58,7 +58,7 @@ or
 ## Using Weather Widget Plus in the System Tray:
 For a newly installed plasmoid to appear as a System Tray entry, it is necessary to log out and log back in or restart plasmashell
 
-As a System Tray entry, Weather Widget Plus will only respond to Location changes after you log out and log back in or restart plasmashell. This unintended behavior is currently under investigation
+As a System Tray entry, Weather Widget Plus may only respond to Location changes after you log out and log back in or restart plasmashell. This unintended behavior is currently under investigation
 
 ## Notes
 The integrated Met.no search function may return in the future. For now, use [Geonames.org](https://www.geonames.org/) to find the latitude, longitude, and altitude for your location.

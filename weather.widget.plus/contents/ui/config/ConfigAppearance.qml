@@ -190,7 +190,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 24
+            height: 20
             Layout.columnSpan: 3
         }
 
@@ -272,7 +272,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 24
+            height: 20
             Layout.columnSpan: 3
         }
 

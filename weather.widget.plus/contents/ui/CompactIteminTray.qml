@@ -52,7 +52,7 @@ GridLayout {
     property string iconNameStr: main.iconNameStr.length > 0 ? main.iconNameStr : "\uf07b"
     property string temperatureStr: main.temperatureStr.length > 0 ? main.temperatureStr : "--"
 
-    columnSpacing: iconVisible && textVisible ? (iconAndText.vertical ? innerMargin - 17 : innerMargin - 17) : innerMargin
+    columnSpacing: iconVisible && textVisible ? (iconAndText.vertical ? innerMargin - 17 : innerMargin - 18) : innerMargin
     rowSpacing: 0
 
     rows: 1
@@ -73,7 +73,7 @@ GridLayout {
         Layout.maximumHeight: iconAndText.vertical ? Layout.minimumHeight : Infinity
 
         // very large "scale with panel width" system tray icons (>54px) will need manually reduced margins equally on each side to maintain similar scaling with the rest of the icons, because coding that here would interfere with the "small" system tray icons
-        Layout.leftMargin: iconAndText.vertical ? (parent.width < 34) ? leftOuterMargin + 3 : parent.width > 44 ? leftOuterMargin + 11 : parent.width > 40 ? leftOuterMargin + 9 : parent.width > 38 ? leftOuterMargin + 7 : leftOuterMargin + 5 : leftOuterMargin - 3
+        Layout.leftMargin: iconAndText.vertical ? (parent.width < 34 ? leftOuterMargin + 3 : parent.width > 44 ? leftOuterMargin + 11 : parent.width > 40 ? leftOuterMargin + 9 : parent.width > 38 ? leftOuterMargin + 7 : leftOuterMargin + 5) : leftOuterMargin - 1
 
         Layout.topMargin: iconAndText.vertical ? topOuterMargin - 7 : topOuterMargin
 
@@ -133,7 +133,7 @@ GridLayout {
         Layout.maximumHeight: iconAndText.vertical ? iconAndText.height * 0.84 : Infinity
 
         // very large "scale with panel width" system tray icons (>54px) will need manually reduced margins equally on each side to maintain similar scaling with the rest of the icons, because coding that here would interfere with the "small" system tray icons
-        Layout.rightMargin: iconAndText.vertical ? (parent.width < 34) ? rightOuterMargin + 3 : parent.width > 44 ? rightOuterMargin + 11 : parent.width > 40 ? rightOuterMargin + 9 : parent.width > 38 ? rightOuterMargin + 7 : rightOuterMargin + 5 : rightOuterMargin - 2
+        Layout.rightMargin: iconAndText.vertical ? (parent.width < 34 ? rightOuterMargin + 3 : parent.width > 44 ? rightOuterMargin + 11 : parent.width > 40 ? rightOuterMargin + 9 : parent.width > 38 ? rightOuterMargin + 7 : rightOuterMargin + 5) : rightOuterMargin - 4
 
         Layout.bottomMargin: iconAndText.vertical ? bottomOuterMargin - 13 : bottomOuterMargin - 5
         // bottomOuterMargin - 16

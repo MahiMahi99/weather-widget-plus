@@ -90,12 +90,6 @@ KCM.SimpleKCM {
         anchors.right: parent.right
         columns: 3
 
-        Item {
-            width: 2
-            height: 10
-            Layout.columnSpan: 3
-        }
-
         Label {
             text: i18n("Layout type") + ":"
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
@@ -132,7 +126,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 10
+            height: 5
             Layout.columnSpan: 3
         }
 
@@ -361,7 +355,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 24
+            height: 20
             Layout.columnSpan: 3
         }
 
