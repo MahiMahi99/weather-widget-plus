@@ -27,6 +27,7 @@ The completely revised UI includes:
     - Last refreshed time appears under location in the tooltip rather than on the widget itself
     - Tooltip properly hides when widget is expanded
 - Quality of life improvements:
+    - New, more responsive default - complete rewrite, every layout adapts to all form factors
     - Properly uses system font by default
     - Properly uses system icon theme (No hard-coded custom icon)
     - Properly uses system color scheme (No hard-coded colors)
