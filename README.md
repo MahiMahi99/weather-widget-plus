@@ -1,13 +1,18 @@
 # Weather Widget Plus
+
+![Collage of Weather Widget Plus layouts](preview/collage-3.png)
+
+Weather Widget Plus features a meteogram and extensive customization options. Data from OpenWeather and the Norwegian Meteorological Institute.
+
 Weather Widget Plus is a plasmoid for KDE, and a fork of blackadderkate's [weather-widget-2](https://store.kde.org/p/1683743/), which was based on [plasma-applet-weather-widget](https://store.kde.org/p/998917) by Kotelnik/clearmartin.
 
-Weather Widget Plus includes vastly expanded appearance and layout settings and implements fixes for all open issues and pull requests of weather-widget-2 (except for translations) so you can configure a pixel-perfect plasmoid for your panel. 
+Weather Widget Plus has vastly expanded appearance and layout settings and implements fixes for all open issues and pull requests of Weather Widget 2 (except for translations) so you can configure a pixel-perfect plasmoid for your panel. 
 
 Many issues opened against Weather Widget 2 reference some visual glitch or an uncomfortable fit on the user's panel in some way - text that's too large or too small, oddly-sized margins, or uncooperative icons. The source of these problems was a lack of configuration options. The developer of Weather Widget 2 created a fairly responsive default that automatically fit typical usage, understood as the Breeze Plasma theme and Noto Sans font. But themes are fun, and lots of users, including myself, make changes to the defaults in some way. Without the ability to arbitrarily and exactly adjust margins or sizing, differences like a custom font, or creative panel usage, or any number of deviations from the development environment would cause the plasmoid to misbehave. 
 
 Weather Widget Plus addresses this problem by putting the user in control with more configuration options. Enjoy the default settings or customize freely. Know your adjustments are exact.
 
-Noteworthy differences from Weather Widget 2:
+The completely revised UI includes:
 
 - New appearance options:
     - Choose your size mode: automatic fit or exact size
@@ -21,21 +26,32 @@ Noteworthy differences from Weather Widget 2:
 - Tooltip improvements: 
     - Last refreshed time appears under location in the tooltip rather than on the widget itself
     - Tooltip properly hides when widget is expanded
-- Icon first by default
-- Properly uses system font by default
-- Properly uses system icon theme (No hard-coded custom icon)
-- Weather icons font improved: certain glyphs have been centered (instead of sitting below the middle like a lowercase letter)
-- Configuration page to add a location has a solid background (for compatibility with transparent themes)
+- Quality of life improvements:
+    - Properly uses system font by default
+    - Properly uses system icon theme (No hard-coded custom icon)
+    - Properly uses system color scheme (No hard-coded colors)
+    - Weather icons font improved: certain glyphs have been centered (instead of sitting below the middle like a lowercase letter)
+    - Configuration page to add a location has a solid background (for compatibility with transparent themes)
 
 
 Translations are not 1:1 with Weather Widget 2 and need improvement
 
 Pull or merge requests to update translations are especially welcome
 
-![Preview image of Weather Widget Plus](preview/image.png)
+![Weather Widget Plus panel popups](preview/popups.png)
+
+![Weather Widget Plus configuration pages](preview/config-2.png)
 
 ## Installation
-CLI:
+### KDE Store/Pling:
+
+[https://store.kde.org/p/2281196](https://store.kde.org/p/2281196)
+
+### Discover:
+
+Right click on the panel/desktop -> Add or Manage Widgets... -> Get New... -> Download New Plasma Widgets -> Search for Weather Widget Plus -> Download -> Add to a panel or the desktop
+
+#### GitHub CLI:
 
 `git clone https://github.com/tully-t/weather-widget-plus`
 
@@ -43,7 +59,7 @@ CLI:
 
 `cp -r weather.widget.plus/ ~/.local/share/plasma/plasmoids/weather.widget.plus`
 
-GUI:
+#### GitHub GUI:
 
 - Download and extract weather-widget-plus.zip
 
@@ -53,7 +69,7 @@ then
 
 or
 
-- Place the weather.widget.plus folder in ~/.local/share/plasma/plasmoids
+- Copy the weather.widget.plus folder to ~/.local/share/plasma/plasmoids
 
 ## Using Weather Widget Plus in the System Tray:
 For a newly installed plasmoid to appear as a System Tray entry, it is necessary to log out and log back in or restart plasmashell
