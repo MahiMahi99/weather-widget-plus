@@ -14,7 +14,7 @@ KCM.SimpleKCM {
             return
         }
 
-        print('[kate weatherWidget] ' + msg)
+        print('[test weatherWidgetPlus] ' + msg)
     }
 
 
@@ -504,6 +504,9 @@ KCM.SimpleKCM {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left:reloadIntervalAbbreviation.right
                 leftPadding: 18
+                Layout.rowSpan: 3
+                Layout.preferredWidth: 75
+                wrapMode: Text.WordWrap
             }
 
         }
@@ -553,7 +556,7 @@ KCM.SimpleKCM {
             anchors.bottom: attribution2.top
             anchors.bottomMargin: 2
             font: Kirigami.Theme.smallFont
-            text: i18n("Met.no weather forecast data provided by The Norwegian Meteorological Institute")
+            text: i18n("Met.no forecast data provided by The Norwegian Meteorological Institute")
             MouseArea {
                 cursorShape: Qt.PointingHandCursor
                 anchors.fill: attribution1
@@ -603,7 +606,7 @@ KCM.SimpleKCM {
             anchors.bottom: attribution4.top
             anchors.bottomMargin: 2
             font: Kirigami.Theme.smallFont
-            text: i18n("OWM weather forecast data provided by OpenWeather")
+            text: i18n("OWM forecast data provided by OpenWeather")
             MouseArea {
                 cursorShape: Qt.PointingHandCursor
                 anchors.fill: attribution3
@@ -816,18 +819,19 @@ KCM.SimpleKCM {
             property int labelWidth: 80
             property int textboxWidth:( metNoRowLayout.width - (3* metNoRowLayout) ) / 3
             ColumnLayout{
+                id: metNoColumnLayout
                 spacing: 8
                 RowLayout {
                     id: metNoRow1
                     Layout.preferredWidth: metNoRowLayout.width
                     Label {
-                        text: ("City Name") + ":"
+                        text: i18n("City Name") + ":"
                         Layout.alignment: Qt.AlignVCenter
                     }
                     TextField {
                         id: newMetnoCityAlias
                         Layout.alignment: Qt.AlignVCenter
-                        placeholderText: ("City Name")
+                        // placeholderText: i18n("City Name")
                         onTextChanged: {
                             updateUrl()
                         }
@@ -861,7 +865,7 @@ KCM.SimpleKCM {
                         id: newMetnoCityLatitudeField
                         Layout.preferredWidth: metNoRowLayout.textboxWidth
                         Layout.fillWidth: true
-                        validator: DoubleValidator { bottom: -90; top: 90; decimals: 5 }
+                        validator: DoubleValidator { bottom: -90; top: 90; decimals: 4 }
                         color: newMetnoCityAltitudeLabel.color
                         onTextChanged: {
                             updateUrl()
@@ -877,7 +881,7 @@ KCM.SimpleKCM {
 
                     TextField {
                         id: newMetnoCityLongitudeField
-                        validator: DoubleValidator { bottom: -180; top: 180; decimals: 5 }
+                        validator: DoubleValidator { bottom: -180; top: 180; decimals: 4 }
                         Layout.fillWidth: true
                         Layout.preferredWidth:  metNoRowLayout.textboxWidth
                         color: newMetnoCityAltitudeLabel.color
@@ -913,14 +917,14 @@ KCM.SimpleKCM {
                     }
                     TextField {
                         id: newMetnoUrl
-                        placeholderText: i18n("URL")
+                        placeholderText: ("lat=####&lon=####&altitude=####")
                         Layout.columnSpan: 5
                         Layout.fillWidth: true
                         color: newMetnoCityAltitudeLabel.color
 
                         function updateFields() {
                             function localiseFloat(data) {
-                                return Number(data).toLocaleString(Qt.locale(),"f",5)
+                                return Number(data).toLocaleString(Qt.locale(),"f",4)
                             }
 
                             var data = newMetnoUrl.text.match(RegExp("([+-]?[0-9]{1,5}[.]?[0-9]{0,5})","g"))
@@ -977,60 +981,59 @@ KCM.SimpleKCM {
                         }
                     }
                 }
-                Label {
-                    id: geonamesInfo
-                    anchors.top: tzRow.bottom
-                    anchors.topMargin: 10
-                    font.italic: true
-                    text: i18n("Find your city data by searching here") + ":"
+            }
+            Label {
+                id: geonamesInfo
+                anchors.top: metNoColumnLayout.bottom
+                anchors.topMargin: 10
+                font.italic: true
+                text: i18n("Find your city data by searching here") + ":"
+            }
+
+            Label {
+                id: geonamesLink
+                anchors.top: geonamesInfo.bottom
+                font.italic: true
+                text: 'https://www.geonames.org/'
+            }
+
+            MouseArea {
+                cursorShape: Qt.PointingHandCursor
+                anchors.fill: geonamesLink
+
+                hoverEnabled: true
+
+                onClicked: {
+                    Qt.openUrlExternally(geonamesLink.text)
                 }
 
-                Label {
-                    id: geonamesLink
-                    anchors.top: geonamesInfo.bottom
-                    font.italic: true
-                    text: 'https://www.geonames.org/'
+                onEntered: {
+                    geonamesLink.font.underline = true
                 }
 
-                MouseArea {
-                    cursorShape: Qt.PointingHandCursor
-                    anchors.fill: geonamesLink
-
-                    hoverEnabled: true
-
-                    onClicked: {
-                        Qt.openUrlExternally(geonamesLink.text)
-                    }
-
-                    onEntered: {
-                        geonamesLink.font.underline = true
-                    }
-
-                    onExited: {
-                        geonamesLink.font.underline = false
-                    }
-                }
-
-                Label {
-                    id: geonamesInfo2
-                    anchors.top: geonamesLink.bottom
-                    font.italic: true
-                    text: i18n("and then paste the appropriate data into the corresponding fields")
-                }
-                Label {
-                    id: geonamesInfo3
-                    anchors.top: geonamesInfo2.bottom
-                    font.italic: true
-                    text: i18n("e.g. Latitude: 19.42847 Longitude: -99.12766 Altitude: 2240")
-                }
-                Label {
-                    id: geonamesInfo4
-                    anchors.top: geonamesInfo3.bottom
-                    font.italic: true
-                    text: i18n("for Mexico City, Mexico")
+                onExited: {
+                    geonamesLink.font.underline = false
                 }
             }
 
+            Label {
+                id: geonamesInfo2
+                anchors.top: geonamesLink.bottom
+                font.italic: true
+                text: i18n("and then paste the appropriate data into the corresponding fields")
+            }
+            Label {
+                id: geonamesInfo3
+                anchors.top: geonamesInfo2.bottom
+                font.italic: true
+                text: i18n("e.g. Latitude: 19.4284 Longitude: -99.1276 Altitude: 2240")
+            }
+            Label {
+                id: geonamesInfo4
+                anchors.top: geonamesInfo3.bottom
+                font.italic: true
+                text: i18n("for Mexico City, Mexico")
+            }
 
         }
         onOpened: {
@@ -1337,7 +1340,7 @@ KCM.SimpleKCM {
             width: parent.width
             Label {
                 id:locationDataCredit
-                text: i18n("Search data extracted from data provided by Geonames.org")
+                text: i18n("Search data provided by Geonames.org")
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }

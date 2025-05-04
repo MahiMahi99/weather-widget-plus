@@ -1,61 +1,49 @@
-|  Locale  |  Lines  | % Done|
-|----------|---------|-------|
-| Template |      94 |       |
-| bg       |   52/94 |   55% |
-| ca_ES    |   62/94 |   65% |
-| cs       |   41/94 |   43% |
-| de       |   94/94 |  100% |
-| en       |    0/94 |    0% |
-| es       |   52/94 |   55% |
-| fr       |   52/94 |   55% |
-| hu_HU    |   52/94 |   55% |
-| it_IT    |   52/94 |   55% |
-| lt       |   52/94 |   55% |
-| nb       |   88/94 |   93% |
-| nl       |   88/94 |   93% |
-| pl       |   50/94 |   53% |
-| ru       |   94/94 |  100% |
-| sv       |   88/94 |   93% |
-| zh_CN    |   53/94 |   56% |
-| zh_TW    |   52/94 |   55% |
 
 ## New Translations
 
-* Fill out [`template.pot`](template.pot) with your translations then open a [new issue](https://github.com/luisbocanegra/plasma-panel-colorizer/issues/new), name the file `spanish.txt`, attach the txt file to the issue (drag and drop).
+- Fill out [`template.pot`](template.pot) with your translations then open a [new issue](https://github.com/tully-t/weather-widget-plus/issues/new), name the file `your-language-here.txt`, attach the txt file to the issue (drag and drop).
 
-Or if you know how to make a pull request
+## If you can make a pull request:
 
-* Copy the `template.pot` file and name it your locale's code (Eg: `en`/`de`/`fr`) with the extension `.po`. Then fill out all the `msgstr ""`.
-* Your region's locale code can be found at: https://stackoverflow.com/questions/3191664/list-of-all-locales-and-their-short-codes/28357857#28357857
+- `git clone https://github.com/tully-t/weather-widget-plus`
+- `cd weather-widget-plus/translations/po`
+- Copy the `template.pot` file and name it your locale's code (Eg: `en`/`de`/`fr`) with the extension `.po`. Your region's locale code can be found at: https://stackoverflow.com/questions/3191664/list-of-all-locales-and-their-short-codes/28357857#28357857
+- Fill out all the `msgstr ""` in your new .po file
+- `sh ./build.sh` (Run the weather-widget-plus/translations/po/build.sh script)
+- Submit your pull request with your changes
 
-## Scripts
+### Scripts
 
-Zren's `kpac` script can easily run the `gettext` commands for you, parsing the `metadata.json` and filling out any placeholders for you. `kpac` can be [downloaded here](https://github.com/Zren/plasma-applet-lib/blob/master/kpac) and should be placed at `~/Code/plasmoid-widgetname/kpac` to edit translations at `~/Code/plasmoid-widgetname/package/translate/`.
+* `sh ./merge` will parse the `i18n()` calls in the `*.qml` files and write it to the `template.pot` file. Then it will merge any changes into the `*.po` language files.
+* `sh ./build` will convert the `*.po` files to it's binary `*.mo` version and move it to `contents/locale/...` which will make it possible for the translations to be bundled in the `*.plasmoid` without needing the user to manually install them.
 
-
-* `python3 ./kpac i18n` will parse the `i18n()` calls in the `*.qml` files and write it to the `template.pot` file. Then it will merge any changes into the `*.po` language files. Then it converts the `*.po` files to it's binary `*.mo` version and move it to `contents/locale/...` which will bundle the translations in the `*.plasmoid` without needing the user to manually install them.
-* `python3 ./kpac localetest` will convert the `.po` to the `*.mo` files then run `plasmoidviewer` (part of `plasma-sdk`).
-
-## How it works
-
-Since KDE Frameworks v5.37, translations can be bundled with the zipped `*.plasmoid` file downloaded from the store.
-
-* `xgettext` extracts the messages from the source code into a `template.pot`.
-* Translators copy the `template.pot` to `fr.po` to translate the French language.
-* When the source code is updated, we use `msgmerge` to update the `fr.po` based on the updated `template.pot`.
-* When testing or releasing the widget, we convert the `.po` files to their binary `.mo` form with `msgfmt`.
-
-The binary `.mo` translation files are placed in `package/contents/locale/` so you may want to add `*.mo` to your `.gitignore`.
-
-```
-package/contents/locale/fr/LC_MESSAGES/plasma_applet_luisbocanegra.panel.colorizer.mo
-```
-
-## Links
+### Links
 
 * https://develop.kde.org/docs/plasma/widget/translations-i18n/
 * https://l10n.kde.org/stats/gui/trunk-kf5/team/fr/plasma-desktop/
 * https://techbase.kde.org/Development/Tutorials/Localization/i18n_Build_Systems
 * https://api.kde.org/frameworks/ki18n/html/prg_guide.html
+* https://github.com/Zren/plasma-applet-lib
 
-> Version 8 of [Zren's i18n scripts](https://github.com/Zren/plasma-applet-lib).
+Version 8 of Zren's i18n scripts
+
+|  Locale  |  Lines  | % Done|
+|----------|---------|-------|
+| Template |     106 |       |
+| bg       |  28/106 |   26% |
+| ca_ES    |  34/106 |   32% |
+| cs       |  19/106 |   17% |
+| de       |  45/106 |   42% |
+| en       |   0/106 |    0% |
+| es       | 105/106 |   99% |
+| fr       |  28/106 |   26% |
+| hu_HU    |  28/106 |   26% |
+| it_IT    |  28/106 |   26% |
+| lt       |  28/106 |   26% |
+| nb       |  45/106 |   42% |
+| nl       |  44/106 |   41% |
+| pl       |  43/106 |   40% |
+| ru       |  45/106 |   42% |
+| sv       |  44/106 |   41% |
+| zh_CN    |  29/106 |   27% |
+| zh_TW    |  28/106 |   26% |

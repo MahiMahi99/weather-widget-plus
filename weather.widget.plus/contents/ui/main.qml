@@ -63,8 +63,8 @@ PlasmoidItem {
     compactRepresentation: inTray ? crInTray : cr
     fullRepresentation: inTray ? frInTray : fr
 
-    switchWidth: inTray ? 256 : undefined
-    switchHeight: inTray ? 128 : undefined
+    // switchWidth: inTray ? 256 : undefined
+    // switchHeight: inTray ? 128 : undefined
 
     preferredRepresentation: inTray ? undefined : onDesktop ? (desktopMode === 1 ? fullRepresentation : compactRepresentation) : compactRepresentation
 
@@ -109,7 +109,7 @@ PlasmoidItem {
                                    lastloadingSuccessTime: 0,               // Time download last successful.
                                    failedAttemptCount: 0
                                })
-    property string lastReloadedText: "⬇ " + i18n("%1 ago", "?? m")
+    property string lastReloadedText: "⬇ " + i18n("%1 ago", "?? min")
 
     property var cacheData: ({
                                  plasmoidCacheId: plasmoid.id,

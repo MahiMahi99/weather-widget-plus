@@ -1,4 +1,4 @@
-# Translation of weatherWidget-2 in plasma_applet_org.kde.weatherWidget_es
+# Translation of weather-widget-plus in Spanish
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <badiol@yahoo.es>, 2017.
@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"Report-Msgid-Bugs-To: https://github.com/blackadderkate/weather-widget-2\n"
-"POT-Creation-Date: 2022-09-29 19:30+0700\n"
-"PO-Revision-Date: 2025-04-27 22:04+0000\n"
-"Last-Translator: Federico Murtagh\n"
+"Report-Msgid-Bugs-To: https://github.com/tully-t/weather-widget-plus\n"
+"POT-Creation-Date: 2025-05-03 16:46-0700\n"
+"PO-Revision-Date: 2025-05-02 20:28-0700\n"
+"Last-Translator: Kepa Badiola <badiol@yahoo.es>\n"
 "Language-Team: spanish <LL@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -17,423 +17,568 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.3\n"
 
-#: ../../package/metadata.desktop
-msgid "Weather Widget 2"
-msgstr "Widget del Clima 2"
+#: ../../weather.widget.plus/metadata.desktop
+msgid "Weather Widget Plus"
+msgstr "Widget del Clima Plus"
 
-#: ../../package/metadata.desktop
-msgid "Plasmoid showing weather information from met.no server"
-msgstr "Plasmoide que muestra información meteorológica del servidor met.no"
+#: ../../weather.widget.plus/metadata.desktop
+msgid "Plasmoid showing weather information from Met.no server"
+msgstr "Plasmoide que muestra información meteorológica del servidor Met.no"
 
-#: ../../package/contents/code/data-loader.js
-msgid "%1 m"
-msgstr "%1 min"
+#: ../../weather.widget.plus/contents/code/data-loader.js
+msgid "%1 min ago"
+msgstr "Hace %1 min"
 
-#: ../../package/contents/code/data-loader.js
-msgid "%1 h"
-msgstr "%1 h"
+#: ../../weather.widget.plus/contents/code/data-loader.js
+msgid "%1 hrs ago"
+msgstr "Hace %1 hrs"
 
-#: ../../package/contents/code/data-loader.js
-msgid "%1 d"
-msgstr "%1 d"
+#: ../../weather.widget.plus/contents/code/data-loader.js
+msgid "%1 days ago"
+msgstr "Hace %1 días"
 
-#: ../../package/contents/code/data-loader.js
-msgid "hours"
-msgstr "horas"
+#: ../../weather.widget.plus/contents/code/data-loader.js
+msgid "long ago"
+msgstr "Hace mucho"
 
-#: ../../package/contents/code/unit-utils.js
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/code/unit-utils.js
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "°C"
 msgstr "ºC"
 
-#: ../../package/contents/code/unit-utils.js
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/code/unit-utils.js
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "°F"
 msgstr "ºF"
 
-#: ../../package/contents/code/unit-utils.js
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/code/unit-utils.js
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "K"
-msgstr ""
+msgstr "K"
 
-#: ../../package/contents/code/unit-utils.js
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/code/unit-utils.js
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "inHg"
 msgstr "inHG"
 
-#: ../../package/contents/code/unit-utils.js
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/code/unit-utils.js
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "mmHg"
 msgstr "mmHg"
 
-#: ../../package/contents/code/unit-utils.js
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/code/unit-utils.js
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "hPa"
 msgstr "hPa"
 
-#: ../../package/contents/code/unit-utils.js
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/code/unit-utils.js
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "mph"
 msgstr "mph"
 
-#: ../../package/contents/code/unit-utils.js
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/code/unit-utils.js
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "km/h"
 msgstr "km/h"
 
-#: ../../package/contents/code/unit-utils.js
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/code/unit-utils.js
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "m/s"
 msgstr "m/s"
 
-#: ../../package/contents/config/config.qml
-msgid "General"
-msgstr "General"
+#: ../../weather.widget.plus/contents/config/config.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Location"
+msgstr "Ubicación"
 
-#: ../../package/contents/config/config.qml
+#: ../../weather.widget.plus/contents/config/config.qml
 msgid "Appearance"
 msgstr "Apariencia"
 
-#: ../../package/contents/config/config.qml
+#: ../../weather.widget.plus/contents/config/config.qml
+msgid "Layout"
+msgstr "Diseño"
+
+#: ../../weather.widget.plus/contents/config/config.qml
 msgid "Units"
 msgstr "Unidades"
 
-#: ../../package/contents/ui/config/ConfigAppearance.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
 msgctxt "Use default font"
 msgid "Default"
 msgstr "Predeterminado"
 
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid "Layout"
-msgstr "Diseño"
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgid "Widget font"
+msgstr "Fuente de widget"
 
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid "Layout type:"
-msgstr "Tipo de diseño:"
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgid "Text size mode"
+msgstr "Modo de tamaño de texto"
 
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid "Horizontal"
-msgstr "Horizontal"
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgid "Automatic fit"
+msgstr "Ajuste automático"
 
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid "NOTE: Setting layout type for in-tray plasmoid has no effect."
-msgstr "NOTA: Configuraciones de diseño no tienen efecto en plasmoide"
-"de la barra de tareas"
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgid "Exact size"
+msgstr "Tamaño exacto"
 
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid "Vertical"
-msgstr "Vertical"
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgid "Text size"
+msgstr "Tamaño del texto"
 
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid "Compact"
-msgstr "Compacto"
-
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid "In-Tray Settings"
-msgstr "Preferencias para barra de tareas"
-
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid "Active timeout:"
-msgstr "Cuenta atrás activa:"
-
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgctxt "Abbreviation for seconds"
-msgid "sec"
-msgstr "seg"
-
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid ""
-"NOTE: After this timeout widget will be hidden in system tray until "
-"refreshed. You can always set the widget to be always \"Shown\" in system "
-"tray \"Entries\" settings."
-msgstr ""
-"AVISO: Despues de esta cuenta atrás el elemento gráfico se ocultará en la "
-"barra de tareas hastaque sea actualizado. Siempre puede establecer el "
-"elemento gráfico para estar siempre \" Visible\" en labarra de tareas "
-"\"Entradas\" configuración."
-
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid "Widget font style:"
-msgstr "Estilo de fuente del widget:"
-
-#: ../../package/contents/ui/config/ConfigAppearance.qml
-msgid "Widget font size:"
-msgstr "Tamaño de fuente del widget:"
-
-#: ../../package/contents/ui/config/ConfigAppearance.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
 msgctxt "pixels"
 msgid "px"
 msgstr "px"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Add Open Weather Map Place"
-msgstr "Añadir Lugar de Open Weather Map"
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgid "Text drop shadow"
+msgstr "Sombra del texto"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Paste URL here"
-msgstr "Pegar URL aquí"
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgid "Icon size mode"
+msgstr "Modo de tamaño de icono"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "City alias"
-msgstr "Alias Ciudad"
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgid "Icon size"
+msgstr "Tamaño del icono"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Find your city ID by searching here:"
-msgstr "Encuentra la ID de tu ciudad buscando aquí:"
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgid "Icon drop shadow"
+msgstr "Sombra del icono"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgid "Active tray timeout"
+msgstr "Tiempo de espera de la bandeja"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
+msgctxt "Abbreviation for seconds"
+msgid "sec"
+msgstr "seg"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigAppearance.qml
 msgid ""
-"...and paste here the whole URL\n"
-"e.g. http://openweathermap.org/city/2946447 for Bonn, Germany."
+"If the widget is set to \"Show when relevant\" in the system tray, after "
+"this timeout the widget will be hidden in the tray until it reloads"
 msgstr ""
-"...y pega aquí la URL completa\n"
-"ejemplo: http://openweathermap.org/city/2946447 para Bonn, Alemania."
+"Si el widget está configurado para \"Mostrar cuando sea importante\" en la "
+"bandeja del sistema, despues de esta cuenta atrás el elemento gráfico se "
+"ocultará en la barra de tareas hasta que sea actualizado"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Error!"
-msgstr "¡Error!"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Layout type"
+msgstr "Tipo de diseño"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Confirmation"
-msgstr "Confirmación"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Horizontal"
+msgstr "Horizontal"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Do you want to select this place?"
-msgstr "¿Quieres seleccionar este lugar?"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Layout type is not available in the system tray"
+msgstr ""
+"El tipo de diseño no está disponible en plasmoide de la barra de tareas"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Add Met.no Map Place"
-msgstr "Añadir Lugar de Met.no Map"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Vertical"
+msgstr "Vertical"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "The Latitude is not valid."
-msgstr "La latitud no es válida."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Compact"
+msgstr "Compacto"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "The Latitude is not between -90 and 90."
-msgstr "La latitud no está entre -90 y 90."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Widget order"
+msgstr "Orden de widget"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "The Longitude is not valid."
-msgstr "La longitud no es válida."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Icon first"
+msgstr "Icono primero"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "The Longitude is not between -180 and 180."
-msgstr "La longitud no está entre -180 y 180."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid ""
+"Widget order is not available in either the system tray or the Compact layout"
+msgstr ""
+"El orden de widget no está disponible en plasmoide de la barra de tareas o "
+"en el diseño compacto"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "The Altitude is not valid."
-msgstr "La altitud no es válida."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Text first"
+msgstr "Texto primero"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "The Altitude is not between -999 and 5000."
-msgstr "La altitud no está entre -999 y 5000."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Top Margin"
+msgstr "Margen Superior"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "The Place Name is empty."
-msgstr "El nombre del lugar está vacío."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Text visible"
+msgstr "Texto visible"
 
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Left Margin"
+msgstr "Margen Izquierdo"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "There is an error!"
-msgid_plural "There are %1 errors!"
-msgstr[0] "¡Hay un error!"
-msgstr[1] "¡Hay %1 errores!"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Icon visible"
+msgstr "Icono visible"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Latitude"
-msgstr "Latitud"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Inner Margin"
+msgstr "Margen Interior"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Longitude"
-msgstr "Longitud"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Right Margin"
+msgstr "Margen Derecha"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Altitude"
-msgstr "Altitud"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Bottom Margin"
+msgstr "Margen Inferior"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "URL"
-msgstr "URL"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Desktop mode"
+msgstr "Modo de escritorio"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Place Identifier"
-msgstr "Identificador del Lugar"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Icon"
+msgstr "Icono"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Search"
-msgstr "Buscar"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid ""
+"Desktop meteogram mode is not affected by any other Layout or Appearance "
+"options"
+msgstr ""
+"El modo de meteograma de escritorio no se ve afectado por ninguna otra "
+"opción de Diseño o Apariencia"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Change Displayed As"
-msgstr "Cambiar Mostrado Como"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
+msgid "Meteogram"
+msgstr "Meteograma"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Enter place alias"
-msgstr "Introduce el alias del lugar"
-
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Location Search"
-msgstr "Búsqueda de Ubicación"
-
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Location"
-msgstr "Ubicación"
-
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Area"
-msgstr "Área"
-
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Timezone"
-msgstr "Zona Horaria"
-
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Search data extracted from data provided by Geonames.org."
-msgstr "Datos de búsqueda extraídos de la información proporcionada por Geonames.org."
-
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Country:"
-msgstr "País:"
-
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Filter:"
-msgstr "Filtro:"
-
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Plasmoid version:"
-msgstr "Versión del plasmoide:"
-
-#: ../../package/contents/ui/config/ConfigGeneral.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
 msgid "Source"
 msgstr "Origen"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Displayed as"
-msgstr "Mostrado como"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Place Identifier"
+msgstr "Identificador del Lugar"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "City Name"
+msgstr "Nombre de la ciudad"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
 msgid "Action"
 msgstr "Acción"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Miscellaneous"
-msgstr "Miscelanea"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Reload interval"
+msgstr "Intervalo de recarga"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Reload interval:"
-msgstr "Intervalo de recarga:"
-
-#: ../../package/contents/ui/config/ConfigGeneral.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
 msgctxt "Abbreviation for minutes"
 msgid "min"
 msgstr "min"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid ""
-"Met.no weather forecast data provided by The Norwegian Meteorological "
-"Institute."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Middle-click the widget to reload manually"
 msgstr ""
-"Datos de pronóstico de Met.no provistos por el Instituto "
-"Noruego de Meteorología."
+"Haga clic con el botón central en el widget para recargarlo manualmente"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Sunrise/sunset data provided by Sunrise - Sunset."
-msgstr "Datos de salida y puesta del sol provistos por Sunrise - Sunset."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Plasmoid version"
+msgstr "Versión del plasmoide"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "OWM weather forecast data provided by OpenWeather."
-msgstr "Datos de pronóstico de OWM provistos por OpenWeather."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Met.no forecast data provided by The Norwegian Meteorological Institute"
+msgstr ""
+"Datos de pronóstico de Met.no provistos por el Instituto Noruego de "
+"Meteorología"
 
-#: ../../package/contents/ui/config/ConfigGeneral.qml
-msgid "Weather icons created by Erik Flowers."
-msgstr "Iconos del clima creados por Erik Flowers."
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Sunrise/sunset data provided by Sunrise - Sunset"
+msgstr "Datos de salida y puesta del sol provistos por Sunrise - Sunset"
 
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "OWM forecast data provided by OpenWeather"
+msgstr "Datos de pronóstico de OWM provistos por OpenWeather"
 
-#: ../../package/contents/ui/config/ConfigUnits.qml
-msgid "Temperature:"
-msgstr "Temperatura:"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Weather icons created by Erik Flowers"
+msgstr "Iconos del clima creados por Erik Flowers"
 
-#: ../../package/contents/ui/config/ConfigUnits.qml
-msgid "Pressure:"
-msgstr "Presión:"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Change City Name"
+msgstr "Cambia el nombre de la ciudad"
 
-#: ../../package/contents/ui/config/ConfigUnits.qml
-msgid "Wind speed:"
-msgstr "Velocidad del viento:"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Enter city name"
+msgstr "Introduce el nombre de la ciudad"
 
-#: ../../package/contents/ui/config/ConfigUnits.qml
-msgid "Timezone:"
-msgstr "Huso Horario:"
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Add Open Weather Map Location"
+msgstr "Añadir Ubicacion del mapa de OpenWeather"
 
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Paste URL here"
+msgstr "Pegar URL aquí"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Find your city ID by searching here"
+msgstr "Encuentra la ID de tu ciudad buscando aquí:"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid ""
+"and then paste the whole URL into the corresponding field\n"
+"e.g. http://openweathermap.org/city/2946447 for Bonn, Germany"
+msgstr ""
+"...y pega aquí la URL completa\n"
+"ejemplo: http://openweathermap.org/city/2946447 para Bonn, Alemania"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Add Met.no Map Location"
+msgstr "Añadir Ubicacion del mapa de Met.no"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Latitude"
+msgstr "Latitud"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Longitude"
+msgstr "Long"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Altitude"
+msgstr "Altitud"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "URL"
+msgstr "URL"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
+msgid "Timezone"
+msgstr "Zona Horaria"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Find your city data by searching here"
+msgstr "Encuentra la ID de tu ciudad buscando aquí"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "and then paste the appropriate data into the corresponding fields"
+msgstr "y pegue los datos correspondientes en los campos correspondientes"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "e.g. Latitude: 19.4284 Longitude: -99.1276 Altitude: 2240"
+msgstr "ejemplo: Latitud: 19.4284 Longevidad: -99.1276 Altitud: 2240"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "for Mexico City, Mexico"
+msgstr "para la Ciudad de México, México"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Location Search"
+msgstr "Búsqueda de Ubicación"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Area"
+msgstr "Área"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Alt"
+msgstr "Alt"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Search data provided by Geonames.org"
+msgstr "Datos de búsqueda proporcionada por Geonames.org"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Country"
+msgstr "País"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Filter"
+msgstr "Filtro"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Confirmation"
+msgstr "Confirmación"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Do you want to select"
+msgstr "Desea seleccionar"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
+msgid "Reload widget to see changes"
+msgstr "Recargar el widget para ver los cambios"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
+msgid "Pressure"
+msgstr "Presión"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
+msgid "Wind speed"
+msgstr "Velocidad del viento"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "My local-time"
 msgstr "Mi horario local"
 
-#: ../../package/contents/ui/config/ConfigUnits.qml
-#: ../../package/contents/ui/FullRepresentation.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/ui/FullRepresentation.qml
+#: ../../weather.widget.plus/contents/ui/providers/OpenWeatherMap.qml
 msgid "UTC"
 msgstr "UTC"
 
-#: ../../package/contents/ui/config/ConfigUnits.qml
+#: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "Location Timezone"
 msgstr "Zona Horaria de la Ubicación"
 
-#: ../../package/contents/ui/FullRepresentationInTray.qml
-#: ../../package/contents/ui/FullRepresentation.qml
+#: ../../weather.widget.plus/contents/ui/FullRepresentationInTray.qml
+#: ../../weather.widget.plus/contents/ui/FullRepresentation.qml
+msgid "Reload"
+msgstr "Recarga"
+
+#: ../../weather.widget.plus/contents/ui/FullRepresentation.qml
 msgid "Next Location"
 msgstr "Próxima Ubicación"
 
-#: ../../package/contents/ui/FullRepresentationInTray.qml
-#: ../../package/contents/ui/FullRepresentation.qml
-msgid "Reload"
-msgstr "Recargar"
-
-#: ../../package/contents/ui/FullRepresentation.qml
+#: ../../weather.widget.plus/contents/ui/FullRepresentation.qml
 msgid "Previous Location"
 msgstr "Ubicación Anterior"
 
-#: ../../package/contents/ui/main.qml
-msgid "Resume Updating"
-msgstr "Reanudar Actualización"
-
-#: ../../package/contents/ui/main.qml
-msgid "Pause Updating"
-msgstr "Pausar Actualización"
-
-#: ../../package/contents/ui/main.qml
+#: ../../weather.widget.plus/contents/ui/main.qml
 msgid "%1 ago"
 msgstr "hace %1"
 
-#: ../../package/contents/ui/main.qml
+#: ../../weather.widget.plus/contents/ui/main.qml
 msgid "near future"
 msgstr "futuro próximo"
 
-#: ../../package/contents/ui/Meteogram.qml
+#: ../../weather.widget.plus/contents/ui/Meteogram.qml
 msgid "mm"
 msgstr "mm"
 
-#: ../../package/contents/ui/Meteogram.qml
+#: ../../weather.widget.plus/contents/ui/Meteogram.qml
 msgid "cm"
 msgstr "cm"
 
-#: ../../package/contents/ui/Meteogram.qml
+#: ../../weather.widget.plus/contents/ui/Meteogram.qml
 msgid "in"
 msgstr "pulg"
 
-#: ../../package/contents/ui/providers/MetNo.qml
-msgid ""
-"Weather forecast data provided by The Norwegian Meteorological Institute."
+#: ../../weather.widget.plus/contents/ui/providers/MetNo.qml
+msgid "Forecast data provided by the Norwegian Meteorological Institute"
 msgstr ""
-"Datos del pronóstico provistos por el Instituto Noruego de Meteorología."
+"Datos del pronóstico provistos por el Instituto Noruego de Meteorología"
 
-#: ../../package/contents/ui/providers/OpenWeatherMap.qml
-msgid "today"
-msgstr "hoy"
+#: ../../weather.widget.plus/contents/ui/providers/OpenWeatherMap.qml
+msgid "Forecast data provided by OpenWeather"
+msgstr "Datos del pronóstico provistos por OpenWeather"
 
-#: ../../package/contents/ui/providers/OpenWeatherMap.qml
-msgid "Weather forecast data provided by OpenWeather."
-msgstr "Datos del pronóstico provistos por OpenWeather."
+#~ msgid "e.g. Latitude: 19.42847 Longitude: -99.12766 Altitude: 2240"
+#~ msgstr "ejemplo: Latitud: 19.4287 Longevidad: -99.127.66 Altitud: 2240"
+
+#~ msgid "Search data extracted from data provided by Geonames.org"
+#~ msgstr "Datos de búsqueda proporcionada por Geonames.org"
+
+#~ msgid ""
+#~ "Weather forecast data provided by the Norwegian Meteorological Institute"
+#~ msgstr ""
+#~ "Datos del pronóstico provistos por el Instituto Noruego de Meteorología."
+
+#~ msgid "Weather forecast data provided by OpenWeather"
+#~ msgstr "Datos del pronóstico provistos por OpenWeather"
+
+#~ msgid "Displayed as"
+#~ msgstr "Mostrado como"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Miscelanea"
+
+#~ msgid "Change Displayed As"
+#~ msgstr "Cambiar Mostrado Como"
+
+#~ msgid "Enter place alias"
+#~ msgstr "Introduce el alias del lugar"
+
+#~ msgid "Add Open Weather Map Place"
+#~ msgstr "Añadir Lugar de Open Weather Map"
+
+#~ msgid "City alias"
+#~ msgstr "Alias Ciudad"
+
+#~ msgid ""
+#~ "...and paste here the whole URL\n"
+#~ "e.g. http://openweathermap.org/city/2946447 for Bonn, Germany."
+#~ msgstr ""
+#~ "...y pega aquí la URL completa\n"
+#~ "ejemplo: http://openweathermap.org/city/2946447 para Bonn, Alemania."
+
+#~ msgid "Add Met.no Map Place"
+#~ msgstr "Añadir Lugar de Met.no Map"
+
+#~ msgid "General"
+#~ msgstr "General"
+
+#~ msgid "In-Tray Settings"
+#~ msgstr "Preferencias para barra de tareas"
+
+#~ msgid "Layout type:"
+#~ msgstr "Tipo de diseño:"
+
+#~ msgid "NOTE: Setting layout type for in-tray plasmoid has no effect."
+#~ msgstr ""
+#~ "NOTA: No tiene efecto seleccionar tipo de diseño para el plasmoide en la "
+#~ "barra de tareas."
+
+#~ msgid "Active timeout:"
+#~ msgstr "Cuenta atrás activa:"
+
+#~ msgid ""
+#~ "NOTE: After this timeout widget will be hidden in system tray until "
+#~ "refreshed. You can always set the widget to be always \"Shown\" in system "
+#~ "tray \"Entries\" settings."
+#~ msgstr ""
+#~ "AVISO: Despues de esta cuenta atrás el elemento gráfico se ocultará en la "
+#~ "barra de tareas hastaque sea actualizado. Siempre puede establecer el "
+#~ "elemento gráfico para estar siempre \" Visible\" en labarra de tareas "
+#~ "\"Entradas\" configuración."
+
+#~ msgid "Find your city ID by searching here:"
+#~ msgstr "Encuentra la ID de tu ciudad buscando aquí:"
+
+#~ msgid "Plasmoid version:"
+#~ msgstr "Versión del plasmoide:"
+
+#~ msgid "Reload interval:"
+#~ msgstr "Intervalo de recarga:"
+
+#~ msgid "Temperature:"
+#~ msgstr "Temperatura:"
+
+#~ msgid "Pressure:"
+#~ msgstr "Presión:"
+
+#~ msgid "Wind speed:"
+#~ msgstr "Velocidad del viento:"
+
+#~ msgid "Timezone:"
+#~ msgstr "Huso Horario:"
+
+#~ msgid "Resume Updating"
+#~ msgstr "Reanudar Actualización"
+
+#~ msgid "Pause Updating"
+#~ msgstr "Pausar Actualización"
+
+#~ msgid "today"
+#~ msgstr "hoy"
 
 #~ msgid "Offline mode"
 #~ msgstr "Modo desconectado"

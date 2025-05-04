@@ -26,7 +26,7 @@ Item {
 
     property double defaultFontPixelSize: Kirigami.Theme.defaultFont.pixelSize
 
-    Layout.minimumWidth: main.switchWidth
+    Layout.minimumWidth: 256
     Layout.minimumHeight: headingHeight + (nextDayHeight * 5) + footerHeight
 
     Layout.preferredWidth: defaultFontPixelSize * 30

@@ -488,7 +488,7 @@ dbgprint2("***************************************************")
     }
 
     function getCreditLabel(placeIdentifier) {
-        return i18n("Weather forecast data provided by OpenWeather")
+        return i18n("Forecast data provided by OpenWeather")
     }
 
     function getCreditLink(placeIdentifier) {
@@ -609,7 +609,7 @@ dbgprint2("***************************************************")
         XmlListModelRole { name: "windDirection"; elementName: "windDirection"; attributeName: "deg"  }
         XmlListModelRole { name: "windSpeedMps"; elementName: "windSpeed"; attributeName: "mps"  }
         XmlListModelRole { name: "pressureHpa"; elementName: "pressure"; attributeName: "value"  }
-        XmlListModelRole { name: "precipitationAvg"; elementName: "precipitation"; attributeName: "value"  }
+        // XmlListModelRole { name: "precipitationAvg"; elementName: "precipitation"; attributeName: "value"  }
 
         function get(i) {
             var o = {}

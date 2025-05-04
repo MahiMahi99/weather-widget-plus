@@ -2,17 +2,17 @@
 function getLastReloadedTimeText(lastReloaded) {
     var mins = lastReloaded / 60000
     if (mins <= 180) {
-        return i18n("%1 m ago", Math.round(mins))
+        return i18n("%1 min ago", Math.round(mins))
     }
 
     var hours = mins / 60
     if (hours <= 48) {
-        return i18n("%1 h ago", Math.round(hours))
+        return i18n("%1 hrs ago", Math.round(hours))
     }
 
     var days = hours / 24
     if (days <= 14) {
-        return i18n("%1 d ago", Math.round(days))
+        return i18n("%1 days ago", Math.round(days))
     }
 
     return i18n("long ago")

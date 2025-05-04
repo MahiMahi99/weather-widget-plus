@@ -300,7 +300,7 @@ Item {
             }
             PlasmaComponents.Label {
                 id: dayTest
-                text: Qt.locale().dayName(dateFrom.getDay(), Locale.LongFormat)
+                text: Qt.locale().dayName(dateFrom.getDay(), Locale.ShortFormat)
                 height: labelHeight
                 anchors.top: parent.top
                 anchors.topMargin: -labelHeight
