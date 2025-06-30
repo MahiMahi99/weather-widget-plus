@@ -31,6 +31,7 @@ msgstr "Плазмоид, показывающий информацию о по�
 
 #: ../../weather.widget.plus/contents/code/data-loader.js
 msgid "%1 min ago"
+msgid_plural "%1 min ago"
 msgstr[0] "%1 минуту назад"
 msgstr[1] "%1 минуты назад"
 msgstr[2] "%1 минут назад"
@@ -38,6 +39,7 @@ msgstr[3] "%1 минуту назад"
 
 #: ../../weather.widget.plus/contents/code/data-loader.js
 msgid "%1 hrs ago"
+msgid_plural "%1 hrs ago"
 msgstr[0] "%1 час назад"
 msgstr[1] "%1 часа назад"
 msgstr[2] "%1 часов назад"
@@ -45,6 +47,7 @@ msgstr[3] "%1 час назад"
 
 #: ../../weather.widget.plus/contents/code/data-loader.js
 msgid "%1 days ago"
+msgid_plural "%1 days ago"
 msgstr[0] "%1 минуту назад"
 msgstr[1] "%1 минуты назад"
 msgstr[2] "%1 минут назад"

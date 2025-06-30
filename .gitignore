@@ -1,6 +1,6 @@
 # Ignore common temporary files
 *~
-*.mo
+# *.mo
 *.swp
 *.bak
 
