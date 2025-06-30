@@ -15,12 +15,13 @@
         <entry name="places" type="String">
           <default>
           [
+          {"providerId": "om", "placeIdentifier": "latitude=52.6333&amp;longitude=-1.1333&amp;altitude=65", "placeAlias": "Leicester, UK", "timezoneID": 159},
           {"providerId": "owm", "placeIdentifier": "2644668", "placeAlias": "Leicester, UK (OWM)"},
-          {"providerId": "metno", "placeIdentifier": "lat=52.6333&amp;lon=-1.1333&amp;altitude=65", "placeAlias": "Leicester, UK", "timezoneID": 159},
           {"providerId": "owm", "placeIdentifier": "5368361", "placeAlias": "Los Angeles, USA (OWM)"},
-          {"providerId": "owm", "placeIdentifier": "1609350", "placeAlias": "Bangkok, TH"},
-            {"providerId": "metno", "placeIdentifier": "lat=38.5024&amp;lon=-0.1304&amp;altitude=30", "placeAlias": "Benidorm, ES", "timezoneID": 146},
-            {"providerId": "metno", "placeIdentifier": "lat=25.3008&amp;lon=91.6961&amp;altitude=1505","placeAlias":"Cherrapunji, IN","timezoneID":192}
+          {"providerId": "metno", "placeIdentifier": "lat=13.7539&amp;lon=100.5014&amp;altitude=12", "placeAlias": "Bangkok, TH","timezoneID":360},
+          {"providerId": "metno", "placeIdentifier": "lat=25.3008&amp;lon=91.6961&amp;altitude=1505","placeAlias":"Cherrapunji, IN","timezoneID":192},
+          {"providerId": "om", "placeIdentifier": "latitude=38.5024&amp;longitude=-0.1304&amp;altitude=30", "placeAlias": "Benidorm, ES", "timezoneID":146}
+
           ]
         </default>
         </entry>
@@ -36,9 +37,6 @@
     </group>
 
     <group name="Appearance">
-        <entry name="renderMeteogram" type="Bool">
-            <default>false</default>
-        </entry>
         <entry name="layoutType" type="Enum">
             <choices>
                 <choice name="Horizontal"/>

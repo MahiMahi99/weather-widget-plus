@@ -46,6 +46,9 @@ PlasmoidItem {
     FontLoader {
         source: "../fonts/weathericons-regular-webfont-2.0.11.ttf"
     }
+    OpenMeteo {
+        id: omProvider
+    }
     MetNo {
         id: metnoProvider
     }
@@ -210,6 +213,10 @@ PlasmoidItem {
             dbgprint("setting provider metno")
             return metnoProvider
         }
+        if (providerId === "om") {
+            dbgprint("setting provider OpenMeteo")
+            return omProvider
+        }
     }
     function emptyWeatherModel() {
         return {
@@ -273,6 +280,15 @@ PlasmoidItem {
         let tzData = TZ.TZData[currentPlace.timezoneID]
         currentPlace.timezoneShortName = "LOCAL"
         if (currentPlace.providerId === "metno") {
+            if (TZ.isDST(tzData.DSTData)){
+                currentPlace.timezoneShortName = tzData.DSTName
+                currentPlace.timezoneOffset = parseInt(tzData.DSTOffset)
+            } else {
+                currentPlace.timezoneShortName = tzData.TZName
+                currentPlace.timezoneOffset = parseInt(tzData.Offset)
+            }
+        }
+        if (currentPlace.providerId === "om") {
             if (TZ.isDST(tzData.DSTData)){
                 currentPlace.timezoneShortName = tzData.DSTName
                 currentPlace.timezoneOffset = parseInt(tzData.DSTOffset)

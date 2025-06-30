@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/tully-t/weather-widget-plus\n"
-"POT-Creation-Date: 2025-05-03 16:46-0700\n"
+"POT-Creation-Date: 2025-06-30 00:40-0700\n"
 "PO-Revision-Date: 2022-09-29 17:35+0700\n"
 "Last-Translator: Pavel Ovchinnikov <opavel@internet.ru>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -30,28 +30,19 @@ msgid "Plasmoid showing weather information from Met.no server"
 msgstr "Плазмоид, показывающий информацию о погоде с сервера Met.no"
 
 #: ../../weather.widget.plus/contents/code/data-loader.js
+#, fuzzy
 msgid "%1 min ago"
-msgid_plural "%1 min ago"
-msgstr[0] "%1 минуту назад"
-msgstr[1] "%1 минуты назад"
-msgstr[2] "%1 минут назад"
-msgstr[3] "%1 минуту назад"
+msgstr "%1 минуту назад"
 
 #: ../../weather.widget.plus/contents/code/data-loader.js
+#, fuzzy
 msgid "%1 hrs ago"
-msgid_plural "%1 hrs ago"
-msgstr[0] "%1 час назад"
-msgstr[1] "%1 часа назад"
-msgstr[2] "%1 часов назад"
-msgstr[3] "%1 час назад"
+msgstr "%1 час назад"
 
 #: ../../weather.widget.plus/contents/code/data-loader.js
+#, fuzzy
 msgid "%1 days ago"
-msgid_plural "%1 days ago"
-msgstr[0] "%1 минуту назад"
-msgstr[1] "%1 минуты назад"
-msgstr[2] "%1 минут назад"
-msgstr[3] "%1 минуту назад"
+msgstr "%1 минуту назад"
 
 #: ../../weather.widget.plus/contents/code/data-loader.js
 msgid "long ago"
@@ -103,7 +94,6 @@ msgid "m/s"
 msgstr "м/с"
 
 #: ../../weather.widget.plus/contents/config/config.qml
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
 msgid "Location"
 msgstr "Местоположение"
 
@@ -179,8 +169,9 @@ msgstr "сек"
 msgid ""
 "If the widget is set to \"Show when relevant\" in the system tray, after "
 "this timeout the widget will be hidden in the tray until it reloads"
-msgstr "Если виджет установлен на «Показывать при необходимости» в трее, "
-"то по истечении времени ожидания виджет будет скрыт в трее до перезагрузки"
+msgstr ""
+"Если виджет установлен на «Показывать при необходимости» в трее, то по "
+"истечении времени ожидания виджет будет скрыт в трее до перезагрузки"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
 msgid "Layout type"
@@ -213,8 +204,7 @@ msgstr "Сначала иконка"
 #: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
 msgid ""
 "Widget order is not available in either the system tray or the Compact layout"
-msgstr ""
-"Установка порядка не доступна в трее и для типа макета «Компактно»"
+msgstr "Установка порядка не доступна в трее и для типа макета «Компактно»"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLayout.qml
 msgid "Text first"
@@ -300,8 +290,14 @@ msgid "Plasmoid version"
 msgstr "Версия Plasmoid"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Weather icons created by Erik Flowers"
+msgstr "Иконки погоды созданы Erik Flowers"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
 msgid "Met.no forecast data provided by The Norwegian Meteorological Institute"
-msgstr "Данные о прогнозе погоды на Met.no предоставлены Норвежским метеорологическим институтом"
+msgstr ""
+"Данные о прогнозе погоды на Met.no предоставлены Норвежским "
+"метеорологическим институтом"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
 msgid "Sunrise/sunset data provided by Sunrise - Sunset"
@@ -312,8 +308,8 @@ msgid "OWM forecast data provided by OpenWeather"
 msgstr "Данные о прогнозе погоды на OWM предоставлены OpenWeather"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Weather icons created by Erik Flowers"
-msgstr "Иконки погоды созданы Erik Flowers"
+msgid "OM forecast data provided by Open-Meteo"
+msgstr "Данные о прогнозе погоды на OM предоставлены Open-Meteo"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
 msgid "Change City Name"
@@ -385,36 +381,8 @@ msgid "for Mexico City, Mexico"
 msgstr "для Санкт-Петербурга, Россия"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Location Search"
-msgstr "Поиск местоположения"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Area"
-msgstr "Зона"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Alt"
-msgstr "Высота"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Search data provided by Geonames.org"
-msgstr "Данные для поиска предоставлены Geonames.org"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Country"
-msgstr "Страна"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Filter"
-msgstr "Фильтр"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Confirmation"
-msgstr "Подтверждение"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Do you want to select"
-msgstr "Вы хотите выбрать"
+msgid "Add Open-Meteo Map Location"
+msgstr "Добавить местоположение для Open-Meteo"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "Temperature"
@@ -481,11 +449,41 @@ msgstr "дм"
 
 #: ../../weather.widget.plus/contents/ui/providers/MetNo.qml
 msgid "Forecast data provided by the Norwegian Meteorological Institute"
-msgstr "Данные о прогнозе погоды предоставлены Норвежским метеорологическим институтом"
+msgstr ""
+"Данные о прогнозе погоды предоставлены Норвежским метеорологическим "
+"институтом"
+
+#: ../../weather.widget.plus/contents/ui/providers/OpenMeteo.qml
+msgid "Forecast data provided by Open-Meteo"
+msgstr "Данные о прогнозе погоды предоставлены Open-Meteo"
 
 #: ../../weather.widget.plus/contents/ui/providers/OpenWeatherMap.qml
 msgid "Forecast data provided by OpenWeather"
 msgstr "Данные о прогнозе погоды предоставлены OpenWeather"
+
+#~ msgid "Location Search"
+#~ msgstr "Поиск местоположения"
+
+#~ msgid "Area"
+#~ msgstr "Зона"
+
+#~ msgid "Alt"
+#~ msgstr "Высота"
+
+#~ msgid "Search data provided by Geonames.org"
+#~ msgstr "Данные для поиска предоставлены Geonames.org"
+
+#~ msgid "Country"
+#~ msgstr "Страна"
+
+#~ msgid "Filter"
+#~ msgstr "Фильтр"
+
+#~ msgid "Confirmation"
+#~ msgstr "Подтверждение"
+
+#~ msgid "Do you want to select"
+#~ msgstr "Вы хотите выбрать"
 
 #~ msgid "Weather Widget 2"
 #~ msgstr "Виджет погоды 2"

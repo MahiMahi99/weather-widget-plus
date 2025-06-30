@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/tully-t/weather-widget-plus\n"
-"POT-Creation-Date: 2025-05-03 16:46-0700\n"
+"POT-Creation-Date: 2025-06-30 00:40-0700\n"
 "PO-Revision-Date: 2025-05-02 20:28-0700\n"
 "Last-Translator: Kepa Badiola <badiol@yahoo.es>\n"
 "Language-Team: spanish <LL@li.org>\n"
@@ -87,7 +87,6 @@ msgid "m/s"
 msgstr "m/s"
 
 #: ../../weather.widget.plus/contents/config/config.qml
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
 msgid "Location"
 msgstr "Ubicación"
 
@@ -291,6 +290,10 @@ msgid "Plasmoid version"
 msgstr "Versión del plasmoide"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
+msgid "Weather icons created by Erik Flowers"
+msgstr "Iconos del clima creados por Erik Flowers"
+
+#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
 msgid "Met.no forecast data provided by The Norwegian Meteorological Institute"
 msgstr ""
 "Datos de pronóstico de Met.no provistos por el Instituto Noruego de "
@@ -305,8 +308,8 @@ msgid "OWM forecast data provided by OpenWeather"
 msgstr "Datos de pronóstico de OWM provistos por OpenWeather"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Weather icons created by Erik Flowers"
-msgstr "Iconos del clima creados por Erik Flowers"
+msgid "OM forecast data provided by Open-Meteo"
+msgstr "Datos de pronóstico de OM provistos por Open-Meteo"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
 msgid "Change City Name"
@@ -378,36 +381,8 @@ msgid "for Mexico City, Mexico"
 msgstr "para la Ciudad de México, México"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Location Search"
-msgstr "Búsqueda de Ubicación"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Area"
-msgstr "Área"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Alt"
-msgstr "Alt"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Search data provided by Geonames.org"
-msgstr "Datos de búsqueda proporcionada por Geonames.org"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Country"
-msgstr "País"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Filter"
-msgstr "Filtro"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Confirmation"
-msgstr "Confirmación"
-
-#: ../../weather.widget.plus/contents/ui/config/ConfigLocation.qml
-msgid "Do you want to select"
-msgstr "Desea seleccionar"
+msgid "Add Open-Meteo Map Location"
+msgstr "Añadir Ubicacion del mapa de Met.no"
 
 #: ../../weather.widget.plus/contents/ui/config/ConfigUnits.qml
 msgid "Temperature"
@@ -477,9 +452,37 @@ msgid "Forecast data provided by the Norwegian Meteorological Institute"
 msgstr ""
 "Datos del pronóstico provistos por el Instituto Noruego de Meteorología"
 
+#: ../../weather.widget.plus/contents/ui/providers/OpenMeteo.qml
+msgid "Forecast data provided by Open-Meteo"
+msgstr "Datos del pronóstico provistos por Open-Meteo"
+
 #: ../../weather.widget.plus/contents/ui/providers/OpenWeatherMap.qml
 msgid "Forecast data provided by OpenWeather"
 msgstr "Datos del pronóstico provistos por OpenWeather"
+
+#~ msgid "Location Search"
+#~ msgstr "Búsqueda de Ubicación"
+
+#~ msgid "Area"
+#~ msgstr "Área"
+
+#~ msgid "Alt"
+#~ msgstr "Alt"
+
+#~ msgid "Search data provided by Geonames.org"
+#~ msgstr "Datos de búsqueda proporcionada por Geonames.org"
+
+#~ msgid "Country"
+#~ msgstr "País"
+
+#~ msgid "Filter"
+#~ msgstr "Filtro"
+
+#~ msgid "Confirmation"
+#~ msgstr "Confirmación"
+
+#~ msgid "Do you want to select"
+#~ msgstr "Desea seleccionar"
 
 #~ msgid "e.g. Latitude: 19.42847 Longitude: -99.12766 Altitude: 2240"
 #~ msgstr "ejemplo: Latitud: 19.4287 Longevidad: -99.127.66 Altitud: 2240"

@@ -11,6 +11,7 @@ Item {
 
     property var locale: Qt.locale()
     property string providerId: 'metno'
+    // property string creditLink: 'https://www.met.no/en/About-us'
     property string urlPrefix: 'https://api.met.no/weatherapi/locationforecast/2.0/compact?'
     property string forecastPrefix: 'https://www.yr.no/en/forecast/daily-table/'
 
@@ -21,14 +22,17 @@ Item {
         return i18n("Forecast data provided by the Norwegian Meteorological Institute")
     }
 
-    function extLongLat(placeIdentifier) {
-        dbgprint(placeIdentifier)
-        return placeIdentifier.substr(placeIdentifier.indexOf("lat=" ) + 4,placeIdentifier.indexOf("&lon=")-4) + "," +
-        placeIdentifier.substr(placeIdentifier.indexOf("&lon=") + 5,placeIdentifier.indexOf("&altitude=") - placeIdentifier.indexOf("&lon=") - 5)
-    }
+    // function extLongLat(placeIdentifier) {
+    //     dbgprint(placeIdentifier)
+    //     return placeIdentifier.substr(placeIdentifier.indexOf("lat=" ) + 4,placeIdentifier.indexOf("&lon=")-4) + "," +
+    //     placeIdentifier.substr(placeIdentifier.indexOf("&lon=") + 5,placeIdentifier.indexOf("&altitude=") - placeIdentifier.indexOf("&lon=") - 5)
+    // }
 
     function getCreditLink(placeIdentifier) {
-        return forecastPrefix + extLongLat(placeIdentifier)
+        var weatherURLTest = urlPrefix + placeIdentifier
+        var creditLink = weatherURLTest
+        return creditLink
+        // urlPrefix + extLongLat(placeIdentifier)
     }
 
     function parseDate(dateString) {

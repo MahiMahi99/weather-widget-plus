@@ -4,7 +4,7 @@ import org.kde.plasma.configuration 2.0
 ConfigModel {
     ConfigCategory {
          name: i18n("Location")
-         icon: 'compass'
+         icon: 'gps'
          source: 'config/ConfigLocation.qml'
     }
     ConfigCategory {

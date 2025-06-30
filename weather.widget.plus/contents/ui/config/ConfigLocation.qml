@@ -85,6 +85,7 @@ KCM.SimpleKCM {
     }
     function updatenewMetnoCityOKButton() {
         dbgprint("updatenewMetnoCityOKButton")
+        // buttons.standardButton(Dialog.Ok).enabled = false
         var latValid = newMetnoCityLatitudeField.acceptableInput
         var longValid = newMetnoCityLongitudeField.acceptableInput
         var altValid = newMetnoCityAltitudeField.acceptableInput
@@ -117,6 +118,43 @@ KCM.SimpleKCM {
         }
         newMetnoUrl.text = Url
         updatenewMetnoCityOKButton()
+    }
+
+    function updatenewOmCityOKButton() {
+        dbgprint("updatenewOmCityOKButton")
+        // buttonsOM.standardButton(Dialog.Ok).enabled = false
+        var latValid = newOmCityLatitudeField.acceptableInput
+        var longValid = newOmCityLongitudeField.acceptableInput
+        var altValid = newOmCityAltitudeField.acceptableInput
+        dbgprint(newOmCityAlias.length + "\t" + latValid + "\t" + longValid + "\t" + altValid + "\t" + addOmCityIdDialog.timezoneID )
+        if ((latValid && longValid && altValid) && (newOmCityAlias.length >0) && (addOmCityIdDialog.timezoneID > -1)) {
+            buttonsOM.standardButton(Dialog.Ok).enabled = true
+        } else {
+            buttonsOM.standardButton(Dialog.Ok).enabled = false
+        }
+    }
+    function updateOmUrl() {
+        var Url=""
+        var latValid = newOmCityLatitudeField.acceptableInput
+        var longValid = newOmCityLongitudeField.acceptableInput
+        var altValid = newOmCityAltitudeField.acceptableInput
+        if (latValid) {
+            Url += "latitude=" + (Number.fromLocaleString(newOmCityLatitudeField.text))
+        }
+        if (longValid) {
+            if (Url.length > 0) {
+                Url += "&"
+            }
+            Url += "longitude=" + (Number.fromLocaleString(newOmCityLongitudeField.text))
+        }
+        if (altValid) {
+            if (Url.length > 0) {
+                Url += "&"
+            }
+            Url += "altitude=" + (Number.fromLocaleString(newOmCityAltitudeField.text))
+        }
+        newOmUrl.text = Url
+        updatenewOmCityOKButton()
     }
 
     ListModel {
@@ -201,10 +239,10 @@ KCM.SimpleKCM {
         width: parent.width
         spacing: 0
 
-        Item {
-            width: 2
-            height: 10
-        }
+        // Item {
+        //     width: 2
+        //     height: 10
+        // }
 
             HorizontalHeaderView {
                 id: myhorizontalHeader
@@ -382,9 +420,9 @@ KCM.SimpleKCM {
                                         if (entry.providerId === "metno") {
                                             let url = entry.placeIdentifier
                                             newMetnoUrl.text = url
-                                            var data = url.match(RegExp("([+-]?[0-9]{1,5}[.]?[0-9]{0,5})","g"))
-                                            newMetnoCityLatitudeField.text = Number(data[0]).toLocaleString(Qt.locale(),"f",5)
-                                            newMetnoCityLongitudeField.text = Number(data[1]).toLocaleString(Qt.locale(),"f",5)
+                                            var data = url.match(RegExp("([+-]?[0-9]{1,4}[.]?[0-9]{0,4})","g"))
+                                            newMetnoCityLatitudeField.text = Number(data[0]).toLocaleString(Qt.locale(),"f",4)
+                                            newMetnoCityLongitudeField.text = Number(data[1]).toLocaleString(Qt.locale(),"f",4)
                                             newMetnoCityAltitudeField.text = (data[2] === undefined) ? 0:data[2]
                                             dbgprint("timezone ID=" + entry.timezoneID)
                                             addMetnoCityIdDialog.timezoneID = entry.timezoneID
@@ -397,6 +435,25 @@ KCM.SimpleKCM {
                                             newMetnoCityAlias.text = entry.placeAlias
                                             addMetnoCityIdDialog.placeNumberID = row
                                             addMetnoCityIdDialog.open()
+                                        }
+                                        if (entry.providerId === "om") {
+                                            let url = entry.placeIdentifier
+                                            newOmUrl.text = url
+                                            var data = url.match(RegExp("([+-]?[0-9]{1,4}[.]?[0-9]{0,4})","g"))
+                                            newOmCityLatitudeField.text = Number(data[0]).toLocaleString(Qt.locale(),"f",4)
+                                            newOmCityLongitudeField.text = Number(data[1]).toLocaleString(Qt.locale(),"f",4)
+                                            newOmCityAltitudeField.text = (data[2] === undefined) ? 0:data[2]
+                                            dbgprint("timezone ID=" + entry.timezoneID)
+                                            addOmCityIdDialog.timezoneID = entry.timezoneID
+                                            for (var i = 0; i < timezoneDataModel.count; i++) {
+                                                if (timezoneDataModel.get(i).id == Number(entry.timezoneID)) {
+                                                    tzComboBoxOm.currentIndex = i
+                                                    break
+                                                }
+                                            }
+                                            newOmCityAlias.text = entry.placeAlias
+                                            addOmCityIdDialog.placeNumberID = row
+                                            addOmCityIdDialog.open()
                                         }
                                         if (entry.providerId === "owm") {
                                             newOwmCityIdField.text = "https://openweathermap.org/city/"+entry.placeIdentifier
@@ -418,21 +475,43 @@ KCM.SimpleKCM {
             width: 2
             height: Kirigami.Units.largeSpacing
         }
+
         Row {
             // anchors.top: mytableView.bottom
             // anchors.topMargin: Kirigami.Units.largeSpacing * 2
             Button {
                 icon.name: 'list-add'
-                text: 'OWM'
+                text: 'OM'
                 width: 100
                 onClicked: {
-                    addOwmCityIdDialog.placeNumberID = -1
-                    newOwmCityIdField.text = ''
-                    newOwmCityAlias.text = ''
-                    newOwmCityIdField.focus = true
-                    addOwmCityIdDialog.open()
+                    newOmCityAlias.text = ''
+                    newOmCityLatitudeField.text = ''
+                    newOmCityLongitudeField.text = ''
+                    newOmCityAltitudeField.text = ''
+                    newOmUrl.text = ''
+                    newOmCityLatitudeField.focus = true
+                    addOmCityIdDialog.placeNumberID=-1
+                    addOmCityIdDialog.open()
                 }
             }
+
+        Item {
+            width: Kirigami.Units.largeSpacing
+            height: 2
+        }
+
+        Button {
+            icon.name: 'list-add'
+            text: 'OWM'
+            width: 100
+            onClicked: {
+                addOwmCityIdDialog.placeNumberID = -1
+                newOwmCityIdField.text = ''
+                newOwmCityAlias.text = ''
+                newOwmCityIdField.focus = true
+                addOwmCityIdDialog.open()
+            }
+        }
 
             Item {
                 width: Kirigami.Units.largeSpacing
@@ -499,16 +578,24 @@ KCM.SimpleKCM {
                 text: i18nc("Abbreviation for minutes", "min")
                 leftPadding: 6
             }
+
+        }
+        Item {
+            id: reloadItemNote
+            width: parent.width
+            // anchors.top: reloadItem.bottom
+            Layout.topMargin: 30
             Label {
+                id: reloadIntervalNote
+                // font: Kirigami.Theme.smallFont
                 text: i18n("Middle-click the widget to reload manually")
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left:reloadIntervalAbbreviation.right
-                leftPadding: 18
+                // leftPadding: 18
                 Layout.rowSpan: 3
                 Layout.preferredWidth: 75
                 wrapMode: Text.WordWrap
             }
-
         }
 
         CheckBox {
@@ -528,7 +615,7 @@ KCM.SimpleKCM {
         }
         Label {
             id: versionNumber
-            anchors.bottom: attribution1.top
+            anchors.bottom: attributionIcons.top
             anchors.bottomMargin: 2
             font: Kirigami.Theme.smallFont
             text: i18n("Plasmoid version") + ": " + plasmoid.metaData.version
@@ -548,6 +635,31 @@ KCM.SimpleKCM {
 
                 onExited: {
                     versionNumber.font.underline = false
+                }
+            }
+        }
+        Label {
+            id: attributionIcons
+            anchors.bottom: attribution1.top
+            anchors.bottomMargin: 2
+            font: Kirigami.Theme.smallFont
+            text: i18n("Weather icons created by Erik Flowers")
+            MouseArea {
+                cursorShape: Qt.PointingHandCursor
+                anchors.fill: attributionIcons
+
+                hoverEnabled: true
+
+                onClicked: {
+                    Qt.openUrlExternally('https://erikflowers.github.io/weather-icons/')
+                }
+
+                onEntered: {
+                    attributionIcons.font.underline = true
+                }
+
+                onExited: {
+                    attributionIcons.font.underline = false
                 }
             }
         }
@@ -603,7 +715,7 @@ KCM.SimpleKCM {
         }
         Label {
             id: attribution3
-            anchors.bottom: attribution4.top
+            anchors.bottom: attributionOm.top
             anchors.bottomMargin: 2
             font: Kirigami.Theme.smallFont
             text: i18n("OWM forecast data provided by OpenWeather")
@@ -627,30 +739,31 @@ KCM.SimpleKCM {
             }
         }
         Label {
-            id: attribution4
+            id: attributionOm
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 2
             font: Kirigami.Theme.smallFont
-            text: i18n("Weather icons created by Erik Flowers")
+            text: i18n("OM forecast data provided by Open-Meteo")
             MouseArea {
                 cursorShape: Qt.PointingHandCursor
-                anchors.fill: attribution4
+                anchors.fill: attributionOm
 
                 hoverEnabled: true
 
                 onClicked: {
-                    Qt.openUrlExternally('https://erikflowers.github.io/weather-icons/')
+                    Qt.openUrlExternally('https://open-meteo.com/')
                 }
 
                 onEntered: {
-                    attribution4.font.underline = true
+                    attributionOm.font.underline = true
                 }
 
                 onExited: {
-                    attribution4.font.underline = false
+                    attributionOm.font.underline = false
                 }
             }
         }
+
     }
 
     // changePlaceAliasDialog
@@ -914,6 +1027,7 @@ KCM.SimpleKCM {
                         Layout.alignment: Qt.AlignVCenter
                         horizontalAlignment: Text.AlignRight
                         Layout.preferredWidth: metNoRowLayout.labelWidth
+                        visible: false
                     }
                     TextField {
                         id: newMetnoUrl
@@ -921,13 +1035,14 @@ KCM.SimpleKCM {
                         Layout.columnSpan: 5
                         Layout.fillWidth: true
                         color: newMetnoCityAltitudeLabel.color
+                        visible: false
 
                         function updateFields() {
                             function localiseFloat(data) {
                                 return Number(data).toLocaleString(Qt.locale(),"f",4)
                             }
 
-                            var data = newMetnoUrl.text.match(RegExp("([+-]?[0-9]{1,5}[.]?[0-9]{0,5})","g"))
+                            var data = newMetnoUrl.text.match(RegExp("([+-]?[0-9]{1,4}[.]?[0-9]{0,4})","g"))
                             if (data === undefined)
                                 return
                                 if (data.length === 3) {
@@ -1034,6 +1149,31 @@ KCM.SimpleKCM {
                 font.italic: true
                 text: i18n("for Mexico City, Mexico")
             }
+            // Label {
+            //     id: geonamesLink2
+            //     anchors.top: geonamesInfo3.bottom
+            //     anchors.left: geonamesInfo4.right
+            //     font.italic: true
+            //     text: i18n("Mexico City, Mexico")
+            // }
+            // MouseArea {
+            //     cursorShape: Qt.PointingHandCursor
+            //     anchors.fill: geonamesLink2
+            //
+            //     hoverEnabled: true
+            //
+            //     onClicked: {
+            //         Qt.openUrlExternally('https://www.geonames.org/3530597/mexico-city.html')
+            //     }
+            //
+            //     onEntered: {
+            //         geonamesLink2.font.underline = true
+            //     }
+            //
+            //     onExited: {
+            //         geonamesLink2.font.underline = false
+            //     }
+            // }
 
         }
         onOpened: {
@@ -1067,418 +1207,721 @@ KCM.SimpleKCM {
 
     }
 
-    // searchWindow
+    // addOmCityIdDialog
     Dialog {
-        title: i18n("Location Search")
-        id: searchWindow
-        z: 1
+
+        id: addOmCityIdDialog
+        title: i18n("Add Open-Meteo Map Location")
+
+        property int timezoneID: -1
+        property int placeNumberID: -1
+
         implicitWidth: generalConfigPage.width
         implicitHeight: rhsColumn.height + 20
         background: Rectangle {
             color: Kirigami.Theme.backgroundColor
         }
         footer: DialogButtonBox {
-            id: searchWindowButtons
+            id: buttonsOM
             standardButtons: Dialog.Ok | Dialog.Cancel
         }
 
-        HorizontalHeaderView {
-            id: mysearchhorizontalHeader
-            syncView: searchtableView
-            clip: true
-            model: ListModel {
-                Component.onCompleted: {
-                    append({ display: i18n("Location")  });
-                    append({ display: i18n("Area") });
-                    append({ display: i18n("Latitude") });
-                    append({ display: i18n("Longitude") });
-                    append({ display: i18n("Alt") });
-                    append({ display: i18n("Timezone") });
-                    // append({ display: ("TBA") });
-                }
-            }
-        }
 
-        ScrollView {
-            id: placesTable1
-            width: parent.width
-            clip: true
-            Layout.preferredHeight: 190
-            Layout.preferredWidth: parent.width
-            Layout.maximumHeight: 190
-
-            Layout.columnSpan: 2
-            // anchors.fill: parent
-            anchors.bottom: row2.top
-            anchors.right: parent.right
-            anchors.left: parent.left
-            anchors.top: parent.top
-            // anchors.bottomMargin: 10
-            anchors.topMargin: mysearchhorizontalHeader.height + 2
-
-            TableView {
-                id: searchtableView
-                anchors.fill: parent
-                anchors.bottomMargin: 10 + placesTable1.effectiveScrollBarHeight
-                anchors.rightMargin: 10 + placesTable1.effectiveScrollBarWidth
-                // verticalScrollBarPolicy: Qt.ScrollBarAsNeeded
-                // highlightOnFocus: true
-                property var columnWidths: [30, 15, 15, 12, 12, 30, -1]
-                property int selectedRow: -1
-                columnWidthProvider: function (column) {
-                    let aw = placesTable1.width - placesTable1.effectiveScrollBarWidth
-                    return parseInt(aw * columnWidths[column] / 100 )
-
+        Item {
+            anchors.fill: parent
+            id: omRowLayout
+            // implicitWidth: 550
+            implicitHeight: omRow1.height * 4
+            property int labelWidth: 80
+            property int textboxWidth:( omRowLayout.width - (3* omRowLayout) ) / 3
+            ColumnLayout{
+                id: omColumnLayout
+                spacing: 8
+                RowLayout {
+                    id: omRow1
+                    Layout.preferredWidth: omRowLayout.width
+                    Label {
+                        text: i18n("City Name") + ":"
+                        Layout.alignment: Qt.AlignVCenter
+                    }
+                    TextField {
+                        id: newOmCityAlias
+                        Layout.alignment: Qt.AlignVCenter
+                        // placeholderText: i18n("City Name")
+                        onTextChanged: {
+                            updateOmUrl()
+                        }
+                    }
+                    Item {
+                        // spacer item
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        // Rectangle { anchors.fill: parent; color: "#ffaaaa" } // to visualize the spacer
+                    }
+                    // Button {
+                    //     text: i18n("Search")
+                    //
+                    //     Layout.alignment: Qt.AlignRight
+                    //     onClicked: {
+                    //         addMetnoCityIdDialog.close()
+                    //         searchWindow.open()
+                    //     }
+                    // }
                 }
 
-                model: filteredCSVData
-                clip: true
-                interactive: true
-                rowSpacing: 1
-                columnSpacing: 1
-
-                boundsBehavior: Flickable.StopAtBounds
-                implicitHeight: 200
-                implicitWidth: 600
-                Layout.maximumHeight: 200
-
-
-                selectionBehavior: TableView.SelectRows
-                selectionModel: ItemSelectionModel { }
-
-                delegate: searchtableChooser
-
-                DelegateChooser {
-                    id: searchtableChooser
-                    DelegateChoice {
-                        column: 0
-
-                        delegate: Rectangle {
-                            required property bool selected
-                            required property bool current
-                            border.width: current ? 2 : 0
-                            implicitWidth: searchtableView.width * 0.3
-                            implicitHeight: defaultFontPixelSize + 4
-                                color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
-                            Text {
-                                text: display
-                                color: Kirigami.Theme.textColor
-                                font.family: Kirigami.Theme.defaultFont.family
-                                font.pixelSize: defaultFontPixelSize
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.fill: parent
-                            }
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    searchtableView.selectedRow = row
-                                }
-                                onDoubleClicked: {
-                                    saveSearchedData.rowNumber = row
-                                    saveSearchedData.visible = true
-                                    saveSearchedData.open()
-                                }
-                            }
+                RowLayout {
+                    Layout.fillWidth: true
+                    Label {
+                        id: newOmCityLatitudeLabel
+                        text: i18n("Latitude") + ":"
+                        Layout.preferredWidth: omRowLayout.labelWidth
+                        horizontalAlignment: Text.AlignRight
+                    }
+                    TextField {
+                        id: newOmCityLatitudeField
+                        Layout.preferredWidth: omRowLayout.textboxWidth
+                        Layout.fillWidth: true
+                        validator: DoubleValidator { bottom: -90; top: 90; decimals: 4 }
+                        color: newOmCityAltitudeLabel.color
+                        onTextChanged: {
+                            updateOmUrl()
                         }
                     }
-                    DelegateChoice {
-                        column: 1
-                        delegate: Rectangle {
-                            implicitHeight: defaultFontPixelSize + 4
-                            // implicitWidth: searchtableView.width * 0.1
-                            color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
-                            Text {
-                                text: display
-                                color: Kirigami.Theme.textColor
-                                font.family: Kirigami.Theme.defaultFont.family
-                                font.pixelSize: defaultFontPixelSize
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    searchtableView.selectedRow = row
-                                }
-                                onDoubleClicked: {
-                                    saveSearchedData.rowNumber = row
-                                    saveSearchedData.visible = true
-                                    saveSearchedData.open()
-                                }
-                            }
+
+                    Label {
+                        id: newOmCityLongitudeLabel
+                        horizontalAlignment: Text.AlignRight
+                        Layout.preferredWidth: omRowLayout.labelWidth
+                        text: i18n("Longitude") + ":"
+                    }
+
+                    TextField {
+                        id: newOmCityLongitudeField
+                        validator: DoubleValidator { bottom: -180; top: 180; decimals: 4 }
+                        Layout.fillWidth: true
+                        Layout.preferredWidth:  omRowLayout.textboxWidth
+                        color: newOmCityAltitudeLabel.color
+                        onTextChanged: {
+                            updateOmUrl()
                         }
                     }
-                    DelegateChoice {
-                        column: 2
-                        delegate: Rectangle {
-                            required property bool selected
-                            required property bool current
-                            implicitHeight: defaultFontPixelSize + 4
-                            color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
-                            Text {
-                                text: display
-                                color: Kirigami.Theme.textColor
-                                font.family: Kirigami.Theme.defaultFont.family
-                                font.pixelSize: defaultFontPixelSize
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    searchtableView.selectedRow = row
-                                }
-                                onDoubleClicked: {
-                                    saveSearchedData.rowNumber = row
-                                    saveSearchedData.visible = true
-                                    saveSearchedData.open()
-                                }
-                            }
+                    Label {
+                        id: newOmCityAltitudeLabel
+                        horizontalAlignment: Text.AlignRight
+                        Layout.preferredWidth: omRowLayout.labelWidth
+                        text: i18n("Altitude") + ": "
+                    }
+
+                    TextField {
+                        id: newOmCityAltitudeField
+                        Layout.fillWidth: true
+                        Layout.preferredWidth:  omRowLayout.textboxWidth
+                        validator: IntValidator { bottom: -999; top: 5000 }
+                        color: newOmCityAltitudeLabel.color
+                        onTextChanged: {
+                            updateOmUrl()
                         }
                     }
-                    DelegateChoice {
-                        column: 3
-                        delegate: Rectangle {
-                            implicitHeight: defaultFontPixelSize + 4
-                            color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
-                            Text {
-                                text: display
-                                color: Kirigami.Theme.textColor
-                                font.family: Kirigami.Theme.defaultFont.family
-                                font.pixelSize: defaultFontPixelSize
-                                anchors.verticalCenter: parent.verticalCenter
+                }
+                RowLayout {
+                    Layout.preferredWidth: omRowLayout.width
+                    Label {
+                        text: i18n("URL")+": "
+                        Layout.alignment: Qt.AlignVCenter
+                        horizontalAlignment: Text.AlignRight
+                        Layout.preferredWidth: omRowLayout.labelWidth
+                        visible: false
+                    }
+                    TextField {
+                        id: newOmUrl
+                        placeholderText: ("lat=####&lon=####&altitude=####")
+                        Layout.columnSpan: 5
+                        Layout.fillWidth: true
+                        color: newOmCityAltitudeLabel.color
+                        visible: false
+
+                        function updateFields() {
+                            function localiseFloat(data) {
+                                return Number(data).toLocaleString(Qt.locale(),"f",4)
                             }
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    searchtableView.selectedRow = row
+
+                            var data = newOmUrl.text.match(RegExp("([+-]?[0-9]{1,4}[.]?[0-9]{0,4})","g"))
+                            if (data === undefined)
+                                return
+                                if (data.length === 3) {
+                                    var newlat = localiseFloat(data[0])
+                                    var newlon = localiseFloat(data[1])
+                                    var newalt = Number(data[2])
+                                    if ((! newOmCityLatitudeField.acceptableInput) || (newOmCityLatitudeField.text.length === 0) || (newOmCityLatitudeField.text !== newlat)) {
+                                        newOmCityLatitudeField.text = newlat
+                                    }
+                                    if ((! newOmCityLongitudeField.acceptableInput) || (newOmCityLongitudeField.text.length === 0) || (newOmCityLongitudeField.text !== newlon)) {
+                                        newOmCityLongitudeField.text = newlon
+                                    }
+                                    if ((! newOmCityAltitudeField.acceptableInput) || (newOmCityAltitudeField.text.length === 0)  || (newOmCityAltitudeField.text !== data[2])) {
+                                        //                             if ((newalt >= newOmCityAltitudeField.validator.bottom) && (newalt <= newOmCityAltitudeField.validator.top)) {
+                                        newOmCityAltitudeField.text = data[2]
+                                        //                             }
+                                    }
                                 }
-                                onDoubleClicked: {
-                                    saveSearchedData.rowNumber = row
-                                    saveSearchedData.visible = true
-                                    saveSearchedData.open()
-                                }
-                            }
+                                updatenewOmCityOKButton()
+                        }
+
+                        onTextChanged: {
+                            updateFields()
+                        }
+
+                        onEditingFinished: {
+                            updateFields()
                         }
                     }
-                    DelegateChoice {
-                        column: 4
-                        delegate: Rectangle {
-                            implicitHeight: defaultFontPixelSize + 4
-                            color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
-                            Text {
-                                text: display
-                                color: Kirigami.Theme.textColor
-                                font.family: Kirigami.Theme.defaultFont.family
-                                font.pixelSize: defaultFontPixelSize
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    searchtableView.selectedRow = row
-                                }
-                                onDoubleClicked: {
-                                    saveSearchedData.rowNumber = row
-                                    saveSearchedData.visible = true
-                                    saveSearchedData.open()
-                                }
-                            }
-                        }
+                }
+                RowLayout {
+                    id: tzRowOm
+                    Layout.fillWidth: true
+                    Label {
+                        id: newOmCityTimezoneLabel
+                        text: i18n("Timezone") + ": "
+                        Layout.preferredWidth: omRowLayout.labelWidth
+                        horizontalAlignment: Text.AlignRight
                     }
-                    DelegateChoice {
-                        column: 5
-                        delegate: Rectangle {
-                            height: defaultFontPixelSize + 4
-                            color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
-                            Text {
-                                text: display
-                                color: Kirigami.Theme.textColor
-                                font.family: Kirigami.Theme.defaultFont.family
-                                font.pixelSize: defaultFontPixelSize
-                                anchors.verticalCenter: parent.verticalCenter
+                    ComboBox {
+                        id: tzComboBoxOm
+                        model: timezoneDataModel
+                        currentIndex: -1
+                        textRole: "displayName"
+                        Layout.preferredWidth: (omRowLayout.labelWidth * 3)
+                        onCurrentIndexChanged: {
+                            if (tzComboBoxOm.currentIndex > 0) {
+                                addOmCityIdDialog.timezoneID = timezoneDataModel.get(tzComboBoxOm.currentIndex).id
                             }
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    searchtableView.selectedRow = row
-                                }
-                                onDoubleClicked: {
-                                    saveSearchedData.rowNumber = row
-                                    saveSearchedData.visible = true
-                                    saveSearchedData.open()
-                                }
-                            }
+                            updateOmUrl()
                         }
                     }
                 }
             }
-        }
-        standardButtons: Dialog.Ok | Dialog.Cancel
-        onAccepted: {
-            if (searchtableView.selectedRow > -1) {
-                saveSearchedData.rowNumber = searchtableView.selectedRow
-                saveSearchedData.visible = true
-                saveSearchedData.open()
+            Label {
+                id: geonamesInfoOm
+                anchors.top: omColumnLayout.bottom
+                anchors.topMargin: 10
+                font.italic: true
+                text: i18n("Find your city data by searching here") + ":"
             }
+
+            Label {
+                id: geonamesLinkOm
+                anchors.top: geonamesInfoOm.bottom
+                font.italic: true
+                text: 'https://www.geonames.org/'
+            }
+
+            MouseArea {
+                cursorShape: Qt.PointingHandCursor
+                anchors.fill: geonamesLinkOm
+
+                hoverEnabled: true
+
+                onClicked: {
+                    Qt.openUrlExternally(geonamesLinkOm.text)
+                }
+
+                onEntered: {
+                    geonamesLinkOm.font.underline = true
+                }
+
+                onExited: {
+                    geonamesLinkOm.font.underline = false
+                }
+            }
+
+            Label {
+                id: geonamesInfo2Om
+                anchors.top: geonamesLinkOm.bottom
+                font.italic: true
+                text: i18n("and then paste the appropriate data into the corresponding fields")
+            }
+            Label {
+                id: geonamesInfo3Om
+                anchors.top: geonamesInfo2Om.bottom
+                font.italic: true
+                text: i18n("e.g. Latitude: 19.4284 Longitude: -99.1276 Altitude: 2240")
+            }
+            Label {
+                id: geonamesInfo4Om
+                anchors.top: geonamesInfo3Om.bottom
+                font.italic: true
+                text: i18n("for Mexico City, Mexico")
+            }
+            // Label {
+            //     id: geonamesLinkOm2
+            //     anchors.top: geonamesInfo3Om.bottom
+            //     anchors.left: geonamesInfo4Om.right
+            //     font.italic: true
+            //     text: i18n("Mexico City, Mexico")
+            // }
+            // MouseArea {
+            //     cursorShape: Qt.PointingHandCursor
+            //     anchors.fill: geonamesLinkOm2
+            //
+            //     hoverEnabled: true
+            //
+            //     onClicked: {
+            //         Qt.openUrlExternally('https://www.geonames.org/3530597/mexico-city.html')
+            //     }
+            //
+            //     onEntered: {
+            //         geonamesLinkOm2.font.underline = true
+            //     }
+            //
+            //     onExited: {
+            //         geonamesLinkOm2.font.underline = false
+            //     }
+            // }
+
         }
         onOpened: {
-            let locale = Qt.locale().name.substr(3,2)
-            dbgprint(locale)
-            let userCountry = Helper.getDisplayName(locale)
-            let tmpDB = Helper.getDisplayNames()
-            for (var i=0; i < tmpDB.length - 1 ; i++) {
-                countryCodesModel.append({ id: tmpDB[i] })
-                if (tmpDB[i] === userCountry) {
-                    countryList.currentIndex = i
-                }
-            }
-            dbgprint(Helper.getshortCode(userCountry))
-        }
-        Item {
-            id: row1
-            anchors.bottom: parent.bottom
-            height: 20
-            width: parent.width
-            Label {
-                id:locationDataCredit
-                text: i18n("Search data provided by Geonames.org")
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-        }
-        MouseArea {
-            cursorShape: Qt.PointingHandCursor
-            anchors.fill: row1
-
-            hoverEnabled: true
-
-            onClicked: {
-                Qt.openUrlExternally("https://www.geonames.org/")
-            }
-
-            onEntered: {
-                locationDataCredit.font.underline = true
-            }
-
-            onExited: {
-                locationDataCredit.font.underline = false
-            }
+            updatenewOmCityOKButton()
+            // buttons.standardButton(Dialog.Ok).enabled = false;
         }
 
-        Item {
-            id: row2
-            x: 0
-            y: 0
-            height: 54
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.bottom: row1.top
-            anchors.bottomMargin: 0
-            Label {
-                id: countryLabel
-                text: i18n("Country") + ":"
-                anchors.left: parent.left
-                anchors.leftMargin: 10
-                anchors.verticalCenter: parent.verticalCenter
+        onAccepted: {
+            var resultString = newOmUrl.text
+            if (resultString.length === 0) {
+                resultString="latitude="+newOmCityLatitudeField.text+"&longitude="+newOmCityLongitudeField.text+"&altitude="+newOmCityAltitudeField.text
             }
-
-            ComboBox {
-                id: countryList
-                anchors.left: countryLabel.right
-                anchors.leftMargin: 20
-                anchors.verticalCenterOffset: 0
-                anchors.verticalCenter: parent.verticalCenter
-                model: countryCodesModel
-                width: 200
-                editable: false
-                onCurrentIndexChanged: {
-                    if (countryList.currentIndex > 0) {
-                        // dbgprint("Loading Database: "+countryList.textAt(countryList.currentIndex))
-                        Helper.loadCSVDatabase(countryList.textAt(countryList.currentIndex))
-                        // Helper.loadCSVDatabase("Malta")
-                    }
-                    dbgprint(myCSVData.length)
-                }
-            }
-            Label {
-                id: locationLabel
-                anchors.right: locationEdit.left
-                anchors.rightMargin: 10
-                anchors.verticalCenter: parent.verticalCenter
-                text: i18n("Filter") + ":"
-            }
-            TextField {
-                id: locationEdit
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                verticalAlignment: Text.AlignVCenter
-                width: 160
-                height: 31
-                text: ""
-                focus: true
-                font.capitalization: Font.Capitalize
-                selectByMouse: true
-                clip: false
-                Keys.onReturnPressed: {
-                    event.accepted = true
-                }
-                onTextChanged: {
-                    Helper.updateListView(locationEdit.text)
-                }
-            }
-        }
-    }
-
-
-
-    Loader {
-        id: saveSearchedData
-        property int rowNumber
-        function open() {
-            if (item) {
-                item.open();
+            if (addOmCityIdDialog.placeNumberID === -1) {
+                placesModel.appendRow({
+                    providerId: 'om',
+                    placeIdentifier: resultString,
+                    placeAlias: newOmCityAlias.text,
+                    timezoneID: addOmCityIdDialog.timezoneID
+                })
             } else {
-                active = true;
+                placesModel.setRow(addOmCityIdDialog.placeNumberID,{
+                    providerId: 'om',
+                    placeIdentifier: resultString,
+                    placeAlias: newOmCityAlias.text,
+                    timezoneID: addOmCityIdDialog.timezoneID
+                })
             }
-            item.visible = true;
+            placesModelChanged()
+            close()
         }
 
-        active: false
-
-        sourceComponent: Dialog {
-            title: i18n("Confirmation")
-            z:2
-            standardButtons: Dialog.Yes | Dialog.No
-            visible: true
-            Text {
-                anchors.fill: parent
-                text: i18n("Do you want to select") + " \"" + filteredCSVData.getRow(saveSearchedData.rowNumber).Location + "\" ?"
-
-            }
-            onAccepted: {
-                let data = filteredCSVData.getRow(rowNumber)
-                newMetnoCityLatitudeField.text = data["Latitude"]
-                newMetnoCityLongitudeField.text = data["Longitude"]
-                newMetnoCityAltitudeField.text = data["Altitude"]
-                newMetnoUrl.text="lat="+data["Latitude"]+"&lon="+data["Longitude"]+"&altitude="+data["Altitude"]
-                let loc = data["Location"]+", "+Helper.getshortCode(countryList.textAt(countryList.currentIndex))
-                newMetnoCityAlias.text = loc
-                addMetnoCityIdDialog.timezoneID = data["timezoneId"]
-                for (var i=0; i < timezoneDataModel.count; i++) {
-                    if (timezoneDataModel.get(i).id == Number(data["timezoneId"])) {
-                        tzComboBox.currentIndex = i
-                        break
-                    }
-                }
-                searchWindow.close()
-                addMetnoCityIdDialog.open()
-                updatenewMetnoCityOKButton()
-            }
-            onRejected: {
-                visible = false
-                searchWindow.visible = true
-            }
-        }
     }
+
+    // searchWindow
+    // Dialog {
+    //     title: i18n("Location Search")
+    //     id: searchWindow
+    //     z: 1
+    //     implicitWidth: generalConfigPage.width
+    //     implicitHeight: rhsColumn.height + 20
+    //     background: Rectangle {
+    //         color: Kirigami.Theme.backgroundColor
+    //     }
+    //     footer: DialogButtonBox {
+    //         id: searchWindowButtons
+    //         standardButtons: Dialog.Ok | Dialog.Cancel
+    //     }
+    //
+    //     HorizontalHeaderView {
+    //         id: mysearchhorizontalHeader
+    //         syncView: searchtableView
+    //         clip: true
+    //         model: ListModel {
+    //             Component.onCompleted: {
+    //                 append({ display: i18n("Location")  });
+    //                 append({ display: i18n("Area") });
+    //                 append({ display: i18n("Latitude") });
+    //                 append({ display: i18n("Longitude") });
+    //                 append({ display: i18n("Alt") });
+    //                 append({ display: i18n("Timezone") });
+    //                 // append({ display: ("TBA") });
+    //             }
+    //         }
+    //     }
+    //
+    //     ScrollView {
+    //         id: placesTable1
+    //         width: parent.width
+    //         clip: true
+    //         Layout.preferredHeight: 190
+    //         Layout.preferredWidth: parent.width
+    //         Layout.maximumHeight: 190
+    //
+    //         Layout.columnSpan: 2
+    //         // anchors.fill: parent
+    //         anchors.bottom: row2.top
+    //         anchors.right: parent.right
+    //         anchors.left: parent.left
+    //         anchors.top: parent.top
+    //         // anchors.bottomMargin: 10
+    //         anchors.topMargin: mysearchhorizontalHeader.height + 2
+    //
+    //         TableView {
+    //             id: searchtableView
+    //             anchors.fill: parent
+    //             anchors.bottomMargin: 10 + placesTable1.effectiveScrollBarHeight
+    //             anchors.rightMargin: 10 + placesTable1.effectiveScrollBarWidth
+    //             // verticalScrollBarPolicy: Qt.ScrollBarAsNeeded
+    //             // highlightOnFocus: true
+    //             property var columnWidths: [30, 15, 15, 12, 12, 30, -1]
+    //             property int selectedRow: -1
+    //             columnWidthProvider: function (column) {
+    //                 let aw = placesTable1.width - placesTable1.effectiveScrollBarWidth
+    //                 return parseInt(aw * columnWidths[column] / 100 )
+    //
+    //             }
+    //
+    //             model: filteredCSVData
+    //             clip: true
+    //             interactive: true
+    //             rowSpacing: 1
+    //             columnSpacing: 1
+    //
+    //             boundsBehavior: Flickable.StopAtBounds
+    //             implicitHeight: 200
+    //             implicitWidth: 600
+    //             Layout.maximumHeight: 200
+    //
+    //
+    //             selectionBehavior: TableView.SelectRows
+    //             selectionModel: ItemSelectionModel { }
+    //
+    //             delegate: searchtableChooser
+    //
+    //             DelegateChooser {
+    //                 id: searchtableChooser
+    //                 DelegateChoice {
+    //                     column: 0
+    //
+    //                     delegate: Rectangle {
+    //                         required property bool selected
+    //                         required property bool current
+    //                         border.width: current ? 2 : 0
+    //                         implicitWidth: searchtableView.width * 0.3
+    //                         implicitHeight: defaultFontPixelSize + 4
+    //                             color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
+    //                         Text {
+    //                             text: display
+    //                             color: Kirigami.Theme.textColor
+    //                             font.family: Kirigami.Theme.defaultFont.family
+    //                             font.pixelSize: defaultFontPixelSize
+    //                             anchors.verticalCenter: parent.verticalCenter
+    //                             anchors.fill: parent
+    //                         }
+    //                         MouseArea {
+    //                             anchors.fill: parent
+    //                             onClicked: {
+    //                                 searchtableView.selectedRow = row
+    //                             }
+    //                             onDoubleClicked: {
+    //                                 saveSearchedData.rowNumber = row
+    //                                 saveSearchedData.visible = true
+    //                                 saveSearchedData.open()
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //                 DelegateChoice {
+    //                     column: 1
+    //                     delegate: Rectangle {
+    //                         implicitHeight: defaultFontPixelSize + 4
+    //                         // implicitWidth: searchtableView.width * 0.1
+    //                         color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
+    //                         Text {
+    //                             text: display
+    //                             color: Kirigami.Theme.textColor
+    //                             font.family: Kirigami.Theme.defaultFont.family
+    //                             font.pixelSize: defaultFontPixelSize
+    //                             anchors.verticalCenter: parent.verticalCenter
+    //                         }
+    //                         MouseArea {
+    //                             anchors.fill: parent
+    //                             onClicked: {
+    //                                 searchtableView.selectedRow = row
+    //                             }
+    //                             onDoubleClicked: {
+    //                                 saveSearchedData.rowNumber = row
+    //                                 saveSearchedData.visible = true
+    //                                 saveSearchedData.open()
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //                 DelegateChoice {
+    //                     column: 2
+    //                     delegate: Rectangle {
+    //                         required property bool selected
+    //                         required property bool current
+    //                         implicitHeight: defaultFontPixelSize + 4
+    //                         color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
+    //                         Text {
+    //                             text: display
+    //                             color: Kirigami.Theme.textColor
+    //                             font.family: Kirigami.Theme.defaultFont.family
+    //                             font.pixelSize: defaultFontPixelSize
+    //                             anchors.verticalCenter: parent.verticalCenter
+    //                         }
+    //                         MouseArea {
+    //                             anchors.fill: parent
+    //                             onClicked: {
+    //                                 searchtableView.selectedRow = row
+    //                             }
+    //                             onDoubleClicked: {
+    //                                 saveSearchedData.rowNumber = row
+    //                                 saveSearchedData.visible = true
+    //                                 saveSearchedData.open()
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //                 DelegateChoice {
+    //                     column: 3
+    //                     delegate: Rectangle {
+    //                         implicitHeight: defaultFontPixelSize + 4
+    //                         color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
+    //                         Text {
+    //                             text: display
+    //                             color: Kirigami.Theme.textColor
+    //                             font.family: Kirigami.Theme.defaultFont.family
+    //                             font.pixelSize: defaultFontPixelSize
+    //                             anchors.verticalCenter: parent.verticalCenter
+    //                         }
+    //                         MouseArea {
+    //                             anchors.fill: parent
+    //                             onClicked: {
+    //                                 searchtableView.selectedRow = row
+    //                             }
+    //                             onDoubleClicked: {
+    //                                 saveSearchedData.rowNumber = row
+    //                                 saveSearchedData.visible = true
+    //                                 saveSearchedData.open()
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //                 DelegateChoice {
+    //                     column: 4
+    //                     delegate: Rectangle {
+    //                         implicitHeight: defaultFontPixelSize + 4
+    //                         color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
+    //                         Text {
+    //                             text: display
+    //                             color: Kirigami.Theme.textColor
+    //                             font.family: Kirigami.Theme.defaultFont.family
+    //                             font.pixelSize: defaultFontPixelSize
+    //                             anchors.verticalCenter: parent.verticalCenter
+    //                         }
+    //                         MouseArea {
+    //                             anchors.fill: parent
+    //                             onClicked: {
+    //                                 searchtableView.selectedRow = row
+    //                             }
+    //                             onDoubleClicked: {
+    //                                 saveSearchedData.rowNumber = row
+    //                                 saveSearchedData.visible = true
+    //                                 saveSearchedData.open()
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //                 DelegateChoice {
+    //                     column: 5
+    //                     delegate: Rectangle {
+    //                         height: defaultFontPixelSize + 4
+    //                         color: (row === searchtableView.selectedRow) ? highlightColor : (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
+    //                         Text {
+    //                             text: display
+    //                             color: Kirigami.Theme.textColor
+    //                             font.family: Kirigami.Theme.defaultFont.family
+    //                             font.pixelSize: defaultFontPixelSize
+    //                             anchors.verticalCenter: parent.verticalCenter
+    //                         }
+    //                         MouseArea {
+    //                             anchors.fill: parent
+    //                             onClicked: {
+    //                                 searchtableView.selectedRow = row
+    //                             }
+    //                             onDoubleClicked: {
+    //                                 saveSearchedData.rowNumber = row
+    //                                 saveSearchedData.visible = true
+    //                                 saveSearchedData.open()
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     standardButtons: Dialog.Ok | Dialog.Cancel
+    //     onAccepted: {
+    //         if (searchtableView.selectedRow > -1) {
+    //             saveSearchedData.rowNumber = searchtableView.selectedRow
+    //             saveSearchedData.visible = true
+    //             saveSearchedData.open()
+    //         }
+    //     }
+    //     onOpened: {
+    //         let locale = Qt.locale().name.substr(3,2)
+    //         dbgprint(locale)
+    //         let userCountry = Helper.getDisplayName(locale)
+    //         let tmpDB = Helper.getDisplayNames()
+    //         for (var i=0; i < tmpDB.length - 1 ; i++) {
+    //             countryCodesModel.append({ id: tmpDB[i] })
+    //             if (tmpDB[i] === userCountry) {
+    //                 countryList.currentIndex = i
+    //             }
+    //         }
+    //         dbgprint(Helper.getshortCode(userCountry))
+    //     }
+    //     Item {
+    //         id: row1
+    //         anchors.bottom: parent.bottom
+    //         height: 20
+    //         width: parent.width
+    //         Label {
+    //             id:locationDataCredit
+    //             text: i18n("Search data provided by Geonames.org")
+    //             anchors.horizontalCenter: parent.horizontalCenter
+    //         }
+    //     }
+    //     MouseArea {
+    //         cursorShape: Qt.PointingHandCursor
+    //         anchors.fill: row1
+    //
+    //         hoverEnabled: true
+    //
+    //         onClicked: {
+    //             Qt.openUrlExternally("https://www.geonames.org/")
+    //         }
+    //
+    //         onEntered: {
+    //             locationDataCredit.font.underline = true
+    //         }
+    //
+    //         onExited: {
+    //             locationDataCredit.font.underline = false
+    //         }
+    //     }
+    //
+    //     Item {
+    //         id: row2
+    //         x: 0
+    //         y: 0
+    //         height: 54
+    //         anchors.left: parent.left
+    //         anchors.leftMargin: 0
+    //         anchors.right: parent.right
+    //         anchors.rightMargin: 0
+    //         anchors.bottom: row1.top
+    //         anchors.bottomMargin: 0
+    //         Label {
+    //             id: countryLabel
+    //             text: i18n("Country") + ":"
+    //             anchors.left: parent.left
+    //             anchors.leftMargin: 10
+    //             anchors.verticalCenter: parent.verticalCenter
+    //         }
+    //
+    //         ComboBox {
+    //             id: countryList
+    //             anchors.left: countryLabel.right
+    //             anchors.leftMargin: 20
+    //             anchors.verticalCenterOffset: 0
+    //             anchors.verticalCenter: parent.verticalCenter
+    //             model: countryCodesModel
+    //             width: 200
+    //             editable: false
+    //             onCurrentIndexChanged: {
+    //                 if (countryList.currentIndex > 0) {
+    //                     // dbgprint("Loading Database: "+countryList.textAt(countryList.currentIndex))
+    //                     Helper.loadCSVDatabase(countryList.textAt(countryList.currentIndex))
+    //                     // Helper.loadCSVDatabase("Malta")
+    //                 }
+    //                 dbgprint(myCSVData.length)
+    //             }
+    //         }
+    //         Label {
+    //             id: locationLabel
+    //             anchors.right: locationEdit.left
+    //             anchors.rightMargin: 10
+    //             anchors.verticalCenter: parent.verticalCenter
+    //             text: i18n("Filter") + ":"
+    //         }
+    //         TextField {
+    //             id: locationEdit
+    //             anchors.right: parent.right
+    //             anchors.verticalCenter: parent.verticalCenter
+    //             verticalAlignment: Text.AlignVCenter
+    //             width: 160
+    //             height: 31
+    //             text: ""
+    //             focus: true
+    //             font.capitalization: Font.Capitalize
+    //             selectByMouse: true
+    //             clip: false
+    //             Keys.onReturnPressed: {
+    //                 event.accepted = true
+    //             }
+    //             onTextChanged: {
+    //                 Helper.updateListView(locationEdit.text)
+    //             }
+    //         }
+    //     }
+    // }
+
+
+
+    // Loader {
+    //     id: saveSearchedData
+    //     property int rowNumber
+    //     function open() {
+    //         if (item) {
+    //             item.open();
+    //         } else {
+    //             active = true;
+    //         }
+    //         item.visible = true;
+    //     }
+    //
+    //     active: false
+    //
+    //     sourceComponent: Dialog {
+    //         title: i18n("Confirmation")
+    //         z:2
+    //         standardButtons: Dialog.Yes | Dialog.No
+    //         visible: true
+    //         Text {
+    //             anchors.fill: parent
+    //             text: i18n("Do you want to select") + " \"" + filteredCSVData.getRow(saveSearchedData.rowNumber).Location + "\" ?"
+    //
+    //         }
+    //         onAccepted: {
+    //             let data = filteredCSVData.getRow(rowNumber)
+    //             newMetnoCityLatitudeField.text = data["Latitude"]
+    //             newMetnoCityLongitudeField.text = data["Longitude"]
+    //             newMetnoCityAltitudeField.text = data["Altitude"]
+    //             newMetnoUrl.text="lat="+data["Latitude"]+"&lon="+data["Longitude"]+"&altitude="+data["Altitude"]
+    //             let loc = data["Location"]+", "+Helper.getshortCode(countryList.textAt(countryList.currentIndex))
+    //             newMetnoCityAlias.text = loc
+    //             addMetnoCityIdDialog.timezoneID = data["timezoneId"]
+    //             for (var i=0; i < timezoneDataModel.count; i++) {
+    //                 if (timezoneDataModel.get(i).id == Number(data["timezoneId"])) {
+    //                     tzComboBox.currentIndex = i
+    //                     break
+    //                 }
+    //             }
+    //             searchWindow.close()
+    //             addMetnoCityIdDialog.open()
+    //             updatenewMetnoCityOKButton()
+    //         }
+    //         onRejected: {
+    //             visible = false
+    //             searchWindow.visible = true
+    //         }
+    //     }
+    // }
 
 }

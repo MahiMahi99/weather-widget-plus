@@ -386,10 +386,20 @@ dbgprint2("***************************************************")
         dbgprint("DATETO\t" + obj.to + "\t\t" + dateTo  + "\t\t" +  dateTo.toUTCString())
         dbgprint(dateTo + "\t\t" + new Date(dateTo).getTime()  + "\t\t" + firstFromMs  + "\t\t" + (new Date(dateTo).getTime() - firstFromMs)  + "\t\t" + limitMsDifference )
         // dbgprint("dateFrom = " + dateFrom.toUTCString()  + "\tSunrise = " + sunrise1.toUTCString() + "\tSunset = " + sunset1.toUTCString() + "\t" + (isDaytime ? "isDay" : "isNight"))
-        var prec = obj.precipitationAvg
-        if ((typeof(prec) === "string")  && (prec === "")) {
-            prec = 0
+        if (obj.precipitationAvg !== 0) {
+            var prec = obj.precipitationAvg
+        } else {
+            var prec = 0
         }
+        // if (obj.precipitationProbability !== 0) {
+        //     var prec = obj.precipitationValue
+        // } else {
+        //     var prec = 0
+        // }
+        // var prec = obj.precipitationAvg
+        // if ((typeof(prec) === "string")  && (prec === "")) {
+        //     prec = 0
+        // }
 
         meteogramModel.append({
             from: dateFrom,
