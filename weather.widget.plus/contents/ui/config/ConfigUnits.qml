@@ -95,6 +95,8 @@ KCM.SimpleKCM {
     }
 
     GridLayout {
+        anchors.left: parent.left
+        anchors.right: parent.right
         columns: 3
 
         Label {
@@ -111,6 +113,7 @@ KCM.SimpleKCM {
             text: i18n("Reload widget to see changes")
             Layout.rowSpan: 3
             Layout.preferredWidth: 250
+            Layout.leftMargin: -125
             wrapMode: Text.WordWrap
         }
         Item {

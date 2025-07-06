@@ -95,6 +95,8 @@ KCM.SimpleKCM {
             Layout.fillWidth: true
             currentIndex: 0
             Layout.minimumWidth: Kirigami.Units.gridUnit * 10
+            Layout.maximumWidth: Kirigami.Units.gridUnit * 10
+
             model: fontsModel
             textRole: "text"
 
@@ -300,8 +302,12 @@ KCM.SimpleKCM {
         }
         Label {
             text: i18n("If the widget is set to \"Show when relevant\" in the system tray, after this timeout the widget will be hidden in the tray until it reloads")
-            Layout.rowSpan: 3
-            Layout.preferredWidth: 250
+            // anchors.top:inTrayActiveTimeoutSec.bottom
+            Layout.topMargin: 12
+            Layout.leftMargin: 48
+            Layout.rowSpan: 2 // 3
+            Layout.columnSpan: 3
+            Layout.preferredWidth: 480
             wrapMode: Text.WordWrap
         }
 

@@ -171,10 +171,10 @@ KCM.SimpleKCM {
             display: "providerId"
             // title: "Source"
         }
-        TableModelColumn {
-            display: "placeIdentifier"
-            // title: "Place Identifier"
-        }
+        // TableModelColumn {
+        //     display: "placeIdentifier"
+        //     // title: "Place Identifier"
+        // }
         TableModelColumn {
             display: "placeAlias"
             // title: "City Name"
@@ -259,7 +259,7 @@ KCM.SimpleKCM {
                 model: ListModel {
                     Component.onCompleted: {
                         append({ display: i18n("Source") });
-                        append({ display: i18n("Place Identifier") });
+                        // append({ display: i18n("Place Identifier") });
                         append({ display: i18n("City Name") });
                         append({ display: i18n("Action") });
                         // append({ display: ("TBA") });
@@ -278,7 +278,7 @@ KCM.SimpleKCM {
             TableView {
                 id: mytableView
                 anchors.fill: parent
-                property var columnWidths: [12, 29, 31, 28]
+                property var columnWidths: [14, 59, 27]
                 columnWidthProvider: function (column) {
                     let aw = placesTable.width - placesTable.effectiveScrollBarWidth
                     return parseInt(aw * columnWidths[column] / 100 )
@@ -331,36 +331,37 @@ KCM.SimpleKCM {
                                 color: Kirigami.Theme.textColor
                                 font.family: Kirigami.Theme.defaultFont.family
                                 font.pixelSize: defaultFontPixelSize
+                                // horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
                                 elide: Text.ElideRight
                                 clip: false
                             }
                         }
                     }
+                    // DelegateChoice {
+                    //     column: 2
+                    //     delegate: Rectangle {
+                    //         color: (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
+                    //         Text {
+                    //             anchors.fill: parent
+                    //             anchors.leftMargin: Kirigami.Units.smallSpacing
+                    //             anchors.rightMargin: Kirigami.Units.smallSpacing
+                    //             id: tableLocation
+                    //             text: display
+                    //             color: Kirigami.Theme.textColor
+                    //             font.family: Kirigami.Theme.defaultFont.family
+                    //             font.pixelSize: defaultFontPixelSize
+                    //             verticalAlignment: Text.AlignVCenter
+                    //             elide: Text.ElideRight
+                    //             clip: false
+                    //         }
+                    //     }
+                    // }
                     DelegateChoice {
-                        column: 2
-                        delegate: Rectangle {
-                            color: (row % 2) === 0 ? backgroundColor : alternateBackgroundColor
-                            Text {
-                                anchors.fill: parent
-                                anchors.leftMargin: Kirigami.Units.smallSpacing
-                                anchors.rightMargin: Kirigami.Units.smallSpacing
-                                id: tableLocation
-                                text: display
-                                color: Kirigami.Theme.textColor
-                                font.family: Kirigami.Theme.defaultFont.family
-                                font.pixelSize: defaultFontPixelSize
-                                verticalAlignment: Text.AlignVCenter
-                                elide: Text.ElideRight
-                                clip: false
-                            }
-                        }
-                    }
-                    DelegateChoice {
-                        column: 3
+                        column: 2 // 3
                         id:  myChoice3
                         delegate: GridLayout {
-                            columnSpacing: 1
+                            columnSpacing: 0
                             Text {
                                 id: myrowValue
                                 visible: false
@@ -805,6 +806,8 @@ KCM.SimpleKCM {
         background: Rectangle {
             color: Kirigami.Theme.backgroundColor
         }
+        popupType: Popup.Window
+        modal: true
         footer: DialogButtonBox {
             id: owmButtons
             standardButtons: Dialog.Ok | Dialog.Cancel
@@ -918,6 +921,8 @@ KCM.SimpleKCM {
         background: Rectangle {
             color: Kirigami.Theme.backgroundColor
         }
+        popupType: Popup.Window
+        modal: true
         footer: DialogButtonBox {
             id: buttons
             standardButtons: Dialog.Ok | Dialog.Cancel
@@ -944,6 +949,7 @@ KCM.SimpleKCM {
                     TextField {
                         id: newMetnoCityAlias
                         Layout.alignment: Qt.AlignVCenter
+                        Layout.preferredWidth: (omRowLayout.labelWidth * 3.5)
                         // placeholderText: i18n("City Name")
                         onTextChanged: {
                             updateUrl()
@@ -1078,16 +1084,16 @@ KCM.SimpleKCM {
                     Layout.fillWidth: true
                     Label {
                         id: newMetnoCityTimezoneLabel
-                        text: i18n("Timezone") + ": "
-                        Layout.preferredWidth: metNoRowLayout.labelWidth
-                        horizontalAlignment: Text.AlignRight
+                        text: i18n("Timezone") + ":"
+                        // Layout.preferredWidth: metNoRowLayout.labelWidth
+                        Layout.alignment: Qt.AlignRight
                     }
                     ComboBox {
                         id: tzComboBox
                         model: timezoneDataModel
                         currentIndex: -1
                         textRole: "displayName"
-                        Layout.preferredWidth: (metNoRowLayout.labelWidth * 3)
+                        Layout.preferredWidth: (omRowLayout.labelWidth * 3.5)
                         onCurrentIndexChanged: {
                             if (tzComboBox.currentIndex > 0) {
                                 addMetnoCityIdDialog.timezoneID = timezoneDataModel.get(tzComboBox.currentIndex).id
@@ -1148,6 +1154,13 @@ KCM.SimpleKCM {
                 anchors.top: geonamesInfo3.bottom
                 font.italic: true
                 text: i18n("for Mexico City, Mexico")
+            }
+            Label {
+                id: geonamesInfo5
+                anchors.top: geonamesInfo3.bottom
+                anchors.left: geonamesInfo4.right
+                font.italic: true
+                text: i18n(" (Maximum of 4 decimal places)")
             }
             // Label {
             //     id: geonamesLink2
@@ -1221,6 +1234,8 @@ KCM.SimpleKCM {
         background: Rectangle {
             color: Kirigami.Theme.backgroundColor
         }
+        modal: true
+        popupType: Popup.Window
         footer: DialogButtonBox {
             id: buttonsOM
             standardButtons: Dialog.Ok | Dialog.Cancel
@@ -1248,6 +1263,7 @@ KCM.SimpleKCM {
                         id: newOmCityAlias
                         Layout.alignment: Qt.AlignVCenter
                         // placeholderText: i18n("City Name")
+                        Layout.preferredWidth: (omRowLayout.labelWidth * 3.5)
                         onTextChanged: {
                             updateOmUrl()
                         }
@@ -1378,19 +1394,23 @@ KCM.SimpleKCM {
                 }
                 RowLayout {
                     id: tzRowOm
-                    Layout.fillWidth: true
+                    // Layout.fillWidth: true
+                    Layout.preferredWidth: omRowLayout.width
                     Label {
                         id: newOmCityTimezoneLabel
-                        text: i18n("Timezone") + ": "
-                        Layout.preferredWidth: omRowLayout.labelWidth
-                        horizontalAlignment: Text.AlignRight
+                        text: i18n("Timezone") + ":"
+                        // Layout.preferredWidth: omRowLayout.labelWidth
+                        // horizontalAlignment: Text.AlignRight
+                        // Layout.rightMargin: 2
+                        Layout.alignment: Qt.AlignRight
                     }
                     ComboBox {
                         id: tzComboBoxOm
                         model: timezoneDataModel
                         currentIndex: -1
                         textRole: "displayName"
-                        Layout.preferredWidth: (omRowLayout.labelWidth * 3)
+                        Layout.preferredWidth: (omRowLayout.labelWidth * 3.5)
+                        // Layout.alignment: Qt.AlignVCenter
                         onCurrentIndexChanged: {
                             if (tzComboBoxOm.currentIndex > 0) {
                                 addOmCityIdDialog.timezoneID = timezoneDataModel.get(tzComboBoxOm.currentIndex).id
@@ -1398,7 +1418,28 @@ KCM.SimpleKCM {
                             updateOmUrl()
                         }
                     }
+                    Item {
+                        // spacer item
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        // Rectangle { anchors.fill: parent; color: "#ffaaaa" } // to visualize the spacer
+                    }
                 }
+                // RowLayout {
+                //     id: metNoRow1
+                //     Layout.preferredWidth: metNoRowLayout.width
+                //     Label {
+                //         text: i18n("City Name") + ":"
+                //         Layout.alignment: Qt.AlignVCenter
+                //     }
+                //     TextField {
+                //         id: newMetnoCityAlias
+                //         Layout.alignment: Qt.AlignVCenter
+                //         // placeholderText: i18n("City Name")
+                //         onTextChanged: {
+                //             updateUrl()
+                //         }
+                //     }
             }
             Label {
                 id: geonamesInfoOm
@@ -1451,6 +1492,13 @@ KCM.SimpleKCM {
                 anchors.top: geonamesInfo3Om.bottom
                 font.italic: true
                 text: i18n("for Mexico City, Mexico")
+            }
+            Label {
+                id: geonamesInfo5Om
+                anchors.top: geonamesInfo3Om.bottom
+                anchors.left: geonamesInfo4Om.right
+                font.italic: true
+                text: i18n(" (Maximum of 4 decimal places)")
             }
             // Label {
             //     id: geonamesLinkOm2
