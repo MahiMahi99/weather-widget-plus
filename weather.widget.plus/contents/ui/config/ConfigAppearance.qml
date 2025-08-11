@@ -13,6 +13,8 @@ KCM.SimpleKCM {
     property string cfg_widgetFontSize: plasmoid.configuration.widgetFontSize
     property string cfg_widgetIconSize: plasmoid.configuration.widgetIconSize
 
+    property alias cfg_textVisible: textVisible.checked
+    property alias cfg_iconVisible: iconVisible.checked
     property alias cfg_textDropShadow: textDropShadow.checked
     property alias cfg_iconDropShadow: iconDropShadow.checked
 
@@ -110,7 +112,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 4
+            height: 5
             Layout.columnSpan: 3
         }
 
@@ -143,7 +145,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 10
+            height: 5
             Layout.columnSpan: 3
         }
 
@@ -176,7 +178,28 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 10
+            height: 5
+            Layout.columnSpan: 3
+        }
+
+        // Item {
+            CheckBox {
+                id: textVisible
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+            }
+
+            Label {
+                text: i18n("Text visible")
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                // Layout.leftMargin: 4
+                // anchors.left: textVisible.right
+                // anchors.leftMargin: 4
+            }
+        // }
+
+        Item {
+            width: 2
+            height: 2
             Layout.columnSpan: 3
         }
 
@@ -192,7 +215,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 20
+            height: 10
             Layout.columnSpan: 3
         }
 
@@ -225,7 +248,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 10
+            height: 5
             Layout.columnSpan: 3
         }
 
@@ -258,7 +281,27 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 10
+            height: 5
+            Layout.columnSpan: 3
+        }
+
+        // Item {
+            CheckBox {
+                id: iconVisible
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+            }
+
+            Label {
+                text: i18n("Icon visible")
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                // anchors.left: iconVisible.right
+                // anchors.leftMargin: 4
+            }
+        // }
+
+        Item {
+            width: 2
+            height: 2
             Layout.columnSpan: 3
         }
 
@@ -274,13 +317,13 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 20
+            height: 15
             Layout.columnSpan: 3
         }
 
         Label {
             id: timeoutLabel
-            text: i18n("Active tray timeout") + ":"
+            text: i18n("System tray timeout") + ":" // Active tray timeout
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
             height: inTrayActiveTimeoutSec.height
         }
@@ -300,16 +343,16 @@ KCM.SimpleKCM {
                 anchors.leftMargin: 4
             }
         }
-        Label {
-            text: i18n("If the widget is set to \"Show when relevant\" in the system tray, after this timeout the widget will be hidden in the tray until it reloads")
-            // anchors.top:inTrayActiveTimeoutSec.bottom
-            Layout.topMargin: 12
-            Layout.leftMargin: 48
-            Layout.rowSpan: 2 // 3
-            Layout.columnSpan: 3
-            Layout.preferredWidth: 480
-            wrapMode: Text.WordWrap
-        }
+        // Label {
+        //     text: i18n("If the widget is set to \"Show when relevant\" in the system tray, after this timeout the widget will be hidden in the tray until it reloads")
+        //     // anchors.top:inTrayActiveTimeoutSec.bottom
+        //     Layout.topMargin: 12
+        //     Layout.leftMargin: 48
+        //     Layout.rowSpan: 2 // 3
+        //     Layout.columnSpan: 3
+        //     Layout.preferredWidth: 480
+        //     wrapMode: Text.WordWrap
+        // }
 
     }
 }

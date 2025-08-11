@@ -379,45 +379,45 @@ dbgprint2("***************************************************")
         var obj = xmlModelHourByHour.get(i)
         dateFrom = new Date(convertToLocalTime(xmlModelHourByHour.get(i).from + "Z", offset))
         dateTo = new Date(convertToLocalTime(xmlModelHourByHour.get(i).to + "Z", offset))
-        if (i === 0) {
-            var firstFromMs = dateFrom.getTime()
-        }
+            if (i === 0) {
+                var firstFromMs = dateFrom.getTime()
+            }
         dbgprint("DATEFROM\t" + obj.from + "\t\t" + dateFrom  + "\t\t" +  dateFrom.toUTCString())
         dbgprint("DATETO\t" + obj.to + "\t\t" + dateTo  + "\t\t" +  dateTo.toUTCString())
         dbgprint(dateTo + "\t\t" + new Date(dateTo).getTime()  + "\t\t" + firstFromMs  + "\t\t" + (new Date(dateTo).getTime() - firstFromMs)  + "\t\t" + limitMsDifference )
         // dbgprint("dateFrom = " + dateFrom.toUTCString()  + "\tSunrise = " + sunrise1.toUTCString() + "\tSunset = " + sunset1.toUTCString() + "\t" + (isDaytime ? "isDay" : "isNight"))
-        if (obj.precipitation !== 0) {
-            var prec = obj.precipitation
-        } else {
-            var prec = 0
-        }
-        // if (obj.precipitationProbability !== 0) {
-        //     var prec = obj.precipitationValue
-        // } else {
-        //     var prec = 0
-        // }
-        // var prec = obj.precipitationAvg
-        // if ((typeof(prec) === "string")  && (prec === "")) {
-        //     prec = 0
-        // }
+            if (obj.precipitation !== 0) {
+                var prec = obj.precipitation
+            } else {
+                var prec = 0
+            }
+            // if (obj.precipitationProbability !== 0) {
+            //     var prec = obj.precipitationValue
+            // } else {
+            //     var prec = 0
+            // }
+            // var prec = obj.precipitationAvg
+            // if ((typeof(prec) === "string")  && (prec === "")) {
+            //     prec = 0
+            // }
 
-        meteogramModel.append({
-            from: dateFrom,
-            to: dateTo,
-            isDaytime: isDaytime,
-            temperature: parseFloat(obj.temperature),
-                              precipitationAvg: parseFloat(prec),
-                              precipitationLabel: "",
-                              precipitationMax: parseFloat(prec),
-                              windDirection: parseFloat(obj.windDirection),
-                              windSpeedMps: parseFloat(obj.windSpeedMps),
-                              pressureHpa: parseFloat(obj.pressureHpa),
-                              iconName: obj.iconName
-        })
-        if (new Date(dateTo).getTime() - firstFromMs > limitMsDifference) {
-            dbgprint('breaking')
-            break
-        }
+            meteogramModel.append({
+                from: dateFrom,
+                to: dateTo,
+                isDaytime: isDaytime,
+                temperature: parseFloat(obj.temperature),
+                                precipitationAvg: parseFloat(prec),
+                                precipitationLabel: "",
+                                precipitationMax: parseFloat(prec),
+                                windDirection: parseFloat(obj.windDirection),
+                                windSpeedMps: parseFloat(obj.windSpeedMps),
+                                pressureHpa: parseFloat(obj.pressureHpa),
+                                iconName: obj.iconName
+            })
+            if (new Date(dateTo).getTime() - firstFromMs > limitMsDifference) {
+                dbgprint('breaking')
+                break
+            }
         }
         /*
 

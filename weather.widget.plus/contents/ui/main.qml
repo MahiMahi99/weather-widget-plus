@@ -78,6 +78,9 @@ PlasmoidItem {
     toolTipTextFormat: Text.RichText
 
     // User Preferences
+    property int hourSpanOm: plasmoid.configuration.hourSpanOm
+    property int widgetWidth: plasmoid.configuration.widgetWidth
+    property int widgetHeight: plasmoid.configuration.widgetHeight
     property int layoutType: plasmoid.configuration.layoutType
     property int widgetOrder: plasmoid.configuration.widgetOrder
     property int desktopMode: plasmoid.configuration.desktopMode

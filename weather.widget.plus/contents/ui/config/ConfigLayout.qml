@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts 1.1
 import org.kde.kirigami as Kirigami
 import org.kde.kcmutils as KCM
+// import "../"
 
 KCM.SimpleKCM {
 
@@ -15,8 +16,11 @@ KCM.SimpleKCM {
     property string cfg_topOuterMargin: plasmoid.configuration.topOuterMargin
     property string cfg_bottomOuterMargin: plasmoid.configuration.bottomOuterMargin
 
-    property alias cfg_textVisible: textVisible.checked
-    property alias cfg_iconVisible: iconVisible.checked
+    // property alias cfg_textVisible: textVisible.checked // moved to Appearance
+    // property alias cfg_iconVisible: iconVisible.checked // moved to Appearance
+    property int cfg_hourSpanOm
+    property int cfg_widgetWidth
+    property int cfg_widgetHeight
     property int cfg_widgetOrder
     property int cfg_desktopMode
 
@@ -165,6 +169,45 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
+            height: 5
+            Layout.columnSpan: 3
+        }
+
+        Label {
+            text: i18n("Desktop mode") + ":"
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+        }
+        RadioButton {
+            id: desktopModeIcon
+            ButtonGroup.group: desktopModeGroup
+            text: i18n("Icon")
+            onCheckedChanged: if (checked) cfg_desktopMode = 0;
+        }
+        // Label {
+        //     text: i18n("Desktop meteogram mode is not affected by any other Layout or Appearance options")
+        //     Layout.rowSpan: 3
+        //     Layout.preferredWidth: 250
+        //     wrapMode: Text.WordWrap
+        // }
+        Item {
+            width: 2
+            height: 2
+            Layout.rowSpan: 2
+        }
+        Item {
+            width: 2
+            height: 2
+            Layout.columnSpan: 1
+        }
+        RadioButton {
+            id: desktopModeMeteogram
+            ButtonGroup.group: desktopModeGroup
+            text: i18n("Meteogram")
+            onCheckedChanged: if (checked) cfg_desktopMode = 1;
+        }
+
+        Item {
+            width: 2
             height: 10
             Layout.columnSpan: 3
         }
@@ -195,15 +238,47 @@ KCM.SimpleKCM {
             }
         }
 
+        // Item {
+        //     Label {
+        //         id: widgetWidthLabel
+        //         text: i18n("Widget Width") + ":"
+        //         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+        //     }
+        // }
+
         Item {
-            CheckBox {
-                id: textVisible
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+            // Layout.alignment: Qt.AlignVCenter
+            Label {
+                id: widgetWidthLabel
+                text: i18n("Meteogram width") + ":"
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+            }
+
+            SpinBox {
+                id: widgetWidth
+                Layout.alignment: Qt.AlignVCenter
+                anchors.left: widgetWidthLabel.right
+                anchors.top: widgetWidthLabel.top
+                // anchors.verticalCenter: parent.verticalCenter
+                anchors.topMargin: -8
+                anchors.leftMargin: 4
+                stepSize: 1
+                from: 800
+                value: cfg_widgetWidth
+                to: Screen.desktopAvailableWidth * 0.9
+                onValueChanged: {
+                    cfg_widgetWidth = widgetWidth.value
+                }
+                // Component.onCompleted: {
+                //     // loadingData.failedAttemptCount = 0
+                //     //EndMe.loadDataFromInternet()
+                //     Reload.reload()
+                // }
             }
 
             Label {
-                text: i18n("Text visible")
-                anchors.left: textVisible.right
+                text: i18nc("pixels", "px")
+                anchors.left: widgetWidth.right
                 anchors.leftMargin: 4
             }
         }
@@ -241,17 +316,54 @@ KCM.SimpleKCM {
         }
 
         Item {
-            CheckBox {
-                id: iconVisible
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+            // Layout.alignment: Qt.AlignVCenter
+            Label {
+                id: widgetHeightLabel
+                text: i18n("Meteogram height") + ":"
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+            }
+
+            SpinBox {
+                id: widgetHeight
+                Layout.alignment: Qt.AlignVCenter
+                anchors.left: widgetHeightLabel.right
+                anchors.top: widgetHeightLabel.top
+                // anchors.verticalCenter: parent.verticalCenter
+                anchors.topMargin: -8
+                anchors.leftMargin: 4
+                stepSize: 1
+                from: 320
+                value: cfg_widgetHeight
+                to: Screen.desktopAvailableHeight * 0.75
+                onValueChanged: {
+                    cfg_widgetHeight = widgetHeight.value
+                }
+                // Component.onCompleted: {
+                //     // loadingData.failedAttemptCount = 0
+                //     //EndMe.loadDataFromInternet()
+                //     Reload.reload()
+                // }
             }
 
             Label {
-                text: i18n("Icon visible")
-                anchors.left: iconVisible.right
+                text: i18nc("pixels", "px")
+                anchors.left: widgetHeight.right
                 anchors.leftMargin: 4
             }
         }
+
+        // Item {
+        //     CheckBox {
+        //         id: iconVisible
+        //         Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+        //     }
+        //
+        //     Label {
+        //         text: i18n("Icon visible")
+        //         anchors.left: iconVisible.right
+        //         anchors.leftMargin: 4
+        //     }
+        // }
 
         Item {
             width: 2
@@ -284,6 +396,50 @@ KCM.SimpleKCM {
                 text: i18nc("pixels", "px")
             }
         }
+
+        Item {
+            // Layout.alignment: Qt.AlignVCenter
+            Label {
+                id: hourSpanOmLabel
+                text: i18n("OM forecast length") + ":"
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+            }
+
+            SpinBox {
+                id: hourSpanOm
+                Layout.alignment: Qt.AlignVCenter
+                anchors.left: hourSpanOmLabel.right
+                anchors.top: hourSpanOmLabel.top
+                // anchors.verticalCenter: parent.verticalCenter
+                anchors.topMargin: -8
+                anchors.leftMargin: 4
+                stepSize: 1
+                from: 24
+                value: cfg_hourSpanOm
+                to: 144
+                onValueChanged: {
+                    cfg_hourSpanOm = hourSpanOm.value
+                }
+                // Component.onCompleted: {
+                //     // loadingData.failedAttemptCount = 0
+                //     // main.loadDataFromInternet()
+                //     Reload.reload()
+                // }
+            }
+
+            Label {
+                text: i18nc("hours", "hrs")
+                anchors.left: hourSpanOm.right
+                anchors.leftMargin: 4
+            }
+        }
+
+        // Label {
+        //     id: reloadWidgetLabel
+        //     text: i18n("Reload widget to see changes")
+        //     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+        //     Layout.topMargin: 5
+        // }
 
         Item {
             width: 2
@@ -353,44 +509,11 @@ KCM.SimpleKCM {
             }
         }
 
-        Item {
-            width: 2
-            height: 20
-            Layout.columnSpan: 3
-        }
-
-        Label {
-            text: i18n("Desktop mode") + ":"
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-        }
-        RadioButton {
-            id: desktopModeIcon
-            ButtonGroup.group: desktopModeGroup
-            text: i18n("Icon")
-            onCheckedChanged: if (checked) cfg_desktopMode = 0;
-        }
-        Label {
-            text: i18n("Desktop meteogram mode is not affected by any other Layout or Appearance options")
-            Layout.rowSpan: 3
-            Layout.preferredWidth: 250
-            wrapMode: Text.WordWrap
-        }
-        Item {
-            width: 2
-            height: 2
-            Layout.rowSpan: 2
-        }
-        Item {
-            width: 2
-            height: 2
-            Layout.columnSpan: 1
-        }
-        RadioButton {
-            id: desktopModeMeteogram
-            ButtonGroup.group: desktopModeGroup
-            text: i18n("Meteogram")
-            onCheckedChanged: if (checked) cfg_desktopMode = 1;
-        }
+        // Item {
+        //     width: 2
+        //     height: 20
+        //     Layout.columnSpan: 3
+        // }
 
     }
 }

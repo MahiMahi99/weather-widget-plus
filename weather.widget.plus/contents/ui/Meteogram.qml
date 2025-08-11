@@ -29,8 +29,11 @@ Item {
     width: imageWidth
     height: imageHeight + labelHeight// Day Label + Time Label
 
-    property int imageWidth: 800 - (labelWidth * 2)
-    property int imageHeight: 320  - labelHeight - cloudarea - windarea
+    property int widgetWidth: main.widgetWidth
+    property int widgetHeight: main.widgetHeight
+    property int hourSpanOm: main.hourSpanOm
+    property int imageWidth: widgetWidth - (labelWidth * 2) // 800 950
+    property int imageHeight: widgetHeight  - (labelHeight * 1.75) - cloudarea - windarea
     property int labelWidth: textMetrics.width
     property int labelHeight: textMetrics.height
 
@@ -67,11 +70,58 @@ Item {
 
     property double sampleWidth: imageWidth / (meteogramModel.count - 1)
 
+    property int temperatureType: main.temperatureType
+    property int timezoneType: main.timezoneType
+    property int pressureType: main.pressureType
+    property int windSpeedType: main.windSpeedType
+
     onMeteogramModelChangedChanged: {
         dbgprint2('METEOGRAM changed')
         buildMetogramData()
         processMeteogramData()
         buildCurves()
+    }
+
+    onWidgetWidthChanged: {
+        dbgprint2('WIDTH changed')
+        loadingData.failedAttemptCount = 0
+        main.loadDataFromInternet()
+    }
+
+    onWidgetHeightChanged: {
+        dbgprint2('WIDTH changed')
+        loadingData.failedAttemptCount = 0
+        main.loadDataFromInternet()
+    }
+
+    onHourSpanOmChanged: {
+        dbgprint2('Hour Span changed')
+        loadingData.failedAttemptCount = 0
+        main.loadDataFromInternet()
+    }
+
+    onTemperatureTypeChanged: {
+        dbgprint2('TemperatureType changed')
+        loadingData.failedAttemptCount = 0
+        main.loadDataFromInternet()
+    }
+
+    onTimezoneTypeChanged: {
+        dbgprint2('TimezoneType changed')
+        loadingData.failedAttemptCount = 0
+        main.loadDataFromInternet()
+    }
+
+    onPressureTypeChanged: {
+        dbgprint2('PressureType changed')
+        loadingData.failedAttemptCount = 0
+        main.loadDataFromInternet()
+    }
+
+    onWindSpeedTypeChanged: {
+        dbgprint2('PressureType changed')
+        loadingData.failedAttemptCount = 0
+        main.loadDataFromInternet()
     }
 
 
@@ -80,6 +130,9 @@ Item {
     }
     ListModel {
         id: hourGridModel
+    }
+    ListModel {
+        id: bufferGridModel
     }
     ListModel {
         id: actualWeatherModel
@@ -100,6 +153,20 @@ Item {
         width: imageWidth + (labelWidth * 2)
         height: imageHeight + (labelHeight) + cloudarea + windarea
     }
+
+    Rectangle {
+        id: bufferArea
+        width: imageWidth
+        height: imageHeight + 54 //54
+        anchors.top: meteogram.top
+        anchors.left: meteogram.left
+        anchors.leftMargin: labelWidth
+        anchors.rightMargin: labelWidth
+        anchors.topMargin: labelHeight  + cloudarea
+        border.color:gridColor
+        color: "transparent"
+    }
+
     Rectangle {
         id: graphArea
         width: imageWidth
@@ -108,7 +175,7 @@ Item {
         anchors.left: meteogram.left
         anchors.leftMargin: labelWidth
         anchors.rightMargin: labelWidth
-        anchors.topMargin: labelHeight  + cloudarea
+        anchors.topMargin: labelHeight  + cloudarea + 27
         border.color:gridColor
         color: "transparent"
     }
@@ -160,21 +227,21 @@ Item {
         text: UnitUtils.getPressureEnding(pressureType)
         height: labelHeight
         width: labelWidth
-        horizontalAlignment: (UnitUtils.getPressureEnding(pressureType).length > 4) ? Text.AlignRight : Text.AlignLeft
+        horizontalAlignment: Text.AlignLeft //(UnitUtils.getPressureEnding(pressureType).length > 4) ? Text.AlignRight : Text.AlignLeft
         anchors.right: (graphArea.right)
-        anchors.rightMargin: -labelWidth
+        anchors.rightMargin: -labelWidth * 1.1 //textMetrics.width
         font.pixelSize: 11
         font.pointSize: -1
         color: pressureColor
-        anchors.bottom: graphArea.top
-        anchors.bottomMargin: 6
+        anchors.bottom: bufferArea.top //graphArea.top
+        anchors.bottomMargin: -labelHeight //6
     }
 
     ListView {
         id: hourGrid
         model: hourGridModel
         property double hourItemWidth: hourGridModel.count === 0 ? 0 : imageWidth / (hourGridModel.count - 1)
-        anchors.fill: graphArea
+        anchors.fill: bufferArea
         interactive: false
         orientation: ListView.Horizontal
         delegate: Item {
@@ -200,7 +267,7 @@ Item {
             Rectangle {
                 id: verticalLine
                 width: dayBegins ? 2 : 1
-                height: imageHeight
+                height: bufferArea.height //imageHeight
                 color: dayBegins ? gridColorHighlight : gridColor
                 visible: hourVisible
                 anchors.leftMargin: labelWidth
@@ -219,8 +286,9 @@ Item {
                 anchors.topMargin: 2
 //                anchors.horizontalCenter: verticalLine.left
                 anchors.horizontalCenter: verticalLine.horizontalCenter
-                font.pixelSize: 11
+                font.pixelSize: 10 //11
                 font.pointSize: -1
+                // font.family: "Neuropol X Cd Sb"
                 visible: textVisible
             }
 
@@ -230,7 +298,7 @@ Item {
                 horizontalAlignment: Text.AlignLeft
                 anchors.top: hourText.top
                 anchors.left: hourText.right
-                font.pixelSize: 5
+                font.pixelSize: 6 //5
                 font.pointSize: -1
                 visible: textVisible
             }
@@ -280,7 +348,8 @@ Item {
                     height: 16
                     fillMode: Image.PreserveAspectFit
                     visible: (index % 2 == 1) && (index < hourGridModel.count-1)
-                    anchors.leftMargin: -8
+                    anchors.leftMargin: -9 //-8
+                    anchors.topMargin: 1
                     anchors.left: parent.left
                     //                    visible: ((windDirection > 0) || (windSpeedMps > 0)) && (! textVisible) && (index > 0) && (index < hourGridModel.count-1)
                 }
@@ -363,7 +432,7 @@ Item {
                 font.pointSize: -1
                 width: parent.width
                 anchors.top: parent.top
-                anchors.topMargin: (temperatureYGridCount - (temperature + temperatureIncrementDegrees)) * temperatureIncrementPixels - font.pixelSize * 2.5
+                anchors.topMargin: (temperatureYGridCount - (temperature + temperatureIncrementDegrees)) * temperatureIncrementPixels - font.pixelSize * 2.5 + 32
                 anchors.left: verticalLine.left
                 anchors.leftMargin: -8
                 z: 999
@@ -379,8 +448,12 @@ Item {
     Item {
         z: 1
         id: canvases
-        anchors.fill: graphArea
-        anchors.topMargin: 0
+        anchors.fill: graphArea // graphArea
+        // anchors.topMargin: 0
+        // anchors.fill: bufferArea
+        // anchors.topMargin: 32
+        // anchors.bottomMargin: 32
+        clip: false
         Canvas {
             id: meteogramCanvasPressure
             anchors.fill: parent
@@ -407,9 +480,11 @@ Item {
 
         Canvas {
             id: meteogramCanvasWarmTemp
-            anchors.top: imageWidth.top
+            anchors.fill: bufferArea
+            anchors.top: -parent.anchors.topMargin //parent.top
+            clip: false
             width: parent.width
-            height: parent.height - temperatureIncrementPixels * (temperatureIncrementDegrees - 1) + 0
+            height: bufferArea.height - temperatureIncrementPixels * (temperatureIncrementDegrees - 1) + 0
 
             onWidthChanged: {
 

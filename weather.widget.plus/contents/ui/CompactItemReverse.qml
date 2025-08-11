@@ -145,11 +145,11 @@ GridLayout {
 
         Layout.rightMargin: iconAndText.vertical ? (layoutType === 1 ? rightOuterMargin + 2 : layoutType === 2 ? rightOuterMargin + 3 : rightOuterMargin + 2) : layoutType === 0 ? rightOuterMargin + 1 : layoutType === 2 ? rightOuterMargin + 1 : rightOuterMargin + 1
 
-        Layout.bottomMargin: layoutType === 1 ? (iconAndText.vertical ? bottomOuterMargin + 1 : bottomOuterMargin - 1) : iconAndText.vertical ? (layoutType === 0 ? bottomOuterMargin : bottomOuterMargin) : layoutType === 0 ? (iconAndText.height < 22 ? bottomOuterMargin + 2 : bottomOuterMargin - 1) :  iconAndText.height < 22 ? bottomOuterMargin + 1 : bottomOuterMargin + 1
+        Layout.bottomMargin: layoutType === 1 ? (iconAndText.vertical ? bottomOuterMargin + 1 : bottomOuterMargin - 1) : iconAndText.vertical ? (layoutType === 0 ? bottomOuterMargin : bottomOuterMargin) : layoutType === 0 ? (iconAndText.height < 22 ? bottomOuterMargin + 0 : bottomOuterMargin - 0) :  iconAndText.height < 22 ? bottomOuterMargin + 1 : bottomOuterMargin + 1
 
         Layout.leftMargin: layoutType === 1 ? (iconAndText.vertical ? leftOuterMargin + 3 : leftOuterMargin) :  undefined
         //Layout.topMargin: !(layoutType === 1) ? topOuterMargin : undefined
-        Layout.topMargin: iconAndText.vertical && layoutType === 0 ? topOuterMargin : layoutType === 0 ? topOuterMargin : layoutType === 2 ? topOuterMargin : undefined
+        Layout.topMargin: iconAndText.vertical && layoutType === 0 ? topOuterMargin : iconAndText.height < 22 && layoutType === 0 ? topOuterMargin + 1 : layoutType === 0 ? topOuterMargin : layoutType === 2 ? topOuterMargin : undefined
 
         PlasmaComponents.Label {
             id: compactWeatherIcon

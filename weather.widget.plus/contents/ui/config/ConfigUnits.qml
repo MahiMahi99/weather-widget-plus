@@ -109,12 +109,22 @@ KCM.SimpleKCM {
             text: i18n("°C")
             onCheckedChanged: if (checked) cfg_temperatureType = 0
         }
-        Label {
-            text: i18n("Reload widget to see changes")
-            Layout.rowSpan: 3
-            Layout.preferredWidth: 250
-            Layout.leftMargin: -125
-            wrapMode: Text.WordWrap
+        // Label {
+        //     text: i18n("Reload widget to see changes")
+        //     Layout.rowSpan: 3
+        //     Layout.preferredWidth: 250
+        //     Layout.leftMargin: -125
+        //     wrapMode: Text.WordWrap
+        // }
+        // Item {
+        //     Layout.rowSpan: 3
+        //     Layout.preferredWidth: 250
+        //     Layout.leftMargin: -125
+        // }
+        Item {
+            width: 2
+            height: 2
+            Layout.columnSpan: 1
         }
         Item {
             width: 2
@@ -126,6 +136,11 @@ KCM.SimpleKCM {
             ButtonGroup.group: temperatureTypeGroup
             text: i18n("°F")
             onCheckedChanged: if (checked) cfg_temperatureType = 1
+        }
+        Item {
+            width: 2
+            height: 2
+            Layout.columnSpan: 1
         }
         Item {
             width: 2

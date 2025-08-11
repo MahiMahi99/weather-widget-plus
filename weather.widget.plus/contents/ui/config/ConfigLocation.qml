@@ -591,7 +591,7 @@ KCM.SimpleKCM {
                 // font: Kirigami.Theme.smallFont
                 text: i18n("Middle-click the widget to reload manually")
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.left:reloadIntervalAbbreviation.right
+                // anchors.left:reloadItem.right
                 // leftPadding: 18
                 Layout.rowSpan: 3
                 Layout.preferredWidth: 75
@@ -797,7 +797,7 @@ KCM.SimpleKCM {
     // addOwmCityIdDialog
     Dialog {
         id: addOwmCityIdDialog
-        title: i18n("Add Open Weather Map Location")
+        title: i18n("Add OpenWeather Map Location")
         property int placeNumberID: -1
         //width: 500
         //height: newOwmCityIdField.height * 9
@@ -806,8 +806,13 @@ KCM.SimpleKCM {
         background: Rectangle {
             color: Kirigami.Theme.backgroundColor
         }
-        popupType: Popup.Window
+        popupType: Dialog.Window
         modal: true
+        header: Label { // Kirigami.Heading
+            // text: i18n("Add OpenWeather Map Location")
+            // leftPadding: Kirigami.Units.gridUnit
+            // topPadding: Kirigami.Units.gridUnit
+        }
         footer: DialogButtonBox {
             id: owmButtons
             standardButtons: Dialog.Ok | Dialog.Cancel
@@ -921,8 +926,13 @@ KCM.SimpleKCM {
         background: Rectangle {
             color: Kirigami.Theme.backgroundColor
         }
-        popupType: Popup.Window
+        popupType: Dialog.Window
         modal: true
+        header: Label { // Kirigami.Heading
+            // text: i18n("Add Met.no Map Location")
+            // leftPadding: Kirigami.Units.gridUnit
+            // topPadding: Kirigami.Units.gridUnit
+        }
         footer: DialogButtonBox {
             id: buttons
             standardButtons: Dialog.Ok | Dialog.Cancel
@@ -1235,7 +1245,12 @@ KCM.SimpleKCM {
             color: Kirigami.Theme.backgroundColor
         }
         modal: true
-        popupType: Popup.Window
+        popupType: Dialog.Window
+        header: Label { // Kirigami.Heading
+            // text: i18n("Add Open-Meteo Map Location")
+            // leftPadding: Kirigami.Units.gridUnit
+            // topPadding: Kirigami.Units.gridUnit
+        }
         footer: DialogButtonBox {
             id: buttonsOM
             standardButtons: Dialog.Ok | Dialog.Cancel

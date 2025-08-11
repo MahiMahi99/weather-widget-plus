@@ -24,8 +24,8 @@ import QtQuick.Layouts
 Item {
     id: fullRepresentation
 
-    property int imageWidth: 800
-    property int imageHeight: 320 + defaultFontPixelSize
+    property int imageWidth: widgetWidth // 800 950
+    property int imageHeight: widgetHeight // + defaultFontPixelSize // 320
 
     property double defaultFontPixelSize: Kirigami.Theme.defaultFont.pixelSize
     property double footerHeight: defaultFontPixelSize
@@ -43,9 +43,9 @@ Item {
     implicitHeight: headingHeight + imageHeight + footerHeight + nextDaysHeight + 14
 
     Layout.minimumWidth: imageWidth
-    Layout.minimumHeight: headingHeight + imageHeight + footerHeight + nextDaysHeight + 14
+    Layout.minimumHeight: headingHeight + imageHeight + footerHeight + nextDaysHeight + 14 + 69 //36
     Layout.preferredWidth: imageWidth
-    Layout.preferredHeight: headingHeight + imageHeight + footerHeight + nextDaysHeight + 14
+    Layout.preferredHeight: headingHeight + imageHeight + footerHeight + nextDaysHeight + 14 + 69 //36
 
     onFullRepresentationAliasChanged: {
 

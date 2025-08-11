@@ -4,11 +4,11 @@ import "../../code/data-loader.js" as DataLoader
 import "../../code/unit-utils.js" as UnitUtils
 
 Item {
-    id: metno
+    id: openMeteo
 
 
 
-
+    property int hourSpanOm: main.hourSpanOm
     property var locale: Qt.locale()
     property string providerId: 'om'
     // property string creditLink: 'https://open-meteo.com/'
@@ -17,6 +17,12 @@ Item {
 
     property bool weatherDataFlag: false
     property bool sunRiseSetFlag: false
+
+    // onHourSpanOmChanged: {
+    //     dbgprint2('Hour Span changed')
+    //     loadingData.failedAttemptCount = 0
+    //     main.loadDataFromInternet()
+    // }
 
     function getCreditLabel(placeIdentifier) {
         return i18n("Forecast data provided by Open-Meteo")
@@ -313,25 +319,25 @@ Item {
             var sunset1 = UnitUtils.convertDate(currentWeatherModel.sunSet,2,currentPlace.timezoneOffset)
             dbgprint("Sunrise \t(GMT)" + new Date(currentWeatherModel.sunRise).toTimeString() + "\t(LOCAL)" + sunrise1.toTimeString())
             dbgprint("Sunset \t(GMT)" + new Date(currentWeatherModel.sunSet).toTimeString() + "\t(LOCAL)" + sunset1.toTimeString())
-            var isDaytime = (dateFrom > sunrise1) && (dateFrom < sunset1) ? true : false
-            let localtimestamp = UnitUtils.convertDate(dateFrom, 2 , currentPlace.timezoneOffset)
-            if (localtimestamp >= sunrise1) {
-                if (localtimestamp < sunset1) {
-                    isDaytime = true
-                } else {
-                    sunrise1.setDate(sunrise1.getDate() + 1)
-                    sunset1.setDate(sunset1.getDate() + 1)
-                    isDaytime = false
-                }
-            }
+            // var isDaytime = (dateFrom > sunrise1) && (dateFrom < sunset1) ? true : false
+            // let localtimestamp = UnitUtils.convertDate(dateFrom, 2 , currentPlace.timezoneOffset)
+            // if (localtimestamp >= sunrise1) {
+            //     if (localtimestamp < sunset1) {
+            //         isDaytime = true
+            //     } else {
+            //         sunrise1.setDate(sunrise1.getDate() + 1)
+            //         sunset1.setDate(sunset1.getDate() + 1)
+            //         isDaytime = false
+            //     }
+            // }
 
-            var i = 1 // Math.abs(currentPlace.timezoneOffset / 3600) //6  0  1
+            var i = Math.abs(currentPlace.timezoneOffset / 3600) //6  0  1
 
             var precipitation_unit = readingsArray.hourly_units["precipitation"]
             var counter = 0
             // (1 + (Math.abs(offset / 3600)))
             // dbgprint2("hourly time:" + readingsArray.hourly.time[i] + ":00Z")
-            while ((Math.abs(currentPlace.timezoneOffset / 3600)) < i, i < 65) { // readingsArray.hourly.time[i] / 72 / 65
+            while ((Math.abs(currentPlace.timezoneOffset / 3600)) < i, i < main.hourSpanOm + 1) { // readingsArray.hourly.time[i] / 72 / 65
                 var obj = readingsArray.hourly
                 var dateTo = parseISOString(obj.time[i] + ":00Z")
                 var isDaytime = (dateTo > sunrise1) && (dateTo < sunset1) ? true : false
