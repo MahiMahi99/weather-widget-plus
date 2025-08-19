@@ -4,7 +4,7 @@ import org.kde.plasma.configuration 2.0
 ConfigModel {
     ConfigCategory {
          name: i18n("Location")
-         icon: 'gps'
+         icon: 'preferences-desktop-navigation'
          source: 'config/ConfigLocation.qml'
     }
     ConfigCategory {
@@ -16,6 +16,11 @@ ConfigModel {
         name: i18n("Layout")
         icon: 'preferences-desktop-theme'
         source: 'config/ConfigLayout.qml'
+    }
+    ConfigCategory {
+        name: i18n("Meteogram")
+        icon: 'preferences-system'
+        source: 'config/ConfigMeteogram.qml'
     }
     ConfigCategory {
          name: i18n("Units")

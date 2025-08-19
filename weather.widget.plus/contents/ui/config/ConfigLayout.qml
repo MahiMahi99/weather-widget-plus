@@ -9,6 +9,7 @@ KCM.SimpleKCM {
 
     id: appearancePage
     property int cfg_layoutType
+    property int cfg_widgetOrder
 
     property string cfg_leftOuterMargin: plasmoid.configuration.leftOuterMargin
     property string cfg_innerMargin: plasmoid.configuration.innerMargin
@@ -18,11 +19,10 @@ KCM.SimpleKCM {
 
     // property alias cfg_textVisible: textVisible.checked // moved to Appearance
     // property alias cfg_iconVisible: iconVisible.checked // moved to Appearance
-    property int cfg_hourSpanOm
-    property int cfg_widgetWidth
-    property int cfg_widgetHeight
-    property int cfg_widgetOrder
-    property int cfg_desktopMode
+    // property int cfg_hourSpanOm // moved to Meteogram
+    // property int cfg_widgetWidth // moved to Meteogram
+    // property int cfg_widgetHeight // moved to Meteogram
+    // property int cfg_desktopMode // moved to Meteogram
 
 
 
@@ -69,25 +69,25 @@ KCM.SimpleKCM {
         }
     }
 
-    onCfg_desktopModeChanged: {
-        switch (cfg_desktopMode) {
-            case 0:
-                desktopModeGroup.checkedButton = desktopModeIcon;
-                break;
-            case 1:
-                desktopModeGroup.checkedButton = desktopModeMeteogram;
-                break;
-            default:
-        }
-    }
-
-    ButtonGroup {
-        id: desktopModeGroup
-
-        Component.onCompleted: {
-            cfg_desktopModeChanged()
-        }
-    }
+    // onCfg_desktopModeChanged: {
+    //     switch (cfg_desktopMode) {
+    //         case 0:
+    //             desktopModeGroup.checkedButton = desktopModeIcon;
+    //             break;
+    //         case 1:
+    //             desktopModeGroup.checkedButton = desktopModeMeteogram;
+    //             break;
+    //         default:
+    //     }
+    // }
+    //
+    // ButtonGroup {
+    //     id: desktopModeGroup
+    //
+    //     Component.onCompleted: {
+    //         cfg_desktopModeChanged()
+    //     }
+    // }
 
     GridLayout {
         anchors.left: parent.left
@@ -130,7 +130,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 5
+            height: 10
             Layout.columnSpan: 3
         }
 
@@ -167,48 +167,48 @@ KCM.SimpleKCM {
             onCheckedChanged: if (checked) cfg_widgetOrder = 1;
         }
 
-        Item {
-            width: 2
-            height: 5
-            Layout.columnSpan: 3
-        }
-
-        Label {
-            text: i18n("Desktop mode") + ":"
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-        }
-        RadioButton {
-            id: desktopModeIcon
-            ButtonGroup.group: desktopModeGroup
-            text: i18n("Icon")
-            onCheckedChanged: if (checked) cfg_desktopMode = 0;
-        }
-        // Label {
-        //     text: i18n("Desktop meteogram mode is not affected by any other Layout or Appearance options")
-        //     Layout.rowSpan: 3
-        //     Layout.preferredWidth: 250
-        //     wrapMode: Text.WordWrap
+        // Item {
+        //     width: 2
+        //     height: 5
+        //     Layout.columnSpan: 3
         // }
-        Item {
-            width: 2
-            height: 2
-            Layout.rowSpan: 2
-        }
-        Item {
-            width: 2
-            height: 2
-            Layout.columnSpan: 1
-        }
-        RadioButton {
-            id: desktopModeMeteogram
-            ButtonGroup.group: desktopModeGroup
-            text: i18n("Meteogram")
-            onCheckedChanged: if (checked) cfg_desktopMode = 1;
-        }
+        //
+        // Label {
+        //     text: i18n("Desktop mode") + ":"
+        //     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+        // }
+        // RadioButton {
+        //     id: desktopModeIcon
+        //     ButtonGroup.group: desktopModeGroup
+        //     text: i18n("Icon")
+        //     onCheckedChanged: if (checked) cfg_desktopMode = 0;
+        // }
+        // // Label {
+        // //     text: i18n("Desktop meteogram mode is not affected by any other Layout or Appearance options")
+        // //     Layout.rowSpan: 3
+        // //     Layout.preferredWidth: 250
+        // //     wrapMode: Text.WordWrap
+        // // }
+        // Item {
+        //     width: 2
+        //     height: 2
+        //     Layout.rowSpan: 2
+        // }
+        // Item {
+        //     width: 2
+        //     height: 2
+        //     Layout.columnSpan: 1
+        // }
+        // RadioButton {
+        //     id: desktopModeMeteogram
+        //     ButtonGroup.group: desktopModeGroup
+        //     text: i18n("Meteogram")
+        //     onCheckedChanged: if (checked) cfg_desktopMode = 1;
+        // }
 
         Item {
             width: 2
-            height: 10
+            height: 18
             Layout.columnSpan: 3
         }
 
@@ -246,46 +246,46 @@ KCM.SimpleKCM {
         //     }
         // }
 
-        Item {
-            // Layout.alignment: Qt.AlignVCenter
-            Label {
-                id: widgetWidthLabel
-                text: i18n("Meteogram width") + ":"
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            }
-
-            SpinBox {
-                id: widgetWidth
-                Layout.alignment: Qt.AlignVCenter
-                anchors.left: widgetWidthLabel.right
-                anchors.top: widgetWidthLabel.top
-                // anchors.verticalCenter: parent.verticalCenter
-                anchors.topMargin: -8
-                anchors.leftMargin: 4
-                stepSize: 1
-                from: 800
-                value: cfg_widgetWidth
-                to: Screen.desktopAvailableWidth * 0.9
-                onValueChanged: {
-                    cfg_widgetWidth = widgetWidth.value
-                }
-                // Component.onCompleted: {
-                //     // loadingData.failedAttemptCount = 0
-                //     //EndMe.loadDataFromInternet()
-                //     Reload.reload()
-                // }
-            }
-
-            Label {
-                text: i18nc("pixels", "px")
-                anchors.left: widgetWidth.right
-                anchors.leftMargin: 4
-            }
-        }
+        // Item {
+        //     // Layout.alignment: Qt.AlignVCenter
+        //     Label {
+        //         id: widgetWidthLabel
+        //         text: i18n("Meteogram width") + ":"
+        //         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+        //     }
+        //
+        //     SpinBox {
+        //         id: widgetWidth
+        //         Layout.alignment: Qt.AlignVCenter
+        //         anchors.left: widgetWidthLabel.right
+        //         anchors.top: widgetWidthLabel.top
+        //         // anchors.verticalCenter: parent.verticalCenter
+        //         anchors.topMargin: -8
+        //         anchors.leftMargin: 4
+        //         stepSize: 1
+        //         from: 800
+        //         value: cfg_widgetWidth
+        //         to: Screen.desktopAvailableWidth * 0.9
+        //         onValueChanged: {
+        //             cfg_widgetWidth = widgetWidth.value
+        //         }
+        //         // Component.onCompleted: {
+        //         //     // loadingData.failedAttemptCount = 0
+        //         //     //EndMe.loadDataFromInternet()
+        //         //     Reload.reload()
+        //         // }
+        //     }
+        //
+        //     Label {
+        //         text: i18nc("pixels", "px")
+        //         anchors.left: widgetWidth.right
+        //         anchors.leftMargin: 4
+        //     }
+        // }
 
         Item {
             width: 2
-            height: 10
+            height: 14
             Layout.columnSpan: 3
         }
 
@@ -315,42 +315,42 @@ KCM.SimpleKCM {
             }
         }
 
-        Item {
-            // Layout.alignment: Qt.AlignVCenter
-            Label {
-                id: widgetHeightLabel
-                text: i18n("Meteogram height") + ":"
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            }
-
-            SpinBox {
-                id: widgetHeight
-                Layout.alignment: Qt.AlignVCenter
-                anchors.left: widgetHeightLabel.right
-                anchors.top: widgetHeightLabel.top
-                // anchors.verticalCenter: parent.verticalCenter
-                anchors.topMargin: -8
-                anchors.leftMargin: 4
-                stepSize: 1
-                from: 320
-                value: cfg_widgetHeight
-                to: Screen.desktopAvailableHeight * 0.75
-                onValueChanged: {
-                    cfg_widgetHeight = widgetHeight.value
-                }
-                // Component.onCompleted: {
-                //     // loadingData.failedAttemptCount = 0
-                //     //EndMe.loadDataFromInternet()
-                //     Reload.reload()
-                // }
-            }
-
-            Label {
-                text: i18nc("pixels", "px")
-                anchors.left: widgetHeight.right
-                anchors.leftMargin: 4
-            }
-        }
+        // Item {
+        //     // Layout.alignment: Qt.AlignVCenter
+        //     Label {
+        //         id: widgetHeightLabel
+        //         text: i18n("Meteogram height") + ":"
+        //         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+        //     }
+        //
+        //     SpinBox {
+        //         id: widgetHeight
+        //         Layout.alignment: Qt.AlignVCenter
+        //         anchors.left: widgetHeightLabel.right
+        //         anchors.top: widgetHeightLabel.top
+        //         // anchors.verticalCenter: parent.verticalCenter
+        //         anchors.topMargin: -8
+        //         anchors.leftMargin: 4
+        //         stepSize: 1
+        //         from: 320
+        //         value: cfg_widgetHeight
+        //         to: Screen.desktopAvailableHeight * 0.75
+        //         onValueChanged: {
+        //             cfg_widgetHeight = widgetHeight.value
+        //         }
+        //         // Component.onCompleted: {
+        //         //     // loadingData.failedAttemptCount = 0
+        //         //     //EndMe.loadDataFromInternet()
+        //         //     Reload.reload()
+        //         // }
+        //     }
+        //
+        //     Label {
+        //         text: i18nc("pixels", "px")
+        //         anchors.left: widgetHeight.right
+        //         anchors.leftMargin: 4
+        //     }
+        // }
 
         // Item {
         //     CheckBox {
@@ -367,7 +367,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 10
+            height: 14
             Layout.columnSpan: 3
         }
 
@@ -397,42 +397,42 @@ KCM.SimpleKCM {
             }
         }
 
-        Item {
-            // Layout.alignment: Qt.AlignVCenter
-            Label {
-                id: hourSpanOmLabel
-                text: i18n("OM forecast length") + ":"
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            }
-
-            SpinBox {
-                id: hourSpanOm
-                Layout.alignment: Qt.AlignVCenter
-                anchors.left: hourSpanOmLabel.right
-                anchors.top: hourSpanOmLabel.top
-                // anchors.verticalCenter: parent.verticalCenter
-                anchors.topMargin: -8
-                anchors.leftMargin: 4
-                stepSize: 1
-                from: 24
-                value: cfg_hourSpanOm
-                to: 144
-                onValueChanged: {
-                    cfg_hourSpanOm = hourSpanOm.value
-                }
-                // Component.onCompleted: {
-                //     // loadingData.failedAttemptCount = 0
-                //     // main.loadDataFromInternet()
-                //     Reload.reload()
-                // }
-            }
-
-            Label {
-                text: i18nc("hours", "hrs")
-                anchors.left: hourSpanOm.right
-                anchors.leftMargin: 4
-            }
-        }
+        // Item {
+        //     // Layout.alignment: Qt.AlignVCenter
+        //     Label {
+        //         id: hourSpanOmLabel
+        //         text: i18n("OM forecast length") + ":"
+        //         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+        //     }
+        //
+        //     SpinBox {
+        //         id: hourSpanOm
+        //         Layout.alignment: Qt.AlignVCenter
+        //         anchors.left: hourSpanOmLabel.right
+        //         anchors.top: hourSpanOmLabel.top
+        //         // anchors.verticalCenter: parent.verticalCenter
+        //         anchors.topMargin: -8
+        //         anchors.leftMargin: 4
+        //         stepSize: 1
+        //         from: 24
+        //         value: cfg_hourSpanOm
+        //         to: 144
+        //         onValueChanged: {
+        //             cfg_hourSpanOm = hourSpanOm.value
+        //         }
+        //         // Component.onCompleted: {
+        //         //     // loadingData.failedAttemptCount = 0
+        //         //     // main.loadDataFromInternet()
+        //         //     Reload.reload()
+        //         // }
+        //     }
+        //
+        //     Label {
+        //         text: i18nc("hours", "hrs")
+        //         anchors.left: hourSpanOm.right
+        //         anchors.leftMargin: 4
+        //     }
+        // }
 
         // Label {
         //     id: reloadWidgetLabel
@@ -443,7 +443,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 10
+            height: 14
             Layout.columnSpan: 3
         }
 
@@ -476,7 +476,7 @@ KCM.SimpleKCM {
 
         Item {
             width: 2
-            height: 10
+            height: 14
             Layout.columnSpan: 3
         }
 

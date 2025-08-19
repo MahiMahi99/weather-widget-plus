@@ -37,6 +37,16 @@ Item {
     property int labelWidth: textMetrics.width
     property int labelHeight: textMetrics.height
 
+    property int mgAxisFontSize: main.mgAxisFontSize
+    property int mgPressureFontSize: main.mgPressureFontSize
+    property int mgHoursFontSize: main.mgHoursFontSize
+    property int mgTrailingZeroesFontSize: main.mgTrailingZeroesFontSize
+
+    // property bool tempLabelVisible: plasmoid.configuration.tempLabelVisible
+    // property bool pressureLabelVisible: plasmoid.configuration.pressureLabelVisible
+    property int tempLabelPosition: plasmoid.configuration.tempLabelPosition
+    property int pressureLabelPosition: plasmoid.configuration.pressureLabelPosition
+
     property int cloudarea: 0
     property int windarea: 28
 
@@ -58,6 +68,7 @@ Item {
     property bool textColorLight: ((Kirigami.Theme.textColor.r + Kirigami.Theme.textColor.g + Kirigami.Theme.textColor.b) / 3) > 0.5
     property color gridColor: textColorLight ? Qt.tint(Kirigami.Theme.textColor, '#80000000') : Qt.tint(Kirigami.Theme.textColor, '#80FFFFFF')
     property color gridColorHighlight: textColorLight ? Qt.tint(Kirigami.Theme.textColor, '#50000000') : Qt.tint(Kirigami.Theme.textColor, '#50FFFFFF')
+    property color gridColorBrightHighlight: textColorLight ? Qt.tint(Kirigami.Theme.textColor, '#25000000') : Qt.tint(Kirigami.Theme.textColor, '#25FFFFFF')
     property color pressureColor: Kirigami.Theme.positiveTextColor
     property color temperatureWarmColor: Kirigami.Theme.negativeTextColor
     property color temperatureColdColor: Kirigami.Theme.activeTextColor
@@ -205,7 +216,7 @@ Item {
                 anchors.top: gridLine.top
                 anchors.leftMargin: -labelWidth - 6
                 anchors.topMargin: -labelHeight / 2
-                font.pixelSize: 11
+                font.pixelSize: mgAxisFontSize
                 font.pointSize: -1
             }
             PlasmaComponents.Label {
@@ -217,24 +228,44 @@ Item {
                 anchors.left: gridLine.right
                 anchors.leftMargin: 6
                 horizontalAlignment: Text.AlignLeft
-                font.pixelSize: 11
+                font.pixelSize: mgAxisFontSize
                 font.pointSize: -1
                 color: pressureColor
             }
         }
     }
+
     PlasmaComponents.Label {
         text: UnitUtils.getPressureEnding(pressureType)
         height: labelHeight
         width: labelWidth
         horizontalAlignment: Text.AlignLeft //(UnitUtils.getPressureEnding(pressureType).length > 4) ? Text.AlignRight : Text.AlignLeft
         anchors.right: (graphArea.right)
-        anchors.rightMargin: -labelWidth * 1.1 //textMetrics.width
-        font.pixelSize: 11
+        anchors.rightMargin: pressureType === 2 ? -labelWidth * 1.1 : -labelWidth * 1.15 //textMetrics.width
+        visible: pressureLabelPosition === 2 ? false : true
+        font.pixelSize: mgAxisFontSize
         font.pointSize: -1
         color: pressureColor
-        anchors.bottom: bufferArea.top //graphArea.top
-        anchors.bottomMargin: -labelHeight //6
+        anchors.bottom: pressureLabelPosition === 0 ? bufferArea.top : bufferArea.bottom //graphArea.top
+        anchors.bottomMargin: pressureLabelPosition === 0 ? -labelHeight : 0 //6
+    }
+
+    PlasmaComponents.Label {
+        text: temperatureType === 0 ? "°C" : temperatureType === 1 ? "°F" : "K"
+        height: labelHeight
+        width: labelWidth
+        horizontalAlignment: Text.AlignRight //(UnitUtils.getPressureEnding(pressureType).length > 4) ? Text.AlignRight : Text.AlignLeft
+        anchors.left: (graphArea.left)
+        anchors.leftMargin: -labelWidth * 1.15 //textMetrics.width
+        visible: tempLabelPosition === 2 ? false : true
+        font.pixelSize: mgAxisFontSize
+        font.pointSize: -1
+        // color: gridColorBrightHighlight
+        // opacity: 0.6
+        anchors.top: tempLabelPosition === 1 ? bufferArea.bottom : bufferArea.top //graphArea.top
+        anchors.topMargin: tempLabelPosition === 1 ? -labelHeight : 0 //6
+        // anchors.bottom: bufferArea.top //graphArea.top
+        // anchors.bottomMargin: -labelHeight //6
     }
 
     ListView {
@@ -286,7 +317,7 @@ Item {
                 anchors.topMargin: 2
 //                anchors.horizontalCenter: verticalLine.left
                 anchors.horizontalCenter: verticalLine.horizontalCenter
-                font.pixelSize: 10 //11
+                font.pixelSize: mgHoursFontSize //10 11
                 font.pointSize: -1
                 // font.family: "Neuropol X Cd Sb"
                 visible: textVisible
@@ -298,7 +329,7 @@ Item {
                 horizontalAlignment: Text.AlignLeft
                 anchors.top: hourText.top
                 anchors.left: hourText.right
-                font.pixelSize: 6 //5
+                font.pixelSize: mgTrailingZeroesFontSize //5 6
                 font.pointSize: -1
                 visible: textVisible
             }
@@ -434,7 +465,8 @@ Item {
                 anchors.top: parent.top
                 anchors.topMargin: (temperatureYGridCount - (temperature + temperatureIncrementDegrees)) * temperatureIncrementPixels - font.pixelSize * 2.5 + 32
                 anchors.left: verticalLine.left
-                anchors.leftMargin: -8
+                // anchors.leftMargin: currentPlace.providerId === 'om' ? (-8 + (Math.abs(currentPlace.timezoneOffset / 3600) * 0.5)) : -8
+                anchors.leftMargin: currentPlace.providerId === 'om' ? -4 : -8
                 z: 999
                 font.family: 'weathericons'
                 text: (differenceHours === 1 && textVisible) || index === hourGridModel.count-1 || index === 0 || iconName === '' ? '' : IconTools.getIconCode(iconName, currentPlace.providerId, timePeriod)
@@ -480,8 +512,9 @@ Item {
 
         Canvas {
             id: meteogramCanvasWarmTemp
-            anchors.fill: bufferArea
-            anchors.top: -parent.anchors.topMargin //parent.top
+            // anchors.fill: bufferArea
+            anchors.top: parent.top
+            anchors.topMargin: -parent.anchors.topMargin
             clip: false
             width: parent.width
             height: bufferArea.height - temperatureIncrementPixels * (temperatureIncrementDegrees - 1) + 0

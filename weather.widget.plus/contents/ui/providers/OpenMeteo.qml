@@ -217,8 +217,10 @@ Item {
                     break;
             }
 
+            var localOffset = Math.abs(currentPlace.timezoneOffset / 3600)
+            // dbgprint2("localOffset:" + localOffset)
             let wd = readingsArray.hourly
-            let wdPtr = Math.abs(currentPlace.timezoneOffset / 3600) // 0 | 3 | 23
+            let wdPtr = Math.round(localOffset) //Math.abs(currentPlace.timezoneOffset / 3600) // 0 | 3 | 23
             // Math.abs(currentPlace.timezoneOffset / 3600)
             // let currentPlace.timezoneOffset = readingsArray.utc_offset_seconds
             // let omPtr = 8
@@ -312,72 +314,69 @@ Item {
 
             dbgprint2("buildMetogramData (Om)" + currentPlace.identifier)
             meteogramModel.clear()
-            var readingsLength = (readingsArray.hourly.time.length)
+
             var dateFrom = parseISOString(readingsArray.current.time + ":00Z")
+            var dateFromRaw = new Date(readingsArray.current.time)
             // dbgprint2("current time:" + readingsArray.current.time + ":00Z")
             var sunrise1 = UnitUtils.convertDate(currentWeatherModel.sunRise,2,currentPlace.timezoneOffset)
             var sunset1 = UnitUtils.convertDate(currentWeatherModel.sunSet,2,currentPlace.timezoneOffset)
             dbgprint("Sunrise \t(GMT)" + new Date(currentWeatherModel.sunRise).toTimeString() + "\t(LOCAL)" + sunrise1.toTimeString())
             dbgprint("Sunset \t(GMT)" + new Date(currentWeatherModel.sunSet).toTimeString() + "\t(LOCAL)" + sunset1.toTimeString())
-            // var isDaytime = (dateFrom > sunrise1) && (dateFrom < sunset1) ? true : false
-            // let localtimestamp = UnitUtils.convertDate(dateFrom, 2 , currentPlace.timezoneOffset)
-            // if (localtimestamp >= sunrise1) {
-            //     if (localtimestamp < sunset1) {
-            //         isDaytime = true
-            //     } else {
-            //         sunrise1.setDate(sunrise1.getDate() + 1)
-            //         sunset1.setDate(sunset1.getDate() + 1)
-            //         isDaytime = false
-            //     }
-            // }
 
-            var i = Math.abs(currentPlace.timezoneOffset / 3600) //6  0  1
+            var hourFrom = dateFromRaw.getHours()
+
+            var localOffset = Math.abs(currentPlace.timezoneOffset / 3600)
+
+            var i = Math.round(hourFrom)//Math.round(hourFrom) + Math.round(localOffset)
+            // Math.round(localOffset) //Math.abs(currentPlace.timezoneOffset / 3600) //6  0  1
+
+            dbgprint2("hourFrom:" + hourFrom)
+            // dbgprint2("dateThenMg:" + dateThenMg)
 
             var precipitation_unit = readingsArray.hourly_units["precipitation"]
             var counter = 0
-            // (1 + (Math.abs(offset / 3600)))
-            // dbgprint2("hourly time:" + readingsArray.hourly.time[i] + ":00Z")
-            while ((Math.abs(currentPlace.timezoneOffset / 3600)) < i, i < main.hourSpanOm + 1) { // readingsArray.hourly.time[i] / 72 / 65
-                var obj = readingsArray.hourly
-                var dateTo = parseISOString(obj.time[i] + ":00Z")
-                var isDaytime = (dateTo > sunrise1) && (dateTo < sunset1) ? true : false
-                var wd = obj.wind_direction_10m[i]
-                var ws = obj.wind_speed_10m[i]
-                var ap = obj.pressure_msl[i]
-                var airtmp = parseFloat(obj.temperature_2m[i])
-                var icon = obj.weather_code[i] + 1
-                var prec = obj.precipitation[i]
-                counter = (prec > 0) ? counter + 1 : 0
-                let localtimestamp = UnitUtils.convertDate(dateTo, 2 , currentPlace.timezoneOffset)
-                // let localtimestamp = UnitUtils.convertDate(dateFrom, 2 , currentPlace.timezoneOffset)
-                if (localtimestamp >= sunrise1) {
-                    if (localtimestamp < sunset1) {
-                        isDaytime = true
-                    } else {
-                        sunrise1.setDate(sunrise1.getDate() + 1)
-                        sunset1.setDate(sunset1.getDate() + 1)
-                        isDaytime = false
+
+                while (i < main.hourSpanOm + 1) { // readingsArray.hourly.time[i] / 72 / 65
+                    var obj = readingsArray.hourly
+                    var dateTo = parseISOString(obj.time[i] + ":00Z")
+                    var isDaytime = (dateTo > sunrise1) && (dateTo < sunset1) ? true : false
+                    var wd = obj.wind_direction_10m[i]
+                    var ws = obj.wind_speed_10m[i]
+                    var ap = obj.pressure_msl[i]
+                    var airtmp = parseFloat(obj.temperature_2m[i])
+                    var icon = obj.weather_code[i] + 1
+                    var prec = obj.precipitation[i]
+                    counter = (prec > 0) ? counter + 1 : 0
+                    let localtimestamp = UnitUtils.convertDate(dateTo, 2 , currentPlace.timezoneOffset)
+
+                    if (localtimestamp >= sunrise1) {
+                        if (localtimestamp < sunset1) {
+                            isDaytime = true
+                        } else {
+                            sunrise1.setDate(sunrise1.getDate() + 1)
+                            sunset1.setDate(sunset1.getDate() + 1)
+                            isDaytime = false
+                        }
                     }
+
+                    dbgprint("Meteogram Data:" + "DateFrom=" + dateFrom.toISOString() + "\tLocal Time=" + UnitUtils.convertDate(dateFrom,2,currentPlace.timezoneOffset).toTimeString() + "\t Sunrise=" + sunrise1.toTimeString() + "\tSunset=" + sunset1.toTimeString() + "\t" + (isDaytime ? "isDay\n" : "isNight\n"))
+
+                    meteogramModel.append({
+                        from: dateFrom,
+                        to: dateTo,
+                        isDaytime: isDaytime,
+                        temperature: parseFloat(airtmp),
+                                        precipitationAvg: parseFloat(prec),
+                                        precipitationMax: parseFloat(prec),
+                                        precipitationLabel: (counter === 1) ? "mm" : "",
+                                        windDirection: parseFloat(wd),
+                                        windSpeedMps: parseFloat(ws),
+                                        pressureHpa: parseFloat(ap),
+                                        iconName: icon.toString()
+                    })
+                    dateFrom = dateTo
+                    i++
                 }
-
-                dbgprint("Meteogram Data:" + "DateFrom=" + dateFrom.toISOString() + "\tLocal Time=" + UnitUtils.convertDate(dateFrom,2,currentPlace.timezoneOffset).toTimeString() + "\t Sunrise=" + sunrise1.toTimeString() + "\tSunset=" + sunset1.toTimeString() + "\t" + (isDaytime ? "isDay\n" : "isNight\n"))
-
-                meteogramModel.append({
-                    from: dateFrom,
-                    to: dateTo,
-                    isDaytime: isDaytime,
-                    temperature: parseFloat(airtmp),
-                                      precipitationAvg: parseFloat(prec),
-                                      precipitationMax: parseFloat(prec),
-                                      precipitationLabel: (counter === 1) ? "mm" : "",
-                                      windDirection: parseFloat(wd),
-                                      windSpeedMps: parseFloat(ws),
-                                      pressureHpa: parseFloat(ap),
-                                      iconName: icon.toString()
-                })
-                dateFrom = dateTo
-                i++
-            }
             main.loadingDataComplete = true
         }
 

@@ -78,6 +78,13 @@ PlasmoidItem {
     toolTipTextFormat: Text.RichText
 
     // User Preferences
+    property int mgAxisFontSize: plasmoid.configuration.mgAxisFontSize
+    property int mgPressureFontSize: plasmoid.configuration.mgPressureFontSize
+    property int mgHoursFontSize: plasmoid.configuration.mgHoursFontSize
+    property int mgTrailingZeroesFontSize: plasmoid.configuration.mgTrailingZeroesFontSize
+    // property int tempLabelPosition: plasmoid.configuration.tempLabelPosition
+    // property int pressureLabelPosition: plasmoid.configuration.pressureLabelPosition
+
     property int hourSpanOm: plasmoid.configuration.hourSpanOm
     property int widgetWidth: plasmoid.configuration.widgetWidth
     property int widgetHeight: plasmoid.configuration.widgetHeight
@@ -446,8 +453,8 @@ PlasmoidItem {
             }
 
             if (plasmoid.configuration.widgetFontSize === undefined) {
-                plasmoid.configuration.widgetFontSize = 32
-                widgetFontSize = 32
+                plasmoid.configuration.widgetFontSize = 30
+                widgetFontSize = 20
             }
 
             switch (Qt.locale().measurementSystem) {

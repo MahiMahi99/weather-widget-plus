@@ -21,6 +21,8 @@
           {"providerId": "owm", "placeIdentifier": "5368361", "placeAlias": "Los Angeles, USA (OWM)"},
           {"providerId": "metno", "placeIdentifier": "lat=13.7539&amp;lon=100.5014&amp;altitude=12", "placeAlias": "Bangkok, TH","timezoneID":360},
           {"providerId": "metno", "placeIdentifier": "lat=25.3008&amp;lon=91.6961&amp;altitude=1505","placeAlias":"Cherrapunji, IN","timezoneID":192},
+          <!--{"providerId": "om", "placeIdentifier": "latitude=13.7539&amp;longitude=100.5014&amp;altitude=12", "placeAlias": "Bangkok, TH (OM)","timezoneID":360},-->
+          <!--{"providerId": "om", "placeIdentifier": "latitude=25.3008&amp;longitude=91.6961&amp;altitude=1505","placeAlias":"Cherrapunji, IN (OM)","timezoneID":192},-->
           {"providerId": "om", "placeIdentifier": "latitude=38.5024&amp;longitude=-0.1304&amp;altitude=30", "placeAlias": "Benidorm, ES", "timezoneID":146}
 
           ]
@@ -113,6 +115,9 @@
         <entry name="bottomOuterMargin" type="Int">
             <default>0</default>
         </entry>
+    </group>
+
+    <group name="Meteogram">
         <entry name="widgetWidth" type="Int">
             <default>800</default>
         </entry>
@@ -121,6 +126,34 @@
         </entry>
         <entry name="hourSpanOm" type="Int">
             <default>60</default>
+        </entry>
+        <entry name="mgAxisFontSize" type="Int">
+            <default>11</default>
+        </entry>
+        <entry name="mgPressureFontSize" type="Int">
+            <default>11</default>
+        </entry>
+        <entry name="mgHoursFontSize" type="Int">
+            <default>10</default>
+        </entry>
+        <entry name="mgTrailingZeroesFontSize" type="Int">
+            <default>6</default>
+        </entry>
+        <entry name="tempLabelPosition" type="Enum">
+            <choices>
+                <choice name="Top"/>
+                <choice name="Bottom"/>
+                <choice name="None"/>
+            </choices>
+            <default>0</default>
+        </entry>
+        <entry name="pressureLabelPosition" type="Enum">
+            <choices>
+                <choice name="Top"/>
+                <choice name="Bottom"/>
+                <choice name="None"/>
+            </choices>
+            <default>0</default>
         </entry>
     </group>
 
